@@ -18,6 +18,7 @@ gulp.task('css', function () {
   return gulp.src(path.srcDir + '/css/*.styl')
     .pipe($.stylus())
     .pipe($.autoprefixer())
+    .pipe($.plumber())
     .pipe(gulp.dest(path.distDir + '/css/'))
     .pipe($.filter('**/*.css'))
     .pipe(reload({stream:true}))
@@ -25,6 +26,7 @@ gulp.task('css', function () {
 
 gulp.task('js', function () {
   return gulp.src(path.srcDir + '/js/*.src.js')
+    .pipe($.plumber())
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'))
     .pipe($.if(!browserSync.active, $.jshint.reporter('fail')))
