@@ -14,11 +14,14 @@ var path = {};
 path.srcDir = 'app';
 path.distDir = '_dist';
 
-gulp.task('css', function () {
-  return gulp.src(path.srcDir + '/css/*.styl')
-    .pipe($.stylus())
-    .pipe($.autoprefixer())
+gulp.task('css', ['clean:css'], function () {
+  return gulp.src(path.srcDir + '/css/*.{styl,scss}')
     .pipe($.plumber())
+    .pipe($.if('*.styl', $.stylus()))
+    .pipe($.if('*.scss', $.sass()))
+    .pipe($.postcss([
+      require('autoprefixer')({browsers: ['last 1 version']})
+    ]))
     .pipe(gulp.dest(path.distDir + '/css/'))
     .pipe($.filter('**/*.css'))
     .pipe(reload({stream:true}))
