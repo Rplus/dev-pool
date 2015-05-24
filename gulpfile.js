@@ -43,6 +43,7 @@ gulp.task('html', function () {
 });
 
 gulp.task('clean', del.bind(null, [path.distDir]));
+gulp.task('clean:css', del.bind(null, [path.distDir + '/css']));
 
 // Watch Files For Changes & Reload
 gulp.task('serve', ['default'], function () {
