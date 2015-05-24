@@ -200,6 +200,13 @@ body {
 }
 
 
+#step-1:focus ~ .intro label[for="step-1"]::before,
+#step-2:focus ~ .intro label[for="step-2"]::before,
+#step-3:focus ~ .intro label[for="step-3"]::before,
+#auto:focus   ~ .intro label[for="auto"]::before {
+  color: rgba(#00f,.1);
+}
+
 #step-1:checked ~ .intro label[for="step-1"]::before,
 #step-2:checked ~ .intro label[for="step-2"]::before,
 #step-3:checked ~ .intro label[for="step-3"]::before,
