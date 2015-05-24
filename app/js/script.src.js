@@ -1,60 +1,59 @@
+/* global document, console, window */
 
-var _name = document.getElementById('name');
-var _chars = document.querySelectorAll('.char:not(.visible)');
-var largerClass = 'larger';
-var visibleClass = 'visible';
-var initTimeout = 500; // 500ms
+( () => {
 
-var logoAnimation = function () {
-    'use strict';
+'use strict';
+var reorderArrByQ4 = (_arrLen) => {
+    // generate series integer array
+    // via: http://stackoverflow.com/a/20066663
+    var _integerArr = Array.apply(null, {length: _arrLen}).map(Number.call, Number);
 
+    var q1 = (_arrLen - 1) / 4;
+    var q3 = (_arrLen - 1) * 3 / 4;
+
+    var nearerDistance = (_n) => {
+        return Math.min(Math.abs(_n - q1), Math.abs(_n - q3));
+    };
+
+    _integerArr.sort( (a,b) => {
+      return nearerDistance(a) - nearerDistance(b);
+    });
+
+    console.log(_integerArr);
+    return _integerArr;
+};
+
+var logoAnimation = (_timeout = 500, largerClass = 'larger', visibleClass = 'visible') => {
+
+    var _name = document.getElementById('name');
+    var _chars = document.querySelectorAll('.char:not(.visible)');
     var _charsLen = _chars.length;
+    var reorderCharsArr = reorderArrByQ4(_charsLen);
 
-    var reorderChars = (function () {
-        var _midIndex = _charsLen / 2;
-        var _arrBefore = [];
-        var _arrAfter = [];
-
-        for (var i = _charsLen - 1; i >= 0; i--) {
-            if (i >= _midIndex) {
-                _arrAfter.unshift(i);
-            } else {
-                _arrBefore.unshift(i);
-            }
-        }
-
-        var orderByMid = function (_arr) {
-            var _len = _arr.length;
-            var _midIndexOfArr = (_arr[0] + _arr[_len - 1]) / 2;
-            return _arr.sort(function (a, b) {
-                return Math.abs(a - _midIndexOfArr) - Math.abs(b - _midIndexOfArr);
-            });
-        };
-
-        var _arrBeforeOrdered = orderByMid(_arrBefore);
-        var _arrAfterOrdered = orderByMid(_arrAfter);
-        // console.log(_arrAfter, _arrBefore, _arrBeforeOrdered, _arrAfterOrdered);
-
-        var _finArr = [];
-        (function () {
-        for (var i = 0, len = _charsLen - 1; len >= i; i++) {
-            var _arr = (i % 2) ? _arrAfterOrdered : _arrBeforeOrdered;
-            _finArr.push(_arr[Math.floor(i / 2)]);
-        }
-        }());
-
-        return _finArr;
-    }());
+    var delayAnimatedChars = (_index, _order) => {
+        window.setTimeout( () => {
+            _chars[_order].classList.add(visibleClass);
+        }, _timeout + 100 * ( Math.ceil(_index / 2) * 3 - (_index % 2) ));
+    };
 
     for (var i = 0, len = _charsLen - 1; len >= i; i++) {
-        (function (_index, _order) {
-            setTimeout(function () {
-                _chars[_index].classList.add(visibleClass);
-            }, initTimeout + 100 * (_order + _order % 2));
-        })(i, reorderChars[i]);
+        delayAnimatedChars(i, reorderCharsArr[i]);
     }
 
     _name.classList.remove(largerClass);
 };
 
-setTimeout(logoAnimation, 500);
+// via: http://youmightnotneedjquery.com/
+var ready = fn => {
+  if (document.readyState !== 'loading') {
+    fn();
+  } else {
+    document.addEventListener('DOMContentLoaded', fn);
+  }
+};
+
+ready( () => {
+    window.setTimeout(logoAnimation, 500);
+});
+
+})();
