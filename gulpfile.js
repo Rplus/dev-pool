@@ -35,6 +35,9 @@ gulp.task('js', function () {
     .pipe($.if(!browserSync.active, $.jshint.reporter('fail')))
     .pipe($.babel())
     .pipe($.uglify())
+    .pipe($.rename(function (path) {
+      path.basename = path.basename.replace('.src', '.min');
+    }))
     .pipe(gulp.dest(path.distDir + '/js/'))
 });
 
