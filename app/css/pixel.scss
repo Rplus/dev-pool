@@ -1,0 +1,133 @@
+//
+// Read the blog post here:
+// http://una.im/sass-pixel-art
+//
+
+// Setting the colors we're syncing up with
+$pixel-color-map: (
+  'r' : #f00,
+  'w': #fff,
+  'k': #000,
+  'o': transparent,
+  't': #83401f,
+  'p': #ffbc77,
+  'b': #06f,
+  'y': #ff0,
+  'n': #ff8000,
+  'g': #5ac528
+);
+
+// Size of the pixels
+$pixel-size: 10px !default;
+
+// pixel art matrices!
+  // 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6
+$pixel-art:(
+  rplus: (
+    (o o o o o o o o o o o o o o o o o r o o o o o o)
+    (o o o o o o o o o o o o o o o o o r o o o o o o)
+    (o o o o o o o o o o o o o o o r r r r r o o o o)
+    (o o o o o o o o o o o o o o o o o r o o o o o o)
+    (o k k o o o o o o o r r r r o o o r o o k k o o)
+    (o k o o o o o o r r r o o r r o o o o o o k o o)
+    (o k o o o o r r o o r o o o r o o o o o o k o o)
+    (o k o o o o r o o o r o o r r o o o o o o k o o)
+    (o k o o o o r o o r r r r r o o o o o o o k o o)
+    (o k o o o o o o o r r o o o o o o o o o o k o o)
+    (o k o o o o o o r o o r o o o o o o o o o k o o)
+    (o k o o o o o o r o o o r o o o o o o o o k o o)
+    (o k o o o o o r o o o o o r o o o o o o o k o o)
+    (o k k o o o o r o o o o o r r o o o o o k k o o)
+    (o o o o o o o o o o o o o o r r r o o o o o o o)
+    (o o o o o o o o o o o o o o o o o o o o o o o o)
+  ),
+);
+
+// Function to read the matrix and pixelize it!
+@function pixelize($matrix, $size){
+    $l: length($matrix); // length of the entire
+    $sh: ''; // shadows list
+    $i: $l; // length of the line
+
+    // read through the length of the matrix and decide on the box shadow color and position
+    @for $i from 1 through $l{
+      $row: nth($matrix,$i); //
+
+      @for $j from 1 through length($row){
+          $item: nth($row,$j);
+
+          @if map-has-key($pixel-color-map, $item) {
+            $sh:  $sh + ($j*$size) + ' ' + ($i*$size) + ' ' + map-get($pixel-color-map, $item);
+          } @else {
+            @warn 'there is no color specified in "$pixel-color-map" for: "#{$item}"';
+          }
+
+        @if not ($j == length($row) and $i == $l) {
+          $sh: $sh + ',';
+        }
+      }
+    }
+
+    @return unquote($sh);
+}
+
+// Mixin to style each item
+@mixin style-item($matrix, $size){
+  position: relative; // pixels stack next to each other
+
+  // set width & height of icon based on size of pixels
+  width:($size * length(nth($matrix,1)));
+  height:($size * length($matrix));
+
+  &::after{
+    content: '';
+
+    // position everything from the top left corner
+    position: absolute;
+    top: (-$size);
+    left: (-$size);
+    width: $size;
+    height: $size;
+
+    // this is where we make the stitch
+    box-shadow: pixelize($matrix,$size);
+  }
+}
+
+// Page styling
+body {
+  background: #97f0fa;
+}
+
+.pixel-art{
+  list-style: none;
+  margin: 3em auto;
+  max-width: 800px;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+
+  li {
+    display: inline-block;
+    margin: 2em;
+  }
+
+   @each $key, $value in $pixel-art{
+    &--#{$key}{
+      @include style-item($value, $pixel-size);
+    }
+  }
+}
+
+// just styling the link to the post :)
+
+.info {
+  text-align: center;
+}
+
+a {
+  color: inherit;
+  font-family: 'Open Sans', sans-serif;
+  text-decoration: none;
+  border-bottom: 1px dotted;
+}
