@@ -45,7 +45,8 @@ gulp.task('js', function () {
 });
 
 gulp.task('html', function () {
-  return gulp.src(path.srcDir + '/html/*.html')
+  return gulp.src(path.srcDir + '/html/*.{html,jade}')
+    .pipe($.if('*.jade', $.jade()))
     .pipe(gulp.dest(path.distDir + '/html/'))
 });
 
@@ -63,7 +64,7 @@ gulp.task('serve', ['default'], function () {
   // watch the folder to reload if files was change
   gulp.watch([path.srcDir + '/js/*.js'], ['js', reload]);
   gulp.watch([path.srcDir + '/css/*.{styl,scss}'], ['css', reload]);
-  gulp.watch([path.srcDir + '/html/*.html'], ['html', reload]);
+  gulp.watch([path.srcDir + '/html/*.{html,jade}'], ['html', reload]);
 });
 
 gulp.task('default', ['clean'], function () {
