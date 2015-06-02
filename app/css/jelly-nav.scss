@@ -1,0 +1,176 @@
+$ani-duration-fast: cubic-bezier(.9,0,.4,1);
+$ani-duration-slow: cubic-bezier(.7,0,.2,1);
+$ani-duration: .6s;
+
+$iphone-img: "http://2.bp.blogspot.com/-6hlrTw0hxdQ/VA9aSOz9Y1I/AAAAAAAAkXE/BekM0IzyPrU/s1600/Imagenes%2Biphone%2B6%2Bpng%2B3.png";
+
+$tabs: (
+  #3498db,
+  #1abc9c,
+  #e75c56,
+  #fabb74,
+  #de6596
+);
+
+// via: http://codepen.io/jackiebackwards/pen/Fzkvg
+@function rainbow($rainbow-colors: $tabs) {
+  $rainbows: ();
+  $rainbow-count: length($rainbow-colors);
+
+  @for $i from 1 through $rainbow-count {
+    $rainbow-color: nth($rainbow-colors, $i);
+    $rainbows-new: $rainbow-color percentage(($i - 1)/$rainbow-count), $rainbow-color percentage($i/$rainbow-count);
+    $rainbows: join($rainbows, $rainbows-new, comma);
+  }
+  @return $rainbows;
+}
+
+$nav-bgc: #5c4d6f;
+$nav-width: 350px;
+$nav-heigh: 50px;
+$nav-item-width: $nav-width / length($tabs);
+
+%active-tab {
+  color: #fff;
+}
+
+
+///// major style
+
+.iphone {
+  position: relative;
+  min-width: 400px;
+  height: 200px;
+  margin: auto;
+  background: url($iphone-img) 50% 100% / 807px auto no-repeat;
+}
+
+.nav {
+  position: relative;
+  top: 41px;
+  left: -1px;
+  display: flex;
+  width: $nav-width;
+  margin: 0 auto;
+  line-height: $nav-heigh;
+  text-align: center;
+  overflow: hidden;
+  font-size: 1.4em;
+  border-radius: 0 0 4px 4px;
+  color: rgba(#fff,.6);
+  background-color: rgba($nav-bgc,1);
+}
+
+.nav__item {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  transition: color .3s, transform .3s;
+  cursor: pointer;
+  text-shadow: 0 1px 2px rgba(#000,.4);
+
+  &:hover {
+    @extend %active-tab;
+  }
+
+  &:active {
+    transform: scale(.9);
+  }
+}
+
+.nav__jelly,
+.nav__jelly--tail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(to right, rainbow());
+
+  #bgc-ctrl:checked ~ .iphone & {
+    background: rgba(#1abc9c,1);
+  }
+}
+
+.nav__jelly {
+  z-index: 1;
+  transition: clip ($ani-duration) $ani-duration-fast 0s;
+}
+
+.nav__jelly--tail {
+  z-index: 0;
+  transition: clip ($ani-duration * 2 / 3) $ani-duration-slow ($ani-duration / 3);
+}
+
+@for $i from 1 through length($tabs) {
+  #tab-#{$i}:checked {
+    ~ .nav .nav__item[for="tab-#{$i}"] {
+      @extend %active-tab;
+      transform: scale(1.1);
+    }
+
+    ~ .nav .nav__jelly,
+    ~ .nav .nav__jelly--tail {
+      clip: rect(0, $nav-item-width * $i, $nav-heigh, $nav-item-width * ($i - 1));
+    }
+  }
+}
+
+
+
+///// common style
+
+body {
+  background: #423852;
+  margin: 0;
+  color: #fff;
+}
+
+.ctrl-input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin: 0;
+  border: none;
+}
+
+.switcher {
+  position: absolute;
+  top: 200px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+
+  &::before {
+    content: "v";
+    display: inline-block;
+    width: 1.2em;
+    height: 1.2em;
+    margin-right: .25em;
+    line-height: 1.2em;
+    text-align: center;
+    color: transparent;
+    border: 1px dotted rgba(#fff, .5);
+    font-family: monospace;
+
+    #bgc-ctrl:checked ~ & {
+      color: #fff;
+    }
+  }
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  font-size: .8em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  color: rgba(#fff,.7);
+
+  a {
+    color: inherit;
+  }
+}
