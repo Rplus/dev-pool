@@ -18,7 +18,13 @@ gulp.task('css', ['clean:css'], function () {
   return gulp.src(path.srcDir + '/css/*.{styl,scss}')
     .pipe($.plumber())
     .pipe($.if('*.styl', $.stylus()))
-    .pipe($.if('*.scss', $.sass()))
+    .pipe($.if('*.scss', $.sass({
+      outputStyle: "expanded"
+    })))
+    .on('error', function (err) {
+      $.util.log(err.message);
+      this.emit('end');
+    })
     .pipe($.postcss([
       require('autoprefixer')({browsers: ['last 1 version']})
     ]))
