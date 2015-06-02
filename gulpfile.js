@@ -66,6 +66,6 @@ gulp.task('serve', ['default'], function () {
   gulp.watch([path.srcDir + '/html/*.html'], ['html', reload]);
 });
 
-gulp.task('default', [], function () {
+gulp.task('default', ['clean'], function () {
   gulp.start(['html', 'css', 'js']);
 });
