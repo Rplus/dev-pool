@@ -1,0 +1,154 @@
+$hexagon-size = 60px;
+$hexagon-bdw = 4px;
+$hexagon-distace = $hexagon-size - $hexagon-bdw;
+
+// hexagon
+// ref: https://github.com/brenna/csshexagon/blob/master/scss/hex/_shadowborder.scss
+.hexagon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: $hexagon-size;
+  height: round(($hexagon-size / 3) * tan(60deg), 2);
+  margin: auto;
+  border-left: solid $hexagon-bdw;
+  border-right: solid $hexagon-bdw;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: round($hexagon-size * sin(45deg), 2);
+    height: @width;
+    transform: scaleY(tan(30deg)) rotate(-45deg);
+    left: round(($hexagon-size - $hexagon-size * sin(45deg)) * .5 - $hexagon-bdw, 2);
+    border-width: round($hexagon-bdw / sin(45deg), 2);
+    border-style: solid;
+  }
+
+  &::before {
+    top: round($hexagon-size * sin(45deg) * -.5, 2);
+    border-bottom: none;
+    border-left: none;
+  }
+
+  &::after {
+    bottom: round($hexagon-size * sin(45deg) * -.5, 2);
+    border-top: none;
+    border-right: none;
+  }
+}
+
+
+
+///
+
+@keyframes translateX {
+  0%, 100%     { transform: translateX(0); }
+  33.3%, 66.6% { transform: translateX($hexagon-distace); }
+}
+
+@keyframes translateX2 {
+  0%, 33.3%, 100% { transform: translateX(0); }
+  66.6%           { transform: translateX($hexagon-distace); }
+}
+
+.rotateZ,
+.translateX {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: $hexagon-size;
+  height: @width;
+  margin: auto;
+}
+
+.rotateZ {
+  for i in range(1,6) {
+    &:nth-of-type({i}) {
+      transform: rotateZ(60deg * i);
+    }
+  }
+}
+
+.translateX {
+  animation: translateX 3s infinite cubic-bezier(.5,.5,0,1);
+
+  .translateX {
+    animation-name: translateX2;
+  }
+
+  .box:hover &  { animation-play-state: paused; }
+  .box:active & { animation-play-state: running; }
+}
+
+
+
+.box {
+  position: relative;
+  width: $hexagon-size * 5;
+  height: $hexagon-size * 5;
+  margin: auto;
+  display: inline-block;
+  transform: rotateZ(15deg);
+  overflow: hidden;
+}
+
+
+
+///
+/// reset style
+///
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  padding-top: 1px;
+  text-align: center;
+  background-color: #2b2e2d;
+  color: #e4e3c8;
+}
+
+.intro {
+  width: 80%;
+  max-width: 760px;
+  padding-bottom: 1rem;
+  margin: .5em auto 1em;
+  text-transform: capitalize;
+  border-bottom: 1px dashed #999;
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  color: #999;
+
+  a {
+    color: inherit;
+  }
+}

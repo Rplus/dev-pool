@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title hexagon-stroke
+    meta(name="viewport", content="width=device-width")
+    link(rel="stylesheet", href="../css/ani-3.css")
+
+  body
+    h1.intro animation practice - 3
+      small hexagon reproduce
+
+    - var i = 6
+    .box
+      - while(i--)
+        .rotateZ
+          .translateX
+            - var j = 6
+            - while(j--)
+              .rotateZ
+                .translateX
+                  .hexagon
+
+    blockquote.info
+      | inspired from <a href="http://gif.flrn.nl/post/104958916309">http://gif.flrn.nl/post/104958916309</a>
