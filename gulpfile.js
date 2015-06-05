@@ -16,15 +16,16 @@ path.distDir = '_dist';
 
 gulp.task('css', ['clean:css'], function () {
   return gulp.src(path.srcDir + '/css/*.{styl,scss}')
-    .pipe($.plumber())
+    .pipe($.plumber({
+        errorHandler: function (err) {
+            console.log(err);
+            this.emit('end');
+        }
+    }))
     .pipe($.if('*.styl', $.stylus()))
     .pipe($.if('*.scss', $.sass({
       outputStyle: "expanded"
     })))
-    .on('error', function (err) {
-      $.util.log(err.message);
-      this.emit('end');
-    })
     .pipe($.postcss([
       require('autoprefixer')({browsers: ['last 1 version']})
     ]))
@@ -46,6 +47,12 @@ gulp.task('js', function () {
 
 gulp.task('html', function () {
   return gulp.src(path.srcDir + '/html/*.{html,jade}')
+    .pipe($.plumber({
+        errorHandler: function (err) {
+            console.log(err);
+            this.emit('end');
+        }
+    }))
     .pipe($.if('*.jade', $.jade()))
     .pipe(gulp.dest(path.distDir + '/html/'))
 });
