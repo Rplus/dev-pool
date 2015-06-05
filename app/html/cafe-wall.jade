@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title Café wall illusion
+    meta(name="viewport", content="width=device-width")
+    link(rel="stylesheet", href="../css/cafe-wall.css")
+
+  body
+    h1.intro Café wall illusion
+      small
+
+    input#reset(type="checkbox")
+
+    - var i = 9;
+    .box
+      - while(i--)
+        .stripe
+
+    .ctrl
+      label(for="reset") reset
+
+    blockquote.info
+      | inspired from <a href="http://en.wikipedia.org/wiki/Caf%C3%A9_wall_illusion">Café wall illusion @ wikipedia</a>
