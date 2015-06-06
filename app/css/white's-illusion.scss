@@ -1,0 +1,160 @@
+$stripe-height: 2em;
+$separation-rate: 85%;
+$stripe-color--darker: #000;
+$stripe-color--lighter: #fff;
+$stripe-color--middle: #8f8f8f;
+
+
+%stripe-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: $stripe-height * 2 $stripe-height * 2;
+  background-image: linear-gradient(to bottom, currentColor 50.5%, transparent 50%);
+}
+
+.stripe-box--black {
+  @extend %stripe-box;
+  color: $stripe-color--darker;
+}
+
+.stripe-box--gray {
+  position: relative;
+  top: $stripe-height * 2;
+  left: 50%;
+  transform: translateX(-50%);
+  width: $stripe-height * 3;
+  height: $stripe-height * 6;
+  color: $stripe-color--middle;
+
+  &::before,
+  &::after {
+    @extend %stripe-box;
+    content: "";
+    transition: transform 1s;
+  }
+
+  &::before {
+    transform: translateX(-$separation-rate);
+  }
+
+  &::after {
+    background-position: 0 (-$stripe-height);
+    transform: translateX($separation-rate);
+  }
+
+  #reset:checked ~ .box &,
+  .box:active &,
+  .box:hover & {
+    &::before,
+    &::after {
+      transform: translateX(0);
+    }
+  }
+}
+
+.box {
+  position: relative;
+  width: $stripe-height * 12;
+  height: $stripe-height * 9;
+  max-width: 100%;
+  margin: 0 auto;
+  background-color: $stripe-color--lighter;
+  cursor: move;
+}
+
+
+///// common style
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  text-align: center;
+  font-family: serif;
+}
+
+.intro {
+  width: 80%;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed #999;
+  line-height: 1;
+  color: #333;
+
+  small {
+    display: block;
+    text-indent: 15%;
+    font-size: 70%;
+    font-style: italic;
+    font-weight: lighter;
+    opacity: .3;
+  }
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: .5em;
+  padding: .5em;
+  font-size: .8em;
+  font-style: italic;
+  text-align: right;
+  background-color: rgba(#fff, .8);
+  opacity: .8;
+
+  a {
+    color: inherit;
+  }
+}
+
+// checkbox
+
+#reset {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.ctrl {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin: .5rem;
+  padding: .5rem;
+  background-color: rgba(#fff, .7);
+}
+
+label {
+  display: block;
+  margin-bottom: .3rem;
+  cursor: pointer;
+
+  &::before {
+    content: "v";
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: .3em;
+    border: 1px dotted #333;
+    text-align: center;
+    line-height: 1;
+    vertical-align: baseline;
+    color: transparent;
+  }
+
+  #reset:checked ~ .ctrl &[for="reset"] {
+    &::before {
+      color: inherit;
+    }
+  }
+}
