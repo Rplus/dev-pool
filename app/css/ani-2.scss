@@ -105,6 +105,9 @@ $unit-color-group: (
     height: $unit-size * 5;
     margin: auto;
     display: inline-block;
+
+    &:hover .unit  {animation-play-state: paused; }
+    &:active .unit {animation-play-state: running; }
 }
 
 .box--inner {
