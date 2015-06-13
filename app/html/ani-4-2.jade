@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+html(lang="en")
+
+  head
+    meta(charset="UTF-8")
+    title ani-4-2
+    meta(name="viewport", content="width=device-width")
+    link(rel="stylesheet", href="../css/ani-4-2.css")
+
+  body
+
+    h1.intro animation practice - 4-2
+      small rotate circles
+
+    mixin circleCycle(n)
+      .circle(data-ind=n).r
+        if n === 2
+          .circle(data-ind=n-1).y
+
+
+    mixin nest(n)
+      if n === 0
+        - return
+
+      if (n - 2 > 0)
+        .circle(data-ind=n).r
+          .circle(data-ind=n-1).y
+            .circle(data-ind=n-2).g
+              +nest(n-3)
+      else
+        +circleCycle(n)
+
+    .box
+      .box--inner
+        +nest(20)
+
+    blockquote.info
+      | inspired from <a href="http://gif.flrn.nl/post/105635785933">http://gif.flrn.nl/post/105635785933</a>
