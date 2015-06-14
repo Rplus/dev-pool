@@ -1,0 +1,170 @@
+$square-size: 3rem;
+$color--darker: #252525;
+$color--lighter: #e0dfd1;
+$ani-duration: 2.88s;
+$square-per-line: 8;
+
+///
+/// major style
+///
+
+.square {
+  float: left;
+  position: relative;
+  width: $square-size;
+  height: $square-size;
+  animation: rotate $ani-duration linear infinite;
+}
+
+.square-group {
+  float: left;
+
+  .box--inner:nth-of-type(1) &:nth-of-type(odd) .square:nth-of-type(even),
+  .box--inner:nth-of-type(1) &:nth-of-type(even) .square:nth-of-type(odd),
+  .box--inner:nth-of-type(2) &:nth-of-type(odd) .square:nth-of-type(odd),
+  .box--inner:nth-of-type(2) &:nth-of-type(even) .square:nth-of-type(even) {
+    background-color: currentColor;
+  }
+
+  /// use %placeholder to reduce css size ( ~30% off )
+
+  $delay-step-count: $square-per-line * 2 - 1;
+  $delay-step-time: ($ani-duration / 4) / $delay-step-count;
+
+  @for $i from 1 through $delay-step-count {
+    %delay-#{$i} {
+      animation-delay: ($i - 1) * $delay-step-time;
+    }
+
+    %delay-#{$i}_5 {
+      animation-delay: ($i - 1) * $delay-step-time + $ani-duration * .5;
+    }
+  }
+
+  @for $y from 1 through $square-per-line {
+    .box--inner:nth-of-type(2) &:nth-of-type(#{$y}) .square {
+      @for $x from 1 through $square-per-line {
+        @if ($x + $y) % 2 == 0 {
+          &:nth-of-type(#{$x}) {
+            // animation-delay: ($x + $y - 2) * $delay-step-time;
+            @extend %delay-#{$x + $y - 1};
+          }
+        }
+      }
+    }
+
+    .box--inner:nth-of-type(1) &:nth-of-type(#{$y}) .square {
+      @for $x from 1 through $square-per-line {
+        @if ($x + $y) % 2 == 1 {
+          &:nth-of-type(#{$x}) {
+            // animation-delay: ($x + $y - 2) * $delay-step-time + $ani-duration * .5;
+            @extend %delay-#{$x + $y - 1}_5;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+
+
+@keyframes rotate {
+  0%   { transform: scale(  1); }
+  12.5%{ transform: scale(0.5); }
+  25%  { transform: scale(  1); }
+  100% { transform: scale(  1); }
+}
+
+.box {
+  position: relative;
+  width: $square-size * $square-per-line;
+  height: $square-size * $square-per-line;
+  margin: auto;
+  background-color: $color--darker;
+
+  &:hover  * {animation-play-state: paused; }
+  &:active * {animation-play-state: running; }
+}
+
+.box--inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  animation: layer ($ani-duration * 1) linear infinite;
+
+  &:nth-of-type(1) {
+    background-color: $color--lighter;
+    color: $color--darker;
+    animation-delay: $ani-duration * -.5;
+  }
+
+  &:nth-of-type(2) {
+    background-color: $color--darker;
+    color: $color--lighter;
+  }
+}
+
+@keyframes layer {
+  0%    { opacity: 1; }
+  50%   { opacity: 1; }
+  50.1% { opacity: 0; }
+  100%  { opacity: 0; }
+}
+
+
+
+///
+/// reset style
+///
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  padding-top: 1px;
+  text-align: center;
+  background-color: #2b2e2d;
+  color: #e4e3c8;
+}
+
+.intro {
+  width: 80%;
+  max-width: 30rem;
+  padding-bottom: 1rem;
+  margin: .5em auto 1em;
+  text-transform: capitalize;
+  border-bottom: 1px dashed #999;
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  color: #999;
+
+  a {
+    color: inherit;
+  }
+}
