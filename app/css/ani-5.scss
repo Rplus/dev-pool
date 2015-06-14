@@ -1,0 +1,127 @@
+$circle-border-count: 8 * 2;
+$circle-count: 4;
+$circle-size: 8rem;
+$SHM-buffer-ratio: .18;
+
+// via: http://codepen.io/jackiebackwards/pen/Fzkvg
+@function rainbow() {
+  $rainbows: ();
+  $rainbow-colors: (currentColor, transparent);
+
+  @for $i from 1 through $circle-border-count {
+    $rainbow-color: nth($rainbow-colors, ($i % 2) + 1);
+    $rainbows-new: $rainbow-color percentage(($i - 1)/$circle-border-count), $rainbow-color percentage($i/$circle-border-count);
+    $rainbows: join($rainbows, $rainbows-new, comma);
+  }
+  @return $rainbows;
+}
+
+///
+/// major style
+///
+
+.circle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+
+  @for $i from 1 through $circle-count {
+    &:nth-of-type(#{$i}) {
+      transform: rotateZ(360deg * $i / $circle-count);
+    }
+  }
+}
+
+.circle::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-image: radial-gradient(closest-side, rainbow());
+  transform: translateX($SHM-buffer-ratio * 100%);
+  animation: SHM 1.35s cubic-bezier(.7,0,.3,1) infinite alternate;
+}
+
+.box {
+  position: relative;
+  width: $circle-size * 2;
+  height: $circle-size * 2;
+  margin: ($circle-size * 2 * $SHM-buffer-ratio + 1rem) auto 0;
+
+  &:hover  .circle::before {animation-play-state: paused; }
+  &:active .circle::before {animation-play-state: running; }
+}
+
+.box--inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+
+@keyframes SHM {
+    0%   { transform: translateX($SHM-buffer-ratio * 100%); }
+    100% { transform: translateX(0); }
+}
+
+
+
+///
+/// reset style
+///
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  padding-top: 1px;
+  text-align: center;
+  background-color: #2b2e2d;
+  color: #e4e3c8;
+}
+
+.intro {
+  width: 80%;
+  max-width: $circle-size * 3;
+  padding-bottom: 1rem;
+  margin: .5em auto 1em;
+  text-transform: capitalize;
+  border-bottom: 1px dashed #999;
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  color: #999;
+
+  a {
+    color: inherit;
+  }
+}
