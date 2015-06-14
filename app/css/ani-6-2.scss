@@ -1,0 +1,134 @@
+$square-size: 3rem;
+$color--darker: #252525;
+$color--lighter: #e0dfd1;
+$ani-duration: 3s;
+$square-per-line: 8;
+
+///
+/// major style
+///
+
+.square {
+  float: left;
+  position: relative;
+  width: $square-size;
+  height: $square-size;
+  animation: rotate $ani-duration ease-in-out infinite, opacity $ani-duration ease-in-out infinite;
+  background-color: currentColor;
+}
+
+.square-group {
+  float: left;
+
+  &:nth-of-type(odd) .square:nth-of-type(odd),
+  &:nth-of-type(even) .square:nth-of-type(even) {
+    color: $color--lighter;
+  }
+
+  $delay-step-time: ($ani-duration / 4) / $square-per-line;
+
+  @for $i from 1 through $square-per-line {
+    @for $j from 0 through 1 {
+      &:nth-of-type(#{$i}) .square:nth-of-type(2n+#{$j}) {
+        @if ($i + $j) % 2 == 0 {
+          animation-delay: $i * $delay-step-time - $ani-duration, 0 - $ani-duration;
+        } @else {
+          animation-delay: $i * $delay-step-time + $ani-duration * .5 - $ani-duration, $ani-duration / 2 - $ani-duration;
+        }
+      }
+    }
+  }
+}
+
+@keyframes rotate {
+  0%        { transform: rotate( 0deg); }
+  25%, 100% { transform: rotate(-90deg); }
+}
+
+// 60%: 10% for fadeout, avoid blink between bgc switching
+@keyframes opacity {
+  0%, 50%   { opacity: 1; }
+  60%, 100% { opacity: 0; }
+}
+
+.box {
+  position: relative;
+  width: $square-size * $square-per-line;
+  height: $square-size * $square-per-line;
+  margin: auto;
+  background-color: $color--darker;
+
+  &:hover  * {animation-play-state: paused; }
+  &:active * {animation-play-state: running; }
+}
+
+.box--inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  animation: layer ($ani-duration * 1) linear infinite;
+  background-color: $color--lighter;
+  color: $color--darker;
+}
+
+@keyframes layer {
+  0%, 50% { background-color: $color--darker; }
+  50.0001%, 100% { background-color: $color--lighter; }
+}
+
+
+
+///
+/// reset style
+///
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  padding-top: 1px;
+  text-align: center;
+  background-color: #2b2e2d;
+  color: #e4e3c8;
+}
+
+.intro {
+  width: 80%;
+  max-width: 30rem;
+  padding-bottom: 1rem;
+  margin: .5em auto 1em;
+  text-transform: capitalize;
+  border-bottom: 1px dashed #999;
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  color: #999;
+
+  a {
+    color: inherit;
+  }
+}
