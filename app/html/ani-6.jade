@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title ani-6
+    meta(name="viewport", content="width=device-width")
+    link(rel="stylesheet", href="../css/ani-6.css")
+
+  body
+    h1.intro animation practice - 6
+      small rotate square matrix async
+
+    .box
+      - var k = 2
+      - while(k--)
+        .box--inner(class= 'box-' + k)
+          - var i = 8
+          - while(i--)
+            .square-group
+              -var j = 8
+              - while(j--)
+                .square
+
+    blockquote.info
+      | inspired from <a href="http://gif.flrn.nl/post/109424822363">http://gif.flrn.nl/post/109424822363</a>
