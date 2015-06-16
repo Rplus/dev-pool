@@ -65,14 +65,16 @@ gulp.task('html', function () {
 gulp.task('clean', del.bind(null, [path.distDir]));
 gulp.task('clean:css', del.bind(null, [path.distDir + '/css']));
 
-// Watch Files For Changes & Reload
 gulp.task('serve', ['default'], function () {
   browserSync({
     browser: 'google-chrome',
     notify: false,
     server: ''
   });
+});
 
+// Watch Files For Changes & Reload
+gulp.task('dev', ['serve'], function () {
   // watch the folder to reload if files was change
   gulp.watch([path.srcDir + '/js/*.js'], ['js', reload]);
   gulp.watch([path.srcDir + '/css/*.{styl,scss}'], ['css', reload]);
