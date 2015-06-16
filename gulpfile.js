@@ -11,11 +11,16 @@ var reload = browserSync.reload;
 
 var path = {};
 
+// if you want to generate special css,
+// just run `gulp serve --project #{$projectName}`
+// this use in 'css' task now. it will speedup compile speed
+var projectName = $.util.env.project ? $.util.env.project : '*';
+
 path.srcDir = 'app';
 path.distDir = '_dist';
 
 gulp.task('css', ['clean:css'], function () {
-  return gulp.src(path.srcDir + '/css/*.{styl,scss}')
+  return gulp.src(path.srcDir + '/css/' + projectName + '.{styl,scss}')
     .pipe($.plumber({
         errorHandler: function (err) {
             console.log(err);
