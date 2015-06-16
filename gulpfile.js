@@ -19,7 +19,7 @@ var projectName = $.util.env.project ? $.util.env.project : '*';
 path.srcDir = 'app';
 path.distDir = '_dist';
 
-gulp.task('css', ['clean:css'], function () {
+gulp.task('css', function () {
   return gulp.src(path.srcDir + '/css/' + projectName + '.{styl,scss}')
     .pipe($.plumber({
         errorHandler: function (err) {
