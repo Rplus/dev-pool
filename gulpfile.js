@@ -70,7 +70,7 @@ gulp.task('serve', ['default'], function () {
   browserSync({
     browser: 'google-chrome',
     notify: false,
-    server: path.distDir
+    server: ''
   });
 
   // watch the folder to reload if files was change
