@@ -14,7 +14,7 @@ var path = {};
 // if you want to generate special css,
 // just run `gulp serve --project #{$projectName}`
 // this use in 'css' task now. it will speedup compile speed
-var projectName = $.util.env.project ? $.util.env.project : '*';
+var projectName = '*';
 
 path.srcDir = 'app';
 path.distDir = '_dist';
@@ -75,6 +75,7 @@ gulp.task('serve', ['default'], function () {
 
 // Watch Files For Changes & Reload
 gulp.task('dev', ['serve'], function () {
+  projectName = $.util.env.project ? $.util.env.project : '*';
   // watch the folder to reload if files was change
   gulp.watch([path.srcDir + '/js/*.js'], ['js', reload]);
   gulp.watch([path.srcDir + '/css/*.{styl,scss}'], ['css', reload]);
