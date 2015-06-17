@@ -1,0 +1,124 @@
+$color--darker = #252626;
+$color--lighter = #e7e7dc;
+
+$box-size = 25rem;
+$ani-duration = .9s;
+$unit-count = 20;
+$unit-size = 2rem;
+$cos30 = cos(30deg);
+
+///
+/// major style
+///
+
+.unit {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: $unit-size;
+  height: $unit-size * tan(30deg);
+  background-color: currentColor;
+  animation: rotate .9s cubic-bezier(0.4, 0, 0, 1) infinite;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: currentColor;
+  }
+
+  // hexagon ref:
+  // http://www.queness.com/post/13901/create-beautiful-hexagon-shapes-with-pure-css3
+  &::before {transform: rotate(60deg); }
+  &::after {transform: rotate(-60deg); }
+
+  &:nth-of-type(2n)   { color: $color--darker; }
+  &:nth-of-type(2n+1) { color: $color--lighter; }
+
+  for $i in 1..$unit-count {
+    &:nth-of-type({$i}) {
+      width: $unit-size * $i;
+      height: $unit-size * $i * tan(30deg);
+      z-index: $unit-count - $i;
+      left: ($box-size - $unit-size * $i) * .5;
+      animation-delay: ($ani-duration / $unit-count) * $i;
+    }
+  }
+}
+
+@keyframes rotate {
+  0%   { transform: rotate( 0deg); }
+  100% { transform: rotate(60deg); }
+}
+
+
+
+.box {
+  position: relative;
+  width: $box-size;
+  height: $box-size;
+  margin: 0 auto;
+  overflow: hidden;
+
+  &:hover  * {animation-play-state: paused; }
+  &:active * {animation-play-state: running; }
+}
+
+
+
+///
+/// reset style
+///
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  padding-top: 1px;
+  text-align: center;
+  background-color: #2b2e2d;
+  color: #e4e3c8;
+}
+
+.intro {
+  width: 80%;
+  max-width: 30rem;
+  padding-bottom: 1rem;
+  margin: .5em auto 1em;
+  text-transform: capitalize;
+  border-bottom: 1px dashed #999;
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: capitalize;
+  }
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  color: #999;
+
+  a {
+    color: inherit;
+  }
+}
