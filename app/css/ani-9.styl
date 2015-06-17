@@ -13,7 +13,7 @@ $circle {
   top: $circle-size * .5;
   width: 50%;
   border-radius: 50%;
-  animation: yin-yang $ani-duration ease-in-out infinite alternate;
+  animation: yin-yang $ani-duration ease-in-out ($ani-duration * -.5) infinite alternate;
 
   &::before {
     content: "";
