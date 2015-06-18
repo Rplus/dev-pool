@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title hexagon
+    meta(name="viewport", content="width=device-width")
+    link(rel="stylesheet", href="../css/hexagon.css")
+
+  body
+    h1.intro hexagon
+      small hexagon transformer
+
+    .box
+      .hexagon
+
+    ///////
+
+    form.ctrl
+      .table
+        .td
+          h4 border radius
+
+          label
+            input(type="checkbox", checked, data-str="radius.linked")
+            | linked?
+          label horizontal radius:
+            input.block#radius-h(type="range", min="0", max="100", data-str="radius.h", value="50")
+          label vertical radius:
+            input.block#radius-v(type="range", min="0", max="100", data-str="radius.v", value="50")
+
+          | unit:
+          br
+
+          label.ib
+            input.radius-unit(type="radio", name="radius-unit", value="%", checked, data-str="radius.unit")
+            | %
+          label.ib
+            input.radius-unit(type="radio", name="radius-unit", value="px", data-str="radius.unit")
+            | px
+
+        .td
+          h4 color
+
+          label color(#rgb):
+            input.block#color-hex(type="color" value="#ff0000", data-str="color.hex")
+          label alpha:
+            input.block#color-alpha(type="range", min="0", max="1", step="0.01", value=".5", data-str="color.alpha")
+
+          input.block#reset(type="reset")
+
+          p
+            a#permalink(href="###") permalink
+
+      h4 style preview
+      pre
+        style#inline(contenteditable="")
+
+    script(src="../js/hexagon.min.js")
