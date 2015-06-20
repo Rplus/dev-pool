@@ -12,7 +12,7 @@ var reload = browserSync.reload;
 var path = {};
 
 // if you want to generate special css,
-// just run `gulp serve --project #{$projectName}`
+// just run `gulp serve --p #{$projectName}`
 // this use in 'css' task now. it will speedup compile speed
 var projectName = '*';
 
@@ -75,7 +75,7 @@ gulp.task('serve', ['default'], function () {
 
 // Watch Files For Changes & Reload
 gulp.task('dev', ['serve'], function () {
-  projectName = $.util.env.project ? $.util.env.project : '*';
+  projectName = $.util.env.p ? $.util.env.p : '*';
   // watch the folder to reload if files was change
   gulp.watch([path.srcDir + '/js/*.js'], ['js', reload]);
   gulp.watch([path.srcDir + '/css/*.{styl,scss}'], ['css', reload]);
