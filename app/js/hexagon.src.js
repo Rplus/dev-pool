@@ -51,7 +51,8 @@
 
   var updateState = function() {
     var dataExport = JSON.stringify(data);
-    history.pushState(null, null, location.href);
+    // // that cause too many history, so I remove it...
+    // history.pushState(null, null, location.href);
     location.hash = 'go=' + dataExport;
     permalink.href = location.origin + location.pathname + '#go=' + dataExport;
   };
