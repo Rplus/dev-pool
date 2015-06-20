@@ -69,6 +69,7 @@ gulp.task('serve', ['default'], function () {
   browserSync({
     browser: 'google-chrome',
     notify: false,
+    startPath: ($.util.env.p ? '_dist/html/' + $.util.env.p + '.html' : null),
     server: ''
   });
 });
