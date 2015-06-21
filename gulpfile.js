@@ -83,6 +83,13 @@ gulp.task('dev', ['serve'], function () {
   gulp.watch([path.srcDir + '/html/*.{html,jade}'], ['html', reload]);
 });
 
+// deploy dist folder to github branch gh-pages
+gulp.task('deploy', function() {
+  var name = $.util.env.p ? $.util.env.p : '**';
+  return gulp.src(path.distDir + '/' + name + '/*')
+    .pipe($.ghPages());
+});
+
 gulp.task('default', ['clean'], function () {
   gulp.start(['html', 'css', 'js']);
 });
