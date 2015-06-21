@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title brandcolors
+    meta(name="viewport", content="width=device-width")
+    link(rel="stylesheet", href="../css/brandcolors.css")
+
+  body
+    h1.intro [fork] re-styling <a href="//brandcolors.net">Brandcolors.net</a>
+      small show colors in row-cell
+
+    - var brands = [];
+    - brands.push({'name': 'Adobe', 'colors': ['ff0000', 'fbb034', 'ffdd00', 'c1d82f', '00a4e4', '8a7967', '6a737b'] })
+    - brands.push({'name': 'Dell', 'colors': ['0085c3', '7ab800', 'f2af00', 'dc5034', 'ce1126', 'b7295a', '6e2585', '71c6c1', '5482ab', '009bbb', '444444', 'eeeeee'] })
+    - brands.push({'name': 'Facebook', 'colors': ['3b5998'] })
+    - brands.push({'name': 'GitHub', 'colors': ['4183c4', '999999', '666666', '333333', '6cc644', 'bd2c00', 'ff9933'] }) - brands.push({'name': 'Google', 'colors': ['4285f4', 'db4437', 'f4b400', '0f9d58', 'e7e6dd'] })
+    - brands.push({'name': 'HP', 'colors': ['0096d6', 'd7410b'] })
+    - brands.push({'name': 'Microsoft', 'colors': ['f65314', '7cbb00', '00a1f1', 'ffbb00'] })
+
+    - var isLight = function(hexColor) {var rgb = hexColor.match(/\w{2}/g).map(function(i) {return ('0x' + i) * 1; }); var sum = 0; rgb.forEach(function(num) {sum += num; }); return (sum / (255 * 3)) > .6; };
+
+    .brands
+      each brand in brands
+        article.brand
+          header.brand-header
+            label
+              input.brand-selector(type="checkbox")
+              h1.brand-title= brand.name
+          .brand-colors
+            each brandColor in brand.colors
+              .brand-color(data-color=brandColor, style="background-color: #" + brandColor + "", class=isLight(brandColor) ? 'lighter' : '')
+                .brand-color__txt=brandColor
+
+    blockquote.info
+      | fork from <a href="http://brandcolors.net/">http://brandcolors.net/</a>
