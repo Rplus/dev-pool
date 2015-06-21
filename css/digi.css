@@ -1,0 +1,231 @@
+.digi {
+  width: 3rem;
+  margin: 2rem auto 0;
+}
+.digi::before,
+.digi::after {
+  content: "";
+  display: block;
+  height: 3rem;
+  border: 0.9rem solid rgba(0,0,0,0.1);
+  border-radius: 0.25rem;
+  transition: border-color 0.3s;
+}
+.digi::before {
+  border-bottom-width: 0.45rem;
+}
+.digi::after {
+  border-top-width: 0.45rem;
+}
+#bi3:not(:checked) ~ #bi2:not(:checked) ~ #bi1:not(:checked) ~ #bi0:not(:checked) ~ .digi::before {
+  border-top-color: #666;
+  border-right-color: #666;
+  border-left-color: #666;
+}
+#bi3:not(:checked) ~ #bi2:not(:checked) ~ #bi1:not(:checked) ~ #bi0:not(:checked) ~ .digi::after {
+  border-right-color: #666;
+  border-bottom-color: #666;
+  border-left-color: #666;
+}
+#bi3:not(:checked) ~ #bi2:not(:checked) ~ #bi1:not(:checked) ~ #bi0:checked ~ .digi::before {
+  border-right-color: #666;
+}
+#bi3:not(:checked) ~ #bi2:not(:checked) ~ #bi1:not(:checked) ~ #bi0:checked ~ .digi::after {
+  border-right-color: #666;
+}
+#bi3:not(:checked) ~ #bi2:not(:checked) ~ #bi1:checked ~ #bi0:not(:checked) ~ .digi::before {
+  border-top-color: #666;
+  border-right-color: #666;
+  border-bottom-color: #666;
+}
+#bi3:not(:checked) ~ #bi2:not(:checked) ~ #bi1:checked ~ #bi0:not(:checked) ~ .digi::after {
+  border-top-color: #666;
+  border-bottom-color: #666;
+  border-left-color: #666;
+}
+#bi3:not(:checked) ~ #bi2:not(:checked) ~ #bi1:checked ~ #bi0:checked ~ .digi::before {
+  border-top-color: #666;
+  border-right-color: #666;
+  border-bottom-color: #666;
+}
+#bi3:not(:checked) ~ #bi2:not(:checked) ~ #bi1:checked ~ #bi0:checked ~ .digi::after {
+  border-top-color: #666;
+  border-right-color: #666;
+  border-bottom-color: #666;
+}
+#bi3:not(:checked) ~ #bi2:checked ~ #bi1:not(:checked) ~ #bi0:not(:checked) ~ .digi::before {
+  border-right-color: #666;
+  border-bottom-color: #666;
+  border-left-color: #666;
+}
+#bi3:not(:checked) ~ #bi2:checked ~ #bi1:not(:checked) ~ #bi0:not(:checked) ~ .digi::after {
+  border-top-color: #666;
+  border-right-color: #666;
+}
+#bi3:not(:checked) ~ #bi2:checked ~ #bi1:not(:checked) ~ #bi0:checked ~ .digi::before {
+  border-top-color: #666;
+  border-bottom-color: #666;
+  border-left-color: #666;
+}
+#bi3:not(:checked) ~ #bi2:checked ~ #bi1:not(:checked) ~ #bi0:checked ~ .digi::after {
+  border-top-color: #666;
+  border-right-color: #666;
+  border-bottom-color: #666;
+}
+#bi3:not(:checked) ~ #bi2:checked ~ #bi1:checked ~ #bi0:not(:checked) ~ .digi::before {
+  border-top-color: #666;
+  border-bottom-color: #666;
+  border-left-color: #666;
+}
+#bi3:not(:checked) ~ #bi2:checked ~ #bi1:checked ~ #bi0:not(:checked) ~ .digi::after {
+  border-top-color: #666;
+  border-right-color: #666;
+  border-bottom-color: #666;
+  border-left-color: #666;
+}
+#bi3:not(:checked) ~ #bi2:checked ~ #bi1:checked ~ #bi0:checked ~ .digi::before {
+  border-top-color: #666;
+  border-right-color: #666;
+}
+#bi3:not(:checked) ~ #bi2:checked ~ #bi1:checked ~ #bi0:checked ~ .digi::after {
+  border-right-color: #666;
+}
+#bi3:checked ~ #bi2:not(:checked) ~ #bi1:not(:checked) ~ #bi0:not(:checked) ~ .digi::before {
+  border-top-color: #666;
+  border-right-color: #666;
+  border-bottom-color: #666;
+  border-left-color: #666;
+}
+#bi3:checked ~ #bi2:not(:checked) ~ #bi1:not(:checked) ~ #bi0:not(:checked) ~ .digi::after {
+  border-top-color: #666;
+  border-right-color: #666;
+  border-bottom-color: #666;
+  border-left-color: #666;
+}
+#bi3:checked ~ #bi2:not(:checked) ~ #bi1:not(:checked) ~ #bi0:checked ~ .digi::before {
+  border-top-color: #666;
+  border-right-color: #666;
+  border-bottom-color: #666;
+  border-left-color: #666;
+}
+#bi3:checked ~ #bi2:not(:checked) ~ #bi1:not(:checked) ~ #bi0:checked ~ .digi::after {
+  border-top-color: #666;
+  border-right-color: #666;
+  border-bottom-color: #666;
+}
+#bi3:checked ~ #bi2:not(:checked) ~ #bi1:checked ~ #bi0:not(:checked) ~ .digi::before {
+  border-top-color: #666;
+  border-right-color: #666;
+  border-bottom-color: #666;
+  border-left-color: #666;
+}
+#bi3:checked ~ #bi2:not(:checked) ~ #bi1:checked ~ #bi0:not(:checked) ~ .digi::after {
+  border-top-color: #666;
+  border-right-color: #666;
+  border-left-color: #666;
+}
+#bi3:checked ~ #bi2:not(:checked) ~ #bi1:checked ~ #bi0:checked ~ .digi::before {
+  border-bottom-color: #666;
+  border-left-color: #666;
+}
+#bi3:checked ~ #bi2:not(:checked) ~ #bi1:checked ~ #bi0:checked ~ .digi::after {
+  border-top-color: #666;
+  border-right-color: #666;
+  border-bottom-color: #666;
+  border-left-color: #666;
+}
+#bi3:checked ~ #bi2:checked ~ #bi1:not(:checked) ~ #bi0:not(:checked) ~ .digi::before {
+  border-bottom-color: #666;
+}
+#bi3:checked ~ #bi2:checked ~ #bi1:not(:checked) ~ #bi0:not(:checked) ~ .digi::after {
+  border-top-color: #666;
+  border-bottom-color: #666;
+  border-left-color: #666;
+}
+#bi3:checked ~ #bi2:checked ~ #bi1:not(:checked) ~ #bi0:checked ~ .digi::before {
+  border-right-color: #666;
+  border-bottom-color: #666;
+}
+#bi3:checked ~ #bi2:checked ~ #bi1:not(:checked) ~ #bi0:checked ~ .digi::after {
+  border-top-color: #666;
+  border-right-color: #666;
+  border-bottom-color: #666;
+  border-left-color: #666;
+}
+#bi3:checked ~ #bi2:checked ~ #bi1:checked ~ #bi0:not(:checked) ~ .digi::before {
+  border-top-color: #666;
+  border-bottom-color: #666;
+  border-left-color: #666;
+}
+#bi3:checked ~ #bi2:checked ~ #bi1:checked ~ #bi0:not(:checked) ~ .digi::after {
+  border-top-color: #666;
+  border-bottom-color: #666;
+  border-left-color: #666;
+}
+#bi3:checked ~ #bi2:checked ~ #bi1:checked ~ #bi0:checked ~ .digi::before {
+  border-top-color: #666;
+  border-bottom-color: #666;
+  border-left-color: #666;
+}
+#bi3:checked ~ #bi2:checked ~ #bi1:checked ~ #bi0:checked ~ .digi::after {
+  border-top-color: #666;
+  border-left-color: #666;
+}
+input[type="checkbox"] {
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+label[for] {
+  display: inline-block;
+  cursor: pointer;
+}
+label[for]::before {
+  content: attr(data-value);
+  display: block;
+  vertical-align: middle;
+  width: 3em;
+  height: 3em;
+  margin-right: 0.2em;
+  border: 0.25em double rgba(0,0,0,0.3);
+  border-radius: 20%;
+  line-height: 2.5em;
+  font-family: monospace;
+}
+input:checked + label[for]::before {
+  border-style: solid;
+  background-color: rgba(255,255,153,0.7);
+}
+label[for]:active {
+  background-color: #ff9;
+}
+body {
+  margin: 0 auto;
+  text-align: center;
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+h2 {
+  font-family: serif;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed #ccc;
+}
+#info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 3px 5px;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  color: #999;
+}
+#info a {
+  color: inherit;
+}

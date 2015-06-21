@@ -1,0 +1,126 @@
+.circle {
+  display: inline-block;
+  border: 0.5rem solid;
+  border-radius: 50%;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transform: rotateX(9deg);
+          transform: rotateX(9deg);
+}
+
+.circle.r {
+  color: #ffb510;
+}
+
+.circle.y {
+  color: #ef4239;
+}
+
+.circle.g {
+  color: #20a0aa;
+}
+
+.circle[data-ind="1"] {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.box {
+  position: relative;
+  width: 20.5rem;
+  height: 20.5rem;
+  margin: auto;
+  overflow: hidden;
+  font-size: 0;
+}
+
+.box:hover .box--inner {
+  -webkit-animation-play-state: paused;
+          animation-play-state: paused;
+}
+
+.box:active .box--inner {
+  -webkit-animation-play-state: running;
+          animation-play-state: running;
+}
+
+.box--inner {
+  width: 100%;
+  height: 100%;
+  -webkit-transform: rotateZ(45deg) rotateX(0deg);
+          transform: rotateZ(45deg) rotateX(0deg);
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-animation: rotate 1.35s linear infinite;
+          animation: rotate 1.35s linear infinite;
+}
+
+@-webkit-keyframes rotate {
+  0% {
+    -webkit-transform: rotateZ(45deg) rotateX(0deg);
+            transform: rotateZ(45deg) rotateX(0deg);
+  }
+  100% {
+    -webkit-transform: rotateZ(45deg) rotateX(180deg);
+            transform: rotateZ(45deg) rotateX(180deg);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    -webkit-transform: rotateZ(45deg) rotateX(0deg);
+            transform: rotateZ(45deg) rotateX(0deg);
+  }
+  100% {
+    -webkit-transform: rotateZ(45deg) rotateX(180deg);
+            transform: rotateZ(45deg) rotateX(180deg);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  padding-top: 1px;
+  text-align: center;
+  background-color: #2b2e2d;
+  color: #e4e3c8;
+}
+
+.intro {
+  width: 80%;
+  max-width: 30rem;
+  padding-bottom: 1rem;
+  margin: 0.5em auto 1em;
+  text-transform: capitalize;
+  border-bottom: 1px dashed #999;
+}
+
+.intro small {
+  display: block;
+  opacity: .5;
+  font-style: italic;
+  text-transform: none;
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  color: #999;
+}
+
+.info a {
+  color: inherit;
+}

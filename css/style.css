@@ -1,0 +1,90 @@
+#small-logo,
+#name {
+  letter-spacing: 1em;
+  font-family: "Montserrat", sans-serif;
+}
+#top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 500;
+  height: 60px;
+  background-color: #383f42;
+}
+#small-logo {
+  padding-left: 20px;
+  line-height: 60px;
+  color: #fff;
+}
+#intro {
+  position: relative;
+  z-index: 1;
+  height: 70vh;
+  margin-top: 60px;
+  background: #f0f0f0 url("https://unsplash.imgix.net/photo-1418065460487-3e41a6c84dc5?q=75&fm=jpg&s=127f3a3ccf4356b7f79594e05f6c840e") fixed no-repeat 50%;
+  background-size: cover;
+}
+#intro::before,
+#intro::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 50%;
+  height: 0;
+  border-bottom: 50px solid #eee;
+}
+#intro::before {
+  left: 0;
+  border-right: 50px solid transparent;
+}
+#intro::after {
+  right: 0;
+  border-left: 50px solid transparent;
+}
+#name {
+  padding-top: 50px;
+  -webkit-transform: scale(0.7);
+          transform: scale(0.7);
+  font-size: 28px;
+  text-align: center;
+  color: transparent;
+  text-shadow: 0 0 20px #717c80;
+  transition: all 1s 0.3s;
+}
+@media (max-width: 420px) {
+  #name {
+    font-size: 20px;
+  }
+}
+#name.larger {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+#name .char {
+  visibility: hidden;
+  opacity: 0.3;
+  transition: all 0.5s;
+}
+#name .char.visible {
+  visibility: visible;
+  opacity: 1;
+  color: #7e898d;
+  text-shadow: none;
+}
+#name .char.darker {
+  color: #383f42;
+  font-weight: 700;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+section {
+  height: 600px;
+  background-color: #eee;
+}

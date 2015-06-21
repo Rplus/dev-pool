@@ -1,0 +1,150 @@
+.stripe-box--black, .stripe-box--gray::before,
+.stripe-box--gray::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: 4em 4em;
+  background-image: linear-gradient(to bottom, currentColor 50.5%, transparent 50%);
+}
+
+.stripe-box--black {
+  color: #000;
+}
+
+.stripe-box--gray {
+  position: relative;
+  top: 4em;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 6em;
+  height: 12em;
+  color: #8f8f8f;
+}
+
+.stripe-box--gray::before,
+.stripe-box--gray::after {
+  content: "";
+  transition: -webkit-transform 1s;
+  transition: transform 1s;
+}
+
+.stripe-box--gray::before {
+  -webkit-transform: translateX(-85%);
+          transform: translateX(-85%);
+}
+
+.stripe-box--gray::after {
+  background-position: 0 -2em;
+  -webkit-transform: translateX(85%);
+          transform: translateX(85%);
+}
+
+#reset:checked ~ .box .stripe-box--gray::before,
+#reset:checked ~ .box .stripe-box--gray::after,
+.box:active .stripe-box--gray::before,
+.box:active .stripe-box--gray::after,
+.box:hover .stripe-box--gray::before,
+.box:hover .stripe-box--gray::after {
+  -webkit-transform: translateX(0);
+          transform: translateX(0);
+}
+
+.box {
+  position: relative;
+  width: 24em;
+  height: 18em;
+  max-width: 100%;
+  margin: 0 auto;
+  background-color: #fff;
+  cursor: move;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  text-align: center;
+  font-family: serif;
+}
+
+.intro {
+  width: 80%;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed #999;
+  line-height: 1;
+  color: #333;
+}
+
+.intro small {
+  display: block;
+  text-indent: 15%;
+  font-size: 70%;
+  font-style: italic;
+  font-weight: lighter;
+  opacity: .3;
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: .5em;
+  padding: .5em;
+  font-size: .8em;
+  font-style: italic;
+  text-align: right;
+  background-color: rgba(255, 255, 255, 0.8);
+  opacity: .8;
+}
+
+.info a {
+  color: inherit;
+}
+
+#reset {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.ctrl {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin: .5rem;
+  padding: .5rem;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+label {
+  display: block;
+  margin-bottom: .3rem;
+  cursor: pointer;
+}
+
+label::before {
+  content: "v";
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: .3em;
+  border: 1px dotted #333;
+  text-align: center;
+  line-height: 1;
+  vertical-align: baseline;
+  color: transparent;
+}
+
+#reset:checked ~ .ctrl label[for="reset"]::before {
+  color: inherit;
+}

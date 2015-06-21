@@ -1,0 +1,144 @@
+.left,
+.right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+  transition: all 0.75s linear;
+}
+.wrap {
+  position: relative;
+  height: 100vmin;
+  overflow: hidden;
+}
+.left {
+  left: 0;
+  right: 50%;
+  background-color: #666;
+}
+#split:checked ~ .wrap .left,
+.wrap:active .left {
+  right: calc(50% + 5vmin);
+}
+.right {
+  left: 50%;
+  right: 0;
+  background-color: #ccc;
+  cursor: move;
+}
+#split:checked ~ .wrap .right,
+.wrap:active .right {
+  left: calc(50% + 5vmin);
+}
+#shift:checked ~ .wrap .right,
+.right:hover {
+  -webkit-transform: translateY(20vmin);
+          transform: translateY(20vmin);
+}
+.ring {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  width: 60vmin;
+  height: 60vmin;
+  border: 20vmin solid #999;
+  border-radius: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+.left .ring {
+  right: -30vmin;
+}
+.right .ring {
+  left: -30vmin;
+}
+input[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+}
+label {
+  display: block;
+  margin-bottom: 0.3em;
+  cursor: pointer;
+}
+label::before {
+  content: "v";
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.3em;
+  border: 1px dotted #999;
+  text-align: center;
+  line-height: 1;
+  vertical-align: baseline;
+  color: transparent;
+}
+#split:checked ~ .label label[for="split"]::before,
+#shift:checked ~ .label label[for="shift"]::before {
+  color: inherit;
+}
+.label {
+  position: absolute;
+  left: 0.5em;
+  bottom: 0;
+  z-index: 2;
+  color: #ddd;
+}
+html,
+body {
+  position: relative;
+  min-height: 100%;
+  margin: 0;
+}
+* {
+  box-sizing: border-box;
+}
+.intro {
+  margin: 0 10%;
+  font-family: serif;
+  color: #333;
+  line-height: 1.5;
+}
+@media (min-width: 760px) {
+  .intro {
+    position: absolute;
+    top: 0;
+    left: 2%;
+    z-index: 1;
+    max-width: 45%;
+    margin: 0;
+    color: #ddd;
+  }
+}
+.intro h2 {
+  text-align: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed #999;
+  font-size: 4vmin;
+  line-height: 1;
+}
+.intro kbd {
+  border: 1px dotted #999;
+  padding: 1px 5px;
+  background-color: rgba(255,255,255,0.1);
+}
+.intro__subtitle {
+  display: block;
+  text-indent: 15%;
+  font-style: italic;
+  opacity: 0.7;
+}
+#info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  font-size: 0.8em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  color: #999;
+}
+#info a {
+  color: inherit;
+}

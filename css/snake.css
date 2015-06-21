@@ -1,0 +1,242 @@
+.circle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20version%3D%221.1%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20width%3D%22240%22%20height%3D%22240%22%3E%3Cdefs%3E%3Cellipse%20id%3D%22systemthread%22%20cx%3D%220%22%20cy%3D%22108%22%20rx%3D%226%22%20ry%3D%2212%22%20%2F%3E%3C%2Fdefs%3E%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%289%29%22%20style%3D%22fill%3A%20%230066ff%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%2818%29%22%20style%3D%22fill%3A%20%23d2d200%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%2827%29%22%20style%3D%22fill%3A%20%230066ff%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%2836%29%22%20style%3D%22fill%3A%20%23d2d200%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%2845%29%22%20style%3D%22fill%3A%20%230066ff%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%2854%29%22%20style%3D%22fill%3A%20%23d2d200%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%2863%29%22%20style%3D%22fill%3A%20%230066ff%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%2872%29%22%20style%3D%22fill%3A%20%23d2d200%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%2881%29%22%20style%3D%22fill%3A%20%230066ff%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%2890%29%22%20style%3D%22fill%3A%20%23d2d200%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%2899%29%22%20style%3D%22fill%3A%20%230066ff%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28108%29%22%20style%3D%22fill%3A%20%23d2d200%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28117%29%22%20style%3D%22fill%3A%20%230066ff%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28126%29%22%20style%3D%22fill%3A%20%23d2d200%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28135%29%22%20style%3D%22fill%3A%20%230066ff%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28144%29%22%20style%3D%22fill%3A%20%23d2d200%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28153%29%22%20style%3D%22fill%3A%20%230066ff%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28162%29%22%20style%3D%22fill%3A%20%23d2d200%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28171%29%22%20style%3D%22fill%3A%20%230066ff%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28180%29%22%20style%3D%22fill%3A%20%23d2d200%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28189%29%22%20style%3D%22fill%3A%20%230066ff%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28198%29%22%20style%3D%22fill%3A%20%23d2d200%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28207%29%22%20style%3D%22fill%3A%20%230066ff%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28216%29%22%20style%3D%22fill%3A%20%23d2d200%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28225%29%22%20style%3D%22fill%3A%20%230066ff%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28234%29%22%20style%3D%22fill%3A%20%23d2d200%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28243%29%22%20style%3D%22fill%3A%20%230066ff%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28252%29%22%20style%3D%22fill%3A%20%23d2d200%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28261%29%22%20style%3D%22fill%3A%20%230066ff%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28270%29%22%20style%3D%22fill%3A%20%23d2d200%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28279%29%22%20style%3D%22fill%3A%20%230066ff%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28288%29%22%20style%3D%22fill%3A%20%23d2d200%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28297%29%22%20style%3D%22fill%3A%20%230066ff%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28306%29%22%20style%3D%22fill%3A%20%23d2d200%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28315%29%22%20style%3D%22fill%3A%20%230066ff%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28324%29%22%20style%3D%22fill%3A%20%23d2d200%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28333%29%22%20style%3D%22fill%3A%20%230066ff%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28342%29%22%20style%3D%22fill%3A%20%23d2d200%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28351%29%22%20style%3D%22fill%3A%20%230066ff%22%20%2F%3E%27%20%27%3Cuse%20xlink%3Ahref%3D%22%23systemthread%22%20transform%3D%22translate%28120%20120%29%20rotate%28360%29%22%20style%3D%22fill%3A%20%23d2d200%22%20%2F%3E%27%3C%2Fsvg%3E"), repeating-conic-gradient(#000 0 9deg, #fff 0 18deg);
+  background-size: 100%;
+}
+
+.circle:nth-of-type(even) {
+  -webkit-transform: rotate(9deg);
+          transform: rotate(9deg);
+}
+
+.circle:nth-of-type(1) {
+  -webkit-transform: rotate(9deg);
+          transform: rotate(9deg);
+  z-index: 19;
+}
+
+.circle:nth-of-type(2) {
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+  z-index: 18;
+}
+
+.circle:nth-of-type(3) {
+  -webkit-transform: rotate(9deg);
+          transform: rotate(9deg);
+  z-index: 17;
+}
+
+.circle:nth-of-type(4) {
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+  z-index: 16;
+}
+
+.circle:nth-of-type(5) {
+  -webkit-transform: rotate(9deg);
+          transform: rotate(9deg);
+  z-index: 15;
+}
+
+.circle:nth-of-type(6) {
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+  z-index: 14;
+}
+
+.circle:nth-of-type(7) {
+  -webkit-transform: rotate(9deg);
+          transform: rotate(9deg);
+  z-index: 13;
+}
+
+.circle:nth-of-type(8) {
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+  z-index: 12;
+}
+
+.circle:nth-of-type(9) {
+  -webkit-transform: rotate(9deg);
+          transform: rotate(9deg);
+  z-index: 11;
+}
+
+.circle:nth-of-type(10) {
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+  z-index: 10;
+}
+
+.circle:nth-of-type(11) {
+  -webkit-transform: rotate(9deg);
+          transform: rotate(9deg);
+  z-index: 9;
+}
+
+.circle:nth-of-type(12) {
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+  z-index: 8;
+}
+
+.circle:nth-of-type(13) {
+  -webkit-transform: rotate(9deg);
+          transform: rotate(9deg);
+  z-index: 7;
+}
+
+.circle:nth-of-type(14) {
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+  z-index: 6;
+}
+
+.circle:nth-of-type(15) {
+  -webkit-transform: rotate(9deg);
+          transform: rotate(9deg);
+  z-index: 5;
+}
+
+.circle:nth-of-type(16) {
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+  z-index: 4;
+}
+
+.circle:nth-of-type(17) {
+  -webkit-transform: rotate(9deg);
+          transform: rotate(9deg);
+  z-index: 3;
+}
+
+.circle:nth-of-type(18) {
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+  z-index: 2;
+}
+
+.circle:nth-of-type(19) {
+  -webkit-transform: rotate(9deg);
+          transform: rotate(9deg);
+  z-index: 1;
+}
+
+.circle:nth-of-type(20) {
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+  z-index: 0;
+}
+
+.box > .circle {
+  width: 100%;
+  height: 100%;
+}
+
+.box {
+  position: relative;
+  float: left;
+  width: 240px;
+  height: 240px;
+  margin: 0 auto;
+}
+
+.box:nth-of-type(13) {
+  position: absolute;
+  top: 120px;
+  left: 120px;
+}
+
+.box:nth-of-type(14) {
+  position: absolute;
+  top: 360px;
+  left: 360px;
+}
+
+.box:nth-of-type(15) {
+  position: absolute;
+  top: 120px;
+  left: 600px;
+}
+
+.box:nth-of-type(16) {
+  position: absolute;
+  top: 360px;
+  left: 120px;
+}
+
+.box:nth-of-type(17) {
+  position: absolute;
+  top: 120px;
+  left: 360px;
+}
+
+.box:nth-of-type(18) {
+  position: absolute;
+  top: 360px;
+  left: 600px;
+}
+
+.box-matrix {
+  position: relative;
+  width: 960px;
+  height: 720px;
+  margin: auto;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 90vh;
+  padding-top: 1px;
+  text-align: center;
+  color: #333;
+}
+
+.intro {
+  width: 80%;
+  max-width: 30rem;
+  padding-bottom: 1rem;
+  margin: 0.5em auto 1em;
+  text-transform: capitalize;
+  border-bottom: 1px dashed #999;
+}
+
+.intro small {
+  display: block;
+  opacity: .5;
+  font-style: italic;
+  text-transform: none;
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  color: #999;
+}
+
+.info a {
+  color: inherit;
+}

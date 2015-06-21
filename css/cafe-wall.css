@@ -1,0 +1,103 @@
+.stripe {
+  height: 2.5em;
+  margin-left: -0.5em;
+  border-top: 1px solid #7f7f7f;
+  border-bottom: 1px solid #7f7f7f;
+  background-color: #ccc;
+  background-image: linear-gradient(to right, #fff 50%, #000 50%);
+  background-size: 4em 2.5em;
+  background-repeat: repeat-x;
+  transition: background-position 0.5s linear;
+  will-change: background-position;
+}
+
+.stripe:nth-of-type(4n+1) {
+  background-position-x: -0.6em;
+}
+
+.stripe:nth-of-type(4n+3) {
+  background-position-x: 0.6em;
+}
+
+#reset:checked ~ .box .stripe,
+.box:hover .stripe {
+  background-position: 0 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  text-align: center;
+  font-family: serif;
+}
+
+.intro {
+  width: 80%;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed #999;
+  line-height: 1;
+  color: #333;
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: .5em;
+  padding: .5em;
+  font-size: .8em;
+  font-style: italic;
+  text-align: right;
+  background-color: rgba(255, 255, 255, 0.8);
+  opacity: .8;
+}
+
+.info a {
+  color: inherit;
+}
+
+#reset {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.ctrl {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin: .5em;
+  padding: .5em;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+label {
+  display: block;
+  margin-bottom: .3em;
+  cursor: pointer;
+}
+
+label::before {
+  content: "v";
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: .3em;
+  border: 1px dotted #333;
+  text-align: center;
+  line-height: 1;
+  vertical-align: baseline;
+  color: transparent;
+}
+
+#reset:checked ~ .ctrl label[for="reset"]::before {
+  color: inherit;
+}

@@ -1,0 +1,137 @@
+@-webkit-keyframes rotate {
+  0% {
+    -webkit-transform: rotateZ(45deg);
+            transform: rotateZ(45deg);
+  }
+  25% {
+    -webkit-transform: rotateZ(135deg);
+            transform: rotateZ(135deg);
+  }
+  50% {
+    -webkit-transform: rotateZ(225deg);
+            transform: rotateZ(225deg);
+  }
+  75% {
+    -webkit-transform: rotateZ(315deg);
+            transform: rotateZ(315deg);
+  }
+  100% {
+    -webkit-transform: rotateZ(405deg);
+            transform: rotateZ(405deg);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    -webkit-transform: rotateZ(45deg);
+            transform: rotateZ(45deg);
+  }
+  25% {
+    -webkit-transform: rotateZ(135deg);
+            transform: rotateZ(135deg);
+  }
+  50% {
+    -webkit-transform: rotateZ(225deg);
+            transform: rotateZ(225deg);
+  }
+  75% {
+    -webkit-transform: rotateZ(315deg);
+            transform: rotateZ(315deg);
+  }
+  100% {
+    -webkit-transform: rotateZ(405deg);
+            transform: rotateZ(405deg);
+  }
+}
+
+.circle {
+  width: 3em;
+  height: 3em;
+  margin: 0.125em;
+  border: 1.5em solid #dbdbdb;
+  float: left;
+  border-radius: 50%;
+  -webkit-transform: rotateZ(45deg);
+          transform: rotateZ(45deg);
+  -webkit-animation: rotate 2s infinite ease-in-out;
+          animation: rotate 2s infinite ease-in-out;
+}
+
+.circle:nth-of-type(4n+1) {
+  border-right-color: transparent;
+  -webkit-animation-direction: reverse;
+          animation-direction: reverse;
+}
+
+.circle:nth-of-type(4n+2) {
+  border-bottom-color: transparent;
+}
+
+.circle:nth-of-type(4n+3) {
+  border-top-color: transparent;
+}
+
+.circle:nth-of-type(4n+4) {
+  border-left-color: transparent;
+  -webkit-animation-direction: reverse;
+          animation-direction: reverse;
+}
+
+.circles {
+  float: left;
+  width: 6.5em;
+}
+
+.box {
+  width: 19.5em;
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: #000;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  padding-top: 1px;
+  text-align: center;
+  background-color: #fff;
+}
+
+.intro {
+  width: 80%;
+  max-width: 24em;
+  padding-bottom: 1rem;
+  margin: 0.5em auto 1em;
+  text-transform: capitalize;
+  border-bottom: 1px dashed #999;
+}
+
+.intro small {
+  display: block;
+  opacity: .5;
+  font-style: italic;
+  text-transform: none;
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  color: #666;
+}
+
+.info a {
+  opacity: .5;
+}
