@@ -78,7 +78,7 @@
   };
 
   var render = function() {
-    style.textContent = '.hexagon, .hexagon::before, .hexagon::after {color: ' + rgba(data.color.hex, data.color.alpha) + '; border-radius: ' + [data.radius.h, data.radius.unit, ' / ', data.radius.v, data.radius.unit].join('') + ';}';
+    style.textContent = '.hexagon, .hexagon::before, .hexagon::after {\n  color: ' + rgba(data.color.hex, data.color.alpha) + ';\n  border-radius: ' + [data.radius.h, data.radius.unit, ' / ', data.radius.v, data.radius.unit].join('') + ';\n}';
 
     style.className = '';
 
