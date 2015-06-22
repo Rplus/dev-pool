@@ -18,123 +18,88 @@
           transform: rotate(9deg);
 }
 
-.circle:nth-of-type(1) {
+.circle .circle {
   -webkit-transform: rotate(9deg);
           transform: rotate(9deg);
+}
+
+.circle:nth-of-type(1) {
   z-index: 19;
 }
 
 .circle:nth-of-type(2) {
-  -webkit-transform: rotate(0deg);
-          transform: rotate(0deg);
   z-index: 18;
 }
 
 .circle:nth-of-type(3) {
-  -webkit-transform: rotate(9deg);
-          transform: rotate(9deg);
   z-index: 17;
 }
 
 .circle:nth-of-type(4) {
-  -webkit-transform: rotate(0deg);
-          transform: rotate(0deg);
   z-index: 16;
 }
 
 .circle:nth-of-type(5) {
-  -webkit-transform: rotate(9deg);
-          transform: rotate(9deg);
   z-index: 15;
 }
 
 .circle:nth-of-type(6) {
-  -webkit-transform: rotate(0deg);
-          transform: rotate(0deg);
   z-index: 14;
 }
 
 .circle:nth-of-type(7) {
-  -webkit-transform: rotate(9deg);
-          transform: rotate(9deg);
   z-index: 13;
 }
 
 .circle:nth-of-type(8) {
-  -webkit-transform: rotate(0deg);
-          transform: rotate(0deg);
   z-index: 12;
 }
 
 .circle:nth-of-type(9) {
-  -webkit-transform: rotate(9deg);
-          transform: rotate(9deg);
   z-index: 11;
 }
 
 .circle:nth-of-type(10) {
-  -webkit-transform: rotate(0deg);
-          transform: rotate(0deg);
   z-index: 10;
 }
 
 .circle:nth-of-type(11) {
-  -webkit-transform: rotate(9deg);
-          transform: rotate(9deg);
   z-index: 9;
 }
 
 .circle:nth-of-type(12) {
-  -webkit-transform: rotate(0deg);
-          transform: rotate(0deg);
   z-index: 8;
 }
 
 .circle:nth-of-type(13) {
-  -webkit-transform: rotate(9deg);
-          transform: rotate(9deg);
   z-index: 7;
 }
 
 .circle:nth-of-type(14) {
-  -webkit-transform: rotate(0deg);
-          transform: rotate(0deg);
   z-index: 6;
 }
 
 .circle:nth-of-type(15) {
-  -webkit-transform: rotate(9deg);
-          transform: rotate(9deg);
   z-index: 5;
 }
 
 .circle:nth-of-type(16) {
-  -webkit-transform: rotate(0deg);
-          transform: rotate(0deg);
   z-index: 4;
 }
 
 .circle:nth-of-type(17) {
-  -webkit-transform: rotate(9deg);
-          transform: rotate(9deg);
   z-index: 3;
 }
 
 .circle:nth-of-type(18) {
-  -webkit-transform: rotate(0deg);
-          transform: rotate(0deg);
   z-index: 2;
 }
 
 .circle:nth-of-type(19) {
-  -webkit-transform: rotate(9deg);
-          transform: rotate(9deg);
   z-index: 1;
 }
 
 .circle:nth-of-type(20) {
-  -webkit-transform: rotate(0deg);
-          transform: rotate(0deg);
   z-index: 0;
 }
 
@@ -211,7 +176,7 @@ body {
 
 .intro {
   width: 80%;
-  max-width: 30rem;
+  max-width: 60rem;
   padding-bottom: 1rem;
   margin: 0.5em auto 1em;
   text-transform: capitalize;
