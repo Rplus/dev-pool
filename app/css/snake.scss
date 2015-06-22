@@ -89,9 +89,12 @@ $svg: '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http:/
     transform: rotate(180deg / $circle-count);
   }
 
+  .circle {
+    transform: rotate(180deg / $circle-count);
+  }
+
   @for $i from 1 through $circle-count {
     &:nth-of-type(#{$i}) {
-      transform: rotate($i % 2 * 180deg / $circle-count);
       z-index: $circle-count - $i;
     }
   }
@@ -150,7 +153,7 @@ body {
 
 .intro {
   width: 80%;
-  max-width: 30rem;
+  max-width: 60rem;
   padding-bottom: 1rem;
   margin: .5em auto 1em;
   text-transform: capitalize;
