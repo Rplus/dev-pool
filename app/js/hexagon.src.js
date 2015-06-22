@@ -92,6 +92,9 @@
       _input.addEventListener('change', function() {
         renderWithUpdate(this.id);
       });
+      _input.addEventListener('input', function() {
+        renderWithUpdate(this.id);
+      });
     });
 
     // bind reset
@@ -101,6 +104,7 @@
   };
 
   var renderWithUpdate = function(_id) {
+    console.log(this, 333);
     updateData(false, _id);
     render();
   };
