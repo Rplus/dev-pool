@@ -1,0 +1,178 @@
+$color--darker = #000;
+$color--lighter = #fff;
+
+$unit-size = 30px;
+$unit-per-line = 15;
+$box-size = $unit-size * $unit-per-line;
+$center-number = ceil($unit-per-line / 2, 0);
+$shift-ratio = 5%;
+
+///
+/// major style
+///
+
+$unit-with-dot {
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: 30%;
+    height: 30%;
+    background-color: currentColor;
+  }
+
+  &::before { top:    $shift-ratio;}
+  &::after  { bottom: $shift-ratio;}
+}
+
+$dot-left   { left: $shift-ratio; }
+$dot-right  { right: $shift-ratio; }
+$dot-top    { top: $shift-ratio; }
+$dot-bottom { bottom: $shift-ratio; }
+
+square($n) {
+  abs($n) * abs($n)
+}
+
+dot-dir($dx = 0, $dy = 0) {
+  @extend $unit-with-dot;
+
+  $dir-x = ($dx ? ($dx > 0 ? 1 : -1) : 0);
+  $dir-y = ($dy ? ($dy > 0 ? 1 : -1) : 0);
+
+  $product = $dir-x * $dir-y;
+
+  if ($product) {
+    if ($product > 0) {
+      &::before {
+        @extend $dot-left;
+      }
+      &::after  {
+        @extend $dot-right;
+      }
+    } else {
+      &::before {
+        @extend $dot-right;
+      }
+      &::after  {
+        @extend $dot-left;
+      }
+    }
+  } else {
+    if ($dir-x > 0) {
+      &::before,
+      &::after  {
+        @extend $dot-left;
+      }
+    } else if ($dir-x < 0) {
+      &::before,
+      &::after  {
+        @extend $dot-right;
+      }
+    }
+
+    if ($dir-y > 0) {
+      &::before { bottom: 5%; left: 5%; top: auto; }
+      &::after  { bottom: 5%; right: 5%; top: auto; }
+    } else if ($dir-y < 0) {
+      &::before { top: 5%; left: 5%; }
+      &::after  { top: 5%; right: 5%; }
+    }
+
+  }
+}
+
+.unit {
+  position: relative;
+  float: left;
+  width: $unit-size;
+  height: $unit-size;
+
+  &:nth-of-type(odd) {
+    color: $color--lighter;
+    background-color: $color--darker;
+  }
+
+  &:nth-of-type(even) {
+    color: $color--darker;
+    background-color: $color--lighter;
+  }
+
+  for $i in 1..($unit-per-line * $unit-per-line) {
+    $y = ceil($i / $unit-per-line, 0);
+    $x = $i - ($y - 1) * $unit-per-line;
+    $dx = $x - $center-number;
+    $dy = $center-number - $y;
+
+    $squareSum = square($dx) + square($dy);
+
+    &:nth-of-type({$i}) {
+      if ($squareSum < square(6.25) && $squareSum) {
+        dot-dir($dx, $dy);
+      }
+    }
+  }
+}
+
+.box {
+  position: relative;
+  width: $box-size;
+  height: $box-size;
+  margin: 0 auto;
+
+  overflow: hidden;
+}
+
+
+///
+/// reset style
+///
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 95vh;
+  padding-top: 1px;
+  text-align: center;
+  background-color: #2b2e2d;
+  color: #e4e3c8;
+}
+
+.intro {
+  width: 80%;
+  max-width: 45rem;
+  padding-bottom: 1rem;
+  margin: .5em auto 1em;
+  border-bottom: 1px dashed #999;
+  text-transform: capitalize;
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    font-size: 65%;
+    text-transform: none;
+  }
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  color: #ccc;
+
+  a {
+  color: inherit;
+  }
+}
