@@ -12,7 +12,7 @@ $cover-ratio = .5;
 
 .box--inner {
   height: 100%;
-  background-image: conic-gradient($color--darker 75%, transparent 0);
+  background-image: linear-gradient(transparent 50%, #000 50%), linear-gradient(90deg, transparent 50%, #000 50%);
   background-size: floor($box-size / $dot-count) floor($box-size / $dot-count);
 
   border-top: floor($box-size * .5 / $dot-count) solid;
