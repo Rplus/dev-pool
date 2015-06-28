@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title Trello Navigation by Aurélien Salomon
+    link(rel="stylesheet", href="../../.temp/font-awesome.min.css")
+    link(rel="stylesheet", href="../css/trello-navigation.css")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+
+- var lists = [];
+- lists[0] = {name: "UI"};
+- lists[1] = {name: "RD"};
+- lists[2] = {name: "SA"};
+- lists[3] = {name: "User Test blabla"};
+- lists[4] = {name: "PM"};
+- lists[5] = {name: "M1"};
+- lists[6] = {name: "M2"};
+- lists[7] = {name: "M3"};
+
+  body
+    .mobile-wrap
+      .statusbar
+        .left
+        .right
+          i.fa.fa-wifi
+          i.fa.fa-signal
+          i.fa.fa-heart-o
+          time.time(datetime="2015-06-25T12:30:30") 12:30
+
+      header.main-header
+        .toolbar
+          i.fa.fa-arrow-left
+          h2.main-title My board
+          i.fa.fa-search
+          i.fa.fa-ellipsis-v
+
+      main.main-content.is-mini
+
+        nav.minimap
+          ul.mini-lists
+            each minilist, i in lists
+              li.mini-list(data-title="#{minilist.name}", class=(i === 0)?'active':'')
+
+        .lists-wrap
+          ul.lists
+            each list, i in lists
+              li.list
+                h3.list-header
+                  i.fa.fa-ellipsis-v
+                  | #{list.name}
+                  i.primary-plus +
+                .list-items
+                  - list.items = Math.round(Math.random() * 5) + 5;
+                  - while (list.items--)
+                    .list-item
+                      - list.tags = (Math.round(Math.random() * 1000) + '').match(/[1-5]/g);
+                      if list.tags
+                        .list-tags
+                          each tag, i in list.tags
+                            span.list-tag(class="list-tag--#{list.tags[i]}")
+                        if Math.random() > .3
+                          //- img.list-avatar(src="../../.temp/50")
+                          img.list-avatar(src="http://placekitten.com/g/50/50")
+                      else
+                        //- .list-thumb(style="background-image: url(../../.temp/210)")
+                        .list-thumb(style="background-image: url(http://placekitten.com/g/300/210)")
+
+      .click-circle
+
+    //- h1.intro Trello Navigation
+      small swip to navigation
+
+    //- blockquote.info
+      | inspired from <a href="https://dribbble.com/shots/2114816-Trello-Navigation">Dribbble - Trello Navigation by Aurélien Salomon</a>
+
+    script(src="../../.temp/jquery.min.js")
+    script(src="../js/trello-navigation.min.js")
