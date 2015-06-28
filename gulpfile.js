@@ -69,6 +69,12 @@ gulp.task('serve', ['default'], function () {
   browserSync({
     browser: 'google-chrome',
     notify: false,
+    ghostMode: {
+      clicks: false,
+      scroll: false,
+      forms: false
+    },
+    scrollThrottle: 500,
     startPath: ($.util.env.p ? '_dist/html/' + $.util.env.p + '.html' : null),
     server: ''
   });
