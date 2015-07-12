@@ -1,0 +1,166 @@
+$ani-duration: 20s;
+$ani-duration--run: .5s;
+
+%fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+///
+/// major style
+///
+
+.lonelysquare {
+  @extend %fill;
+  width: 200px;
+  height: 200px;
+  margin: auto;
+  box-shadow: 0 0 0 1px;
+
+  &::before {
+    @extend %fill;
+    content: "";
+    z-index: 2;
+    background-color: #000;
+    background-image: linear-gradient(to right, #000 percentage(5/6), transparent percentage(5/6));
+    // background-size: 200px 100%;
+    background-position: 0 -200px;
+    background-repeat: repeat-x;
+
+    width: 3300px;
+    transform: scaleX((200 / 3300));
+    transform-origin: 0 0;
+    background-size: 60px 100%;
+
+    #switcher:checked ~ .box & {
+      animation: filter $ani-duration linear 1 forwards;
+    }
+  }
+
+  &::after {
+    @extend %fill;
+    content: "";
+    opacity: 0;
+    background: url('http://images.weserv.nl/?url=i.imgur.com/aV2BNeU.jpg&w=200') 50% no-repeat;
+
+    #switcher:checked ~ .box & {
+      animation: fade-in $ani-duration linear 1 forwards;
+    }
+  }
+
+}
+
+@keyframes filter {
+  0%   { background-color: #000;}
+  5%   { background-color: transparent;}
+  10%  { background-position: 0 -200px;}
+  20%  { background-position: 0 0;}
+  80%  { background-position: 2200px 0;}
+  95%  { background-position: 2200px -200px; background-color: transparent;}
+  100% { background-color: #000;}
+}
+
+@keyframes fade-in {
+  0%, 100% { opacity: 0;}
+  10%, 90% { opacity: 1;}
+}
+
+
+
+//////
+
+.box {
+  position: relative;
+  overflow: hidden;
+  width: 600px;
+  height: 600px;
+  margin: 0 auto;
+  transform-style: preserve-3d;
+  background-color: #fff;
+
+  &:hover  * {animation-play-state: paused; }
+  &:active * {animation-play-state: running; }
+}
+
+
+
+///
+/// reset style
+///
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  padding-top: 1px;
+  padding-bottom: 3em;
+  text-align: center;
+  background-color: #eee;
+  color: #333;
+}
+
+.intro {
+  width: 80%;
+  max-width: 30rem;
+  padding-bottom: 1rem;
+  margin: .5em auto 1em;
+  text-transform: capitalize;
+  border-bottom: 1px dashed #999;
+
+  small {
+    display: block;
+    opacity: .5;
+  }
+
+  label {
+    cursor: pointer;
+
+    &::before {
+      content: "";
+      display: inline-block;
+      vertical-align: middle;
+      width: 1em;
+      height: 1em;
+      box-shadow: inset 0 0 0 .1em;
+      transform: scale(.7);
+      opacity: .75;
+
+      #switcher:checked + & {
+        box-shadow: inset 0 0 0 .1em,
+                    inset 0 0 0 .25em #fff,
+                    inset 0 0 0 1em;
+      }
+    }
+  }
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  color: #999;
+
+  a {
+    color: inherit;
+  }
+}
+
+#switcher {
+  position: absolute;
+  opacity: 0;
+  clip: rect(0,0,0,0);
+}
