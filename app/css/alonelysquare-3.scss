@@ -1,0 +1,168 @@
+$ani-duration: 5s;
+$ball-count: 3;
+
+%fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+///
+/// major style
+///
+
+.lonelysquare {
+  @extend %fill;
+  width: 200px;
+  height: 200px;
+  margin: auto;
+  color: #000;
+  background-color: currentColor;
+
+  #switcher:checked ~ .box & {
+    animation: rotate $ani-duration*2 cubic-bezier(0.7, 0, 0.3, 1.05) forwards,
+               round $ani-duration*4 forwards;
+  }
+}
+
+.ball {
+  @extend %fill;
+  mix-blend-mode: multiply;
+
+  &::before {
+    @extend %fill;
+    content: "";
+    border-radius: 50%;
+    background-color: currentColor;
+
+    #switcher:checked ~ .box & {
+      animation: centrifuge $ani-duration $ani-duration 2 alternate forwards;
+      animation-play-state: inherit;
+    }
+  }
+
+  @for $i from 1 through $ball-count {
+    &:nth-of-type(#{$i}) {
+      transform: rotate((($i + .25) * 360deg / $ball-count));
+      color: hsl((180 + $i * 360 / $ball-count), 100%, 50%);
+    }
+  }
+}
+
+@keyframes rotate {
+  0%   { transform: rotate( 0turn);}
+  100% { transform: rotate(30turn);}
+}
+
+@keyframes centrifuge {
+  0%   { transform: translateX( 0%);}
+  100% { transform: translateX(40%);}
+}
+
+@keyframes round {
+  0%, 100% { border-radius: 0; background-color: currentColor;}
+  24% { background-color: currentColor; }
+  76% { background-color: currentColor; }
+  25%, 75% { border-radius: 50%; background-color: transparent;}
+}
+
+//////
+
+.box {
+  position: relative;
+  overflow: hidden;
+  width: 600px;
+  height: 600px;
+  margin: 0 auto;
+  transform-style: preserve-3d;
+  background-color: #fff;
+
+  #switcher:checked ~ & {
+    &:hover  * { animation-play-state: paused }
+    &:active * { animation-play-state: running }
+  }
+}
+
+
+
+///
+/// reset style
+///
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  padding-top: 1px;
+  padding-bottom: 3em;
+  text-align: center;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.intro {
+  width: 80%;
+  max-width: 30rem;
+  padding-bottom: 1rem;
+  margin: .5em auto 1em;
+  text-transform: capitalize;
+  border-bottom: 1px dashed #999;
+
+  small {
+    display: block;
+    text-transform: none;
+    font-weight: 100;
+    opacity: .5;
+  }
+
+  label {
+    cursor: pointer;
+
+    &::before {
+      content: "";
+      display: inline-block;
+      vertical-align: middle;
+      width: 1em;
+      height: 1em;
+      box-shadow: inset 0 0 0 .1em;
+      transform: scale(.7);
+      opacity: .75;
+
+      #switcher:checked + & {
+        box-shadow: inset 0 0 0 .1em,
+                    inset 0 0 0 .25em #fff,
+                    inset 0 0 0 1em;
+      }
+    }
+  }
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  color: #999;
+
+  a {
+    color: inherit;
+  }
+}
+
+#switcher {
+  position: absolute;
+  opacity: 0;
+  clip: rect(0,0,0,0);
+}
