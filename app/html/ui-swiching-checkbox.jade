@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title ui-swiching-checkbox
+    meta(name="viewport", content="width=device-width")
+    link(rel="stylesheet", href="../css/ui-swiching-checkbox.css")
+
+  body
+
+    h1.intro Checkbox switching done efficient
+      small
+
+    - var i = 7;
+    .box
+      header.acc-info
+        img.acc-info__avatar(src="", alt="", width="50", height="50")
+        h2.acc-info__mail(data-company="google")= Math.random().toString(36).replace(/[^a-z]+/g, '') + '@gmail.com'
+
+      ul.items
+        - while(i--)
+          li.item
+            .item__info
+              h3.item__info__title='' + Math.random().toString(36).replace(/[^a-z]+/g, '')
+              .item__info__status
+            .item__action
+              input(type="checkbox", id="item-input-#{i}")
+              label(for="item-input-#{i}")
+
+
+    blockquote.info
+      | inspired from 
+      a(href="https://dribbble.com/shots/2147279-Checkbox-switching-done-efficient") Checkbox switching done efficient 
+      | by 
+      a(href="https://dribbble.com/MiraVitula") Miroslav Vitula

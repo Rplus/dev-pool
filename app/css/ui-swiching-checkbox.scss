@@ -1,0 +1,98 @@
+
+%fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+///
+/// major style
+///
+
+
+
+//////
+
+
+
+///
+/// reset style
+///
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  padding-top: 1px;
+  padding-bottom: 3em;
+  text-align: center;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.intro {
+  width: 80%;
+  max-width: 36rem;
+  padding-bottom: 1rem;
+  margin: .5em auto 1em;
+  text-transform: capitalize;
+  border-bottom: 1px dashed #999;
+
+  small {
+    display: block;
+    text-transform: none;
+    font-weight: 100;
+    opacity: .5;
+  }
+
+  label {
+    cursor: pointer;
+
+    &::before {
+      content: "";
+      display: inline-block;
+      vertical-align: middle;
+      width: 1em;
+      height: 1em;
+      box-shadow: inset 0 0 0 .1em;
+      transform: scale(.7);
+      opacity: .75;
+
+      #switcher:checked + & {
+        box-shadow: inset 0 0 0 .1em,
+                    inset 0 0 0 .25em #fff,
+                    inset 0 0 0 1em;
+      }
+    }
+  }
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  color: #999;
+
+  a {
+    color: inherit;
+  }
+}
+
+#switcher {
+  position: absolute;
+  opacity: 0;
+  clip: rect(0,0,0,0);
+}
