@@ -20,6 +20,7 @@ jQuery(function($) {
   var touchFactor = {
     start: false,
     move: false,
+    currentIndex: null,
     calcLock: false,
     isSupportTouch: ('ontouchstart' in window)
   };
@@ -52,12 +53,16 @@ jQuery(function($) {
     _target = doc.elementFromPoint(_pos.clientX, _pos.clientY);
     $item = $(_target).closest('.item');
 
-    if (!$item.length) {
+    _index = $item.index();
+    // _index = input.eles.indexOf($item[0]);
+
+    if (!$item.length || _index === touchFactor.currentIndex) {
       touchFactor.calcLock = false;
       return;
     }
 
-    _index = $item.index();
+    touchFactor.currentIndex = _index;
+
     _input = $item[0].querySelector('.item-input');
 
     // console.log(_index, _target.tagName, _input.checked);
@@ -69,6 +74,7 @@ jQuery(function($) {
     // change checked if diff status
     if (input.status[_index] === _input.checked) {
       _input.checked = !input.status[_index];
+      input.status[_index] = !input.status[_index];
     }
 
     requestAnimationFrame(function() {
