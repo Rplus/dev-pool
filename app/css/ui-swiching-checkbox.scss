@@ -24,6 +24,7 @@ $checkbox-size: 20px;
 
 .acc-info__mail {
   font-weight: normal;
+  padding-left: 10px;
   color: #666;
 
   &::after {
@@ -204,6 +205,7 @@ body {
     display: block;
     text-transform: none;
     font-weight: 100;
+    font-style: italic;
     opacity: .5;
   }
 
