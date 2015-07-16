@@ -3,14 +3,7 @@
 jQuery(function($) {
   'use strict';
 
-  var DEBUG = false;
-
   var doc = document;
-  var log = function() {
-    if (DEBUG) {
-      console.log(arguments);
-    }
-  };
 
   var $ul = $('.items');
 
@@ -67,11 +60,11 @@ jQuery(function($) {
     _index = $item.index();
     _input = $item.children('.item-input')[0];
 
-    log(_index, _target.tagName, _input.checked);
+    // console.log(_index, _target.tagName, _input.checked);
 
     touchFactor.calcLock = false;
 
-    log(_input.checked, input.status[_index]);
+    // console.log(_input.checked, input.status[_index]);
 
     // change checked if diff status
     if (input.status[_index] === _input.checked) {
@@ -88,7 +81,7 @@ jQuery(function($) {
     for (; i < input.len; i++) {
       input.status[i] = input.eles[i].checked;
     }
-    log(input.status);
+    console.log(input.status);
   };
 
   $ul.on(touchFactor.evt.start, function() {
