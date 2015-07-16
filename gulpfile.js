@@ -65,7 +65,7 @@ gulp.task('html', function () {
 gulp.task('clean', del.bind(null, [path.distDir]));
 gulp.task('clean:css', del.bind(null, [path.distDir + '/css']));
 
-gulp.task('serve', ['default'], function () {
+gulp.task('serve', function () {
   browserSync({
     browser: 'google-chrome',
     notify: false,
