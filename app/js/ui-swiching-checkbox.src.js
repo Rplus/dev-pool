@@ -5,10 +5,10 @@ jQuery(function($) {
 
   var doc = document;
 
-  var $ul = $('.items');
+  var ul = doc.querySelector('.items');
 
   var input = (function() {
-    var eles = $ul.find('.item-input');
+    var eles = [].slice.call(ul.querySelectorAll('.item-input'));
 
     return {
       eles: eles,
@@ -58,7 +58,7 @@ jQuery(function($) {
     }
 
     _index = $item.index();
-    _input = $item.children('.item-input')[0];
+    _input = $item[0].querySelector('.item-input');
 
     // console.log(_index, _target.tagName, _input.checked);
 
@@ -84,7 +84,7 @@ jQuery(function($) {
     console.log(input.status);
   };
 
-  $ul.on(touchFactor.evt.start, function() {
+  $(ul).on(touchFactor.evt.start, function() {
     touchFactor.start = true;
     cachedStatus();
   })
