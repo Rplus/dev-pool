@@ -3,33 +3,35 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     title ui-swiching-checkbox
-    meta(name="viewport", content="width=device-width")
+    meta(name="viewport", content="width=device-width, initial-scale=.75, user-scalable=1")
     link(rel="stylesheet", href="../css/ui-swiching-checkbox.css")
+    script(src="https://code.jquery.com/jquery-2.1.1.min.js")
+    script(src="../js/ui-swiching-checkbox.min.js")
 
   body
+    .inner
 
-    h1.intro Checkbox switching done efficient
-      small
+      h1.intro Checkbox switching done efficient
+        small
 
-    - var i = 7;
-    .box
-      header.acc-info
-        img.acc-info__avatar(src="", alt="", width="50", height="50")
-        h2.acc-info__mail(data-company="google")= Math.random().toString(36).replace(/[^a-z]+/g, '') + '@gmail.com'
+      - var i = 7;
+      .box
+        header.acc-info
+          img.acc-info__avatar(src="http://images.weserv.nl/?url=placekitten.com/g/50/50", alt="", width="50", height="50")
+          h2.acc-info__mail(data-company="google")= Math.random().toString(36).replace(/[^a-z]+/g, '') + '@gmail.com'
 
-      ul.items
-        - while(i--)
-          li.item
-            .item__info
-              h3.item__info__title='' + Math.random().toString(36).replace(/[^a-z]+/g, '')
-              .item__info__status
-            .item__action
-              input(type="checkbox", id="item-input-#{i}")
-              label(for="item-input-#{i}")
+        ul.items
+          - while(i--)
+            li.item
+              input.item-input(type="checkbox", id="item-input-#{i}")
+              label.item-label(for="item-input-#{i}")
+                .item__info
+                  h3.item__info__title(data-state--on="Syncing...", data-state--off="Sync is OFF")='' + Math.random().toString(36).replace(/[^a-z]+/g, '')
+                .item__action
+                  .item__checkbox
 
-
-    blockquote.info
-      | inspired from 
-      a(href="https://dribbble.com/shots/2147279-Checkbox-switching-done-efficient") Checkbox switching done efficient 
-      | by 
-      a(href="https://dribbble.com/MiraVitula") Miroslav Vitula
+      blockquote.info
+        | inspired from 
+        a(href="https://dribbble.com/shots/2147279-Checkbox-switching-done-efficient") Checkbox switching done efficient 
+        | by 
+        a(href="https://dribbble.com/MiraVitula") Miroslav Vitula
