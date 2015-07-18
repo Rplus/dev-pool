@@ -5,6 +5,8 @@ jQuery(function($) {
 
   var SwitchCheckbox = function(wrapperEle, itemClass, inputSelector) {
 
+    var _thisSC = this;
+
     var SC = {
       input: (function() {
         var _inputs = wrapperEle.querySelectorAll('.item-input');
@@ -54,7 +56,7 @@ jQuery(function($) {
       return touchFactor.isSupportTouch ? touchFactor.events.mobile : touchFactor.events.desktop;
     })();
 
-    var updatePos = function(e, state) {
+    this.updatePos = function(e, state) {
       if (!touchFactor.start) { return; }
 
       var _pos = touchFactor.isSupportTouch ? e.originalEvent.touches[0] : e;
@@ -64,10 +66,10 @@ jQuery(function($) {
         y: _pos.clientY
       };
 
-      calcIndex(state);
+      _thisSC.calcIndex(state);
     };
 
-    var calcIndex = function(state) {
+    this.calcIndex = function(state) {
       if (!touchFactor.start) { return; }
 
       SC.ind.new = $(document.elementFromPoint(SC.pos.x, SC.pos.y)).closest(itemClass).index();
@@ -86,11 +88,11 @@ jQuery(function($) {
         // update SC.ind.current
         SC.ind.current = SC.ind.new;
 
-        updateCheckedState();
+        _thisSC.updateCheckedState();
       }
     };
 
-    var updateCheckedState = function() {
+    this.updateCheckedState = function() {
       if (!touchFactor.start) { return; }
       var _start = SC.ind.start;
       var _cureent = SC.ind.current;
@@ -112,7 +114,7 @@ jQuery(function($) {
 
     };
 
-    var cachedStatus = function() {
+    this.cachedStatus = function() {
       var i = 0;
       for (; i < SC.input.len; i++) {
         SC.state.start[i] = SC.input.eles[i].checked;
@@ -121,9 +123,9 @@ jQuery(function($) {
 
     $(wrapperEle).on(touchFactor.evt.start, function(e) {
       touchFactor.start = true;
-      cachedStatus();
+      _thisSC.cachedStatus();
 
-      updatePos(e, 'start');
+      _thisSC.updatePos(e, 'start');
     })
     .on(touchFactor.evt.move, function(e) {
       // disable select text in desktop &
@@ -131,7 +133,7 @@ jQuery(function($) {
       e.preventDefault();
       e.stopPropagation();
 
-      updatePos(e);
+      _thisSC.updatePos(e);
     })
     .on(touchFactor.evt.end, function() {
       touchFactor.start = false;
@@ -139,6 +141,7 @@ jQuery(function($) {
 
   };
 
+  // init a new component with swichCheckbox
   var initInput1 = new SwitchCheckbox(document.querySelector('.items'), '.item', '.item-input');
 
 });
