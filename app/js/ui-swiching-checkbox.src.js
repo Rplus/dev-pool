@@ -3,7 +3,7 @@
 jQuery(function($) {
   'use strict';
 
-  var SwitchCheckbox = function(wrapperEle, inputSelector) {
+  var SwitchCheckbox = function(wrapperEle, itemClass, inputSelector) {
 
     var SC = {
       input: (function() {
@@ -70,7 +70,7 @@ jQuery(function($) {
     var calcIndex = function(state) {
       if (!touchFactor.start) { return; }
 
-      SC.ind.new = $(document.elementFromPoint(SC.pos.x, SC.pos.y)).closest('.item').index();
+      SC.ind.new = $(document.elementFromPoint(SC.pos.x, SC.pos.y)).closest(itemClass).index();
 
       // not found || outside
       if (-1 === SC.ind.new) { return; }
@@ -139,6 +139,6 @@ jQuery(function($) {
 
   };
 
-  var initInput1 = new SwitchCheckbox(document.querySelector('.items'), '.item-input');
+  var initInput1 = new SwitchCheckbox(document.querySelector('.items'), '.item', '.item-input');
 
 });
