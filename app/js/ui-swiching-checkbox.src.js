@@ -22,23 +22,23 @@ jQuery(function($) {
     move: false,
     currentIndex: null,
     calcLock: false,
+    events: {
+      mobile: {
+        start: 'touchstart',
+        move: 'touchmove',
+        end: 'touchend'
+      },
+      desktop: {
+        start: 'mousedown',
+        move: 'mousemove',
+        end: 'mouseup'
+      }
+    },
     isSupportTouch: ('ontouchstart' in window)
   };
 
   touchFactor.evt = (function() {
-    var mobileEvent = {
-      start: 'touchstart',
-      move: 'touchmove',
-      end: 'touchend'
-    };
-
-    var desktopEvent = {
-      start: 'mousedown',
-      move: 'mousemove',
-      end: 'mouseup'
-    };
-
-    return touchFactor.isSupportTouch ? mobileEvent : desktopEvent;
+    return touchFactor.isSupportTouch ? touchFactor.events.mobile : touchFactor.events.desktop;
   })();
 
   var renewStatus = function(e) {
