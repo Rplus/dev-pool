@@ -3,8 +3,9 @@
 jQuery(function($) {
   'use strict';
 
-  var ul = document.querySelector('.items');
-
+  var SwitchCheckbox = function(wrapperEle, inputSelector) {
+  //
+  var ul = wrapperEle;
   var SC = {
     input: (function() {
       var _inputs = ul.querySelectorAll('.item-input');
@@ -130,5 +131,10 @@ jQuery(function($) {
   .on(touchFactor.evt.end, function() {
     touchFactor.start = false;
   });
+
+  //
+  };
+
+  SwitchCheckbox(document.querySelector('.items'), '.item-input');
 
 });
