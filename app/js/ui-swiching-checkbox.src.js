@@ -7,15 +7,30 @@ jQuery(function($) {
 
   var ul = doc.querySelector('.items');
 
-  var input = (function() {
-    var eles = [].slice.call(ul.querySelectorAll('.item-input'));
+  var SC = {
+    input: (function() {
+      var _inputs = ul.querySelectorAll('.item-input');
 
-    return {
-      eles: eles,
-      len: eles.length,
-      status: []
-    };
-  })();
+      return {
+        eles: [].slice.call(_inputs),
+        len: _inputs.length,
+        state: []
+      };
+    })(),
+    ind: {
+      start: null,
+      current: null,
+      new: null
+    },
+    pos: {
+      x: 0,
+      y:0
+    },
+    state: {
+      start: [],
+      current: []
+    }
+  };
 
   var touchFactor = {
     start: false,
@@ -41,65 +56,78 @@ jQuery(function($) {
     return touchFactor.isSupportTouch ? touchFactor.events.mobile : touchFactor.events.desktop;
   })();
 
-  var renewStatus = function(e) {
-    if (!touchFactor.start || touchFactor.calcLock) { return; }
+  var updatePos = function(e, state) {
+    if (!touchFactor.start) { return; }
 
-    // lock renew
-    touchFactor.calcLock = true;
+    var _pos = touchFactor.isSupportTouch ? e.originalEvent.touches[0] : e;
 
-    var _pos, _target, _input, $item, _index;
+    SC.pos = {
+      x: _pos.clientX,
+      y: _pos.clientY
+    };
 
-    _pos = touchFactor.isSupportTouch ? e.originalEvent.touches[0] : e;
-    _target = doc.elementFromPoint(_pos.clientX, _pos.clientY);
-    $item = $(_target).closest('.item');
+    calcIndex(state);
+  };
 
-    _index = $item.index();
-    // _index = input.eles.indexOf($item[0]);
+  var calcIndex = function(state) {
+    if (!touchFactor.start) { return; }
 
-    if (!$item.length || _index === touchFactor.currentIndex) {
-      touchFactor.calcLock = false;
-      return;
+    SC.ind.new = $(doc.elementFromPoint(SC.pos.x, SC.pos.y)).closest('.item').index();
+
+    if (-1 === SC.ind.new) { return; }
+
+    if (state && 'start' === state) {
+      SC.ind.start = SC.ind.new;
+      SC.ind.current = SC.ind.new;
     }
 
-    touchFactor.currentIndex = _index;
+    if (SC.ind.new !== SC.ind.current) {
+      // update SC.ind.current
+      SC.ind.current = SC.ind.new;
 
-    _input = $item[0].querySelector('.item-input');
+      updateCheckedState();
+    }
+  };
 
-    // console.log(_index, _target.tagName, _input.checked);
+  var updateCheckedState = function() {
+    if (!touchFactor.start) { return; }
+    var _start = SC.ind.start;
+    var _cureent = SC.ind.current;
+    var i = 0;
+    var _min = Math.min(_start, _cureent);
+    var _max = Math.max(_start, _cureent);
+    console.log('min: '+ _min + ', max: ' + _max);
 
-    touchFactor.calcLock = false;
-
-    // console.log(_input.checked, input.status[_index]);
-
-    // change checked if diff status
-    if (input.status[_index] === _input.checked) {
-      _input.checked = !input.status[_index];
-      input.status[_index] = !input.status[_index];
+    for (; i < SC.input.len; i++) {
+      if (i >= _min && i <= _max) {
+        SC.input.eles[i].checked = !SC.state.start[i];
+      } else {
+        SC.input.eles[i].checked = SC.state.start[i];
+      }
     }
 
-    requestAnimationFrame(function() {
-      renewStatus(e);
-    });
   };
 
   var cachedStatus = function() {
     var i = 0;
-    for (; i < input.len; i++) {
-      input.status[i] = input.eles[i].checked;
+    for (; i < SC.input.len; i++) {
+      SC.state.start[i] = SC.input.eles[i].checked;
     }
-    console.log(input.status);
   };
 
-  $(ul).on(touchFactor.evt.start, function() {
+  $(ul).on(touchFactor.evt.start, function(e) {
     touchFactor.start = true;
     cachedStatus();
+
+    updatePos(e, 'start');
   })
   .on(touchFactor.evt.move, function(e) {
     // disable select text in desktop &
     // disable scroll in mobile
     e.preventDefault();
     e.stopPropagation();
-    renewStatus(e);
+
+    updatePos(e);
   })
   .on(touchFactor.evt.end, function() {
     touchFactor.start = false;
