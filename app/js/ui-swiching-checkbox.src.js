@@ -94,9 +94,10 @@ jQuery(function($) {
       if (!touchFactor.start) { return; }
       var _start = SC.ind.start;
       var _cureent = SC.ind.current;
-      var i = 0;
       var _min = Math.min(_start, _cureent);
       var _max = Math.max(_start, _cureent);
+      var i = 0;
+
       console.log('min: '+ _min + ', max: ' + _max);
 
       // it will update all input(s)'s checkbox state,
