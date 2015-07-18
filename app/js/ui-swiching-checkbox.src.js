@@ -72,13 +72,16 @@ jQuery(function($) {
 
       SC.ind.new = $(document.elementFromPoint(SC.pos.x, SC.pos.y)).closest('.item').index();
 
+      // not found || outside
       if (-1 === SC.ind.new) { return; }
 
+      // init state
       if (state && 'start' === state) {
         SC.ind.start = SC.ind.new;
         SC.ind.current = SC.ind.new;
       }
 
+      // move to other item
       if (SC.ind.new !== SC.ind.current) {
         // update SC.ind.current
         SC.ind.current = SC.ind.new;
@@ -96,6 +99,8 @@ jQuery(function($) {
       var _max = Math.max(_start, _cureent);
       console.log('min: '+ _min + ', max: ' + _max);
 
+      // it will update all input(s)'s checkbox state,
+      // when items' count be larger, the performance maybe poorer
       for (; i < SC.input.len; i++) {
         if (i >= _min && i <= _max) {
           SC.input.eles[i].checked = !SC.state.start[i];
