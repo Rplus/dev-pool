@@ -5,11 +5,9 @@ jQuery(function($) {
 
   var SwitchCheckbox = function(wrapperEle, inputSelector) {
 
-    var ul = wrapperEle;
-
     var SC = {
       input: (function() {
-        var _inputs = ul.querySelectorAll('.item-input');
+        var _inputs = wrapperEle.querySelectorAll('.item-input');
 
         return {
           eles: [].slice.call(_inputs),
@@ -115,7 +113,7 @@ jQuery(function($) {
       }
     };
 
-    $(ul).on(touchFactor.evt.start, function(e) {
+    $(wrapperEle).on(touchFactor.evt.start, function(e) {
       touchFactor.start = true;
       cachedStatus();
 
