@@ -139,6 +139,6 @@ jQuery(function($) {
 
   };
 
-  SwitchCheckbox(document.querySelector('.items'), '.item-input');
+  var initInput1 = new SwitchCheckbox(document.querySelector('.items'), '.item-input');
 
 });
