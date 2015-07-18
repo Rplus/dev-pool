@@ -3,9 +3,7 @@
 jQuery(function($) {
   'use strict';
 
-  var doc = document;
-
-  var ul = doc.querySelector('.items');
+  var ul = document.querySelector('.items');
 
   var SC = {
     input: (function() {
@@ -72,7 +70,7 @@ jQuery(function($) {
   var calcIndex = function(state) {
     if (!touchFactor.start) { return; }
 
-    SC.ind.new = $(doc.elementFromPoint(SC.pos.x, SC.pos.y)).closest('.item').index();
+    SC.ind.new = $(document.elementFromPoint(SC.pos.x, SC.pos.y)).closest('.item').index();
 
     if (-1 === SC.ind.new) { return; }
 
