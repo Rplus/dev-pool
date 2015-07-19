@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title ui-search-animation
+    meta(name="viewport", content="width=device-width, initial-scale=.75, user-scalable=1")
+    link(rel="stylesheet", href="../css/ui-search-animation.css")
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js")
+    script(src="../js/ui-search-animation.min.js")
+
+  body
+    .inner
+
+      h1.intro mobile search-animation
+
+      .box.is-loaded
+        .wrapper
+          nav.navbar
+            .navbar__left
+              i.signal-strength ●●●●○
+              | Hinet
+            time(date-time=(new Date().toISOString()))= new Date().toTimeString().slice(0, 5)
+            .navbar__right
+              i.battery
+          header.header
+            h1(data-count="0").header__txt search in Github
+            form.search(action="https://api.github.com/search/repositories", method="GET")
+              input#search__input.search__input(type="text", name="q", required, value="", tabindex="1")
+              button.search__reset(type="reset") x
+              label.search__label(for="search__input")
+
+          main.main
+            ul.result
+              li.result__item
+                a.result__item__link(target="_ol") ready!
+
+      blockquote.info
+        | inspired from 
+        a(href="https://dribbble.com/shots/1777647-Search-Animation-UX-UI-GIF") Search Animation | UX, UI, GIF 
+        | by 
+        a(href="https://dribbble.com/teams/Ramotion") Ramotion

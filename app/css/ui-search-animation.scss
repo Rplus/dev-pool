@@ -1,0 +1,563 @@
+$white: #fff;
+$black: #000;
+
+$checkbox-size: 20px;
+$border-color: #ccc;
+
+$navbar-height: 24px;
+
+$header-height: 50px;
+$search-height: $header-height * .6;
+$search-space: $header-height * .2;
+
+$a-duration: .3s;
+$a-delay: .3s;
+
+$a-label-duration: $a-duration;
+$a-label-delay: $a-delay * 2;
+
+$a-input-duration: $a-duration;
+$a-input-delay: $a-delay;
+
+$a-result-duration: $a-duration * 2;
+$a-result-delay: $a-result-duration;
+
+%fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+%flex-container {
+  display: flex;
+  align-items: center;
+}
+
+@mixin oneline() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@keyframes rotate {
+  0%   { transform: rotate(90deg);}
+  100% { transform: rotate(450deg);}
+}
+
+/*
+ gist: https://gist.github.com/Rplus/7367c892f71d69f221cd
+ source: http://unlimited.kptaipei.tw/docs/
+ ref: http://lea.verou.me/2012/04/background-attachment-local/
+
+ demo by @Lea Verou
+ http://dabblet.com/gist/2462915
+ */
+%scroll-shadow--vertical {
+  background-image:
+  /* Shadow covers */
+  linear-gradient($white 30%, rgba($white, 0)),
+  linear-gradient(rgba($white, 0), $white 70%),
+
+  /* Shadows */
+  radial-gradient(farthest-side at 50% 0, rgba($black, .15), rgba($black, 0)),
+  radial-gradient(farthest-side at 50% 100%, rgba($black, .15), rgba($black, 0));
+  background-repeat: no-repeat;
+  background-color: $white;
+
+  /* set size in mixin
+  background-size */
+
+  /* Opera doesn't support this in the shorthand */
+  background-attachment:
+    local,
+    local,
+    scroll,
+    scroll;
+
+  background-position:
+    50%   0%,
+    50% 100%,
+    50%   0%,
+    50% 100%;
+}
+
+@mixin scroll-shadow--vertical($scroll-shadow-bgc: $white, $scroll-shadow-color: $black, $scroll-shadow-size: 10px) {
+
+  @if ($scroll-shadow-bgc == $white) and ($scroll-shadow-color == $black) {
+    @extend %scroll-shadow--vertical;
+  } @else {
+    background-image:
+    /* Shadow covers */
+    linear-gradient($scroll-shadow-bgc 30%, rgba($scroll-shadow-bgc, 0)),
+    linear-gradient(rgba($scroll-shadow-bgc, 0), $scroll-shadow-bgc 70%),
+
+    /* Shadows */
+    radial-gradient(farthest-side at 50% 0, rgba($scroll-shadow-color, .15), rgba($scroll-shadow-color, 0)),
+    radial-gradient(farthest-side at 50% 100%, rgba($scroll-shadow-color, .15), rgba($scroll-shadow-color, 0));
+    background-color: $scroll-shadow-bgc;
+  }
+
+  background-size:
+    100% $scroll-shadow-size*3,
+    100% $scroll-shadow-size*3,
+    100% $scroll-shadow-size,
+    100% $scroll-shadow-size;
+}
+
+
+///
+/// major style
+///
+
+.navbar {
+  display: flex;
+  line-height: $navbar-height;
+  font-size: 12px;
+
+  time {
+    font-weight: bolder;
+  }
+
+  .signal-strength {}
+
+  .battery {
+    position: relative;
+    right: 5px;
+    display: inline-block;
+    width: 20px;
+    height: 10px;
+    border: 2px solid $border-color;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 25%;
+      bottom: 0;
+      background-color: darken($border-color, 15%);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: 4px;
+      height: 5px;
+      transform: translate(100%, -50%);
+      background-color: $border-color;
+    }
+
+  }
+}
+
+.navbar__left,
+.navbar__right {
+  flex-grow: 1;
+
+  > * {
+    padding: 0 5px;
+  }
+}
+
+.navbar__right {
+  text-align: right;
+}
+
+.header {
+  position: relative;
+  height: $header-height;
+  line-height: $header-height;
+  font-size: 1.5em;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: $border-color;
+  }
+
+  * {
+    font-size: inherit;
+  }
+}
+
+.header__txt {
+  position: relative;
+  line-height: inherit;
+  height: $header-height;
+  padding-left: 40px;
+  padding-right: 40px;
+  text-align: center;
+  font-weight: 100;
+  transition: opacity $a-duration ($a-delay * 1.5);
+  @include oneline;
+
+  &:not([data-count="0"])::after {
+    content: "(" attr(data-count) ")";
+    padding-left: .25em;
+    font-size: smaller;
+    font-weight: 100;
+  }
+
+  &::before {
+    content: "Searching...";
+    @extend %fill;
+    opacity: 0;
+    color: transparent;
+    background-color: #fff;
+    transition: opacity $a-duration $a-delay,
+                color $a-duration $a-delay;
+
+    .is-searching & {
+      color: inherit;
+      opacity: 1;
+    }
+  }
+
+  .is-focus-input & {
+    transition-delay: 0;
+    opacity: 0;
+  }
+}
+
+.search {
+  position: absolute;
+  top: $search-space;
+  right: $search-space;
+  left: $search-space;
+  bottom: $search-space;
+  z-index: 1;
+  height: $search-height;
+  line-height: $search-height;
+  text-align: right;
+}
+
+.search__input {
+  width: 0;
+  height: $search-height;
+  line-height: $search-height;
+  padding: 0 ($search-height / 2 - 3px);
+  border: 3px solid $border-color;
+  border-radius: $header-height;
+  background-color: #fff;
+  text-align: center;
+  transition: width $a-input-duration $a-input-delay;
+  outline: none;
+  color: inherit;
+
+  &:valid,
+  &:focus {
+    width: 100%;
+  }
+}
+
+.search__reset {
+  position: absolute;
+  top: ($search-height / 2);
+  right: ($search-height / 2);
+  width: $search-height * 0;
+  height: $search-height * 0;
+  background: transparent;
+  border: none;
+  text-indent: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  color: $border-color;
+  outline: none;
+  cursor: pointer;
+  transform: translate(50%, -50%) rotate(45deg) scale(.5);
+  transition: transform $a-input-duration $a-input-delay,
+              width ($a-input-duration + .1s) $a-input-delay,
+              height ($a-input-duration + .1s) $a-input-delay;
+
+  .search__input:valid ~ &,
+  .search__input:focus ~ & {
+    width: $search-height;
+    height: $search-height;
+    transform: translate(50%, -50%) rotate(0deg) scale(.5);
+    transition: transform $a-input-duration ($a-input-delay + .1s),
+                width ($a-input-duration + .1s) $a-input-delay,
+                height ($a-input-duration + .1s) $a-input-delay;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    width: 100%;
+    height: 0;
+    border: 2px solid;
+    border-radius: 3px;
+  }
+
+  &::before { transform: translate(50%, -50%) rotate(45deg); }
+  &::after  { transform: translate(50%, -50%) rotate(-45deg); }
+}
+
+.search__label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: $search-height;
+  height: 100%;
+  border: 3px solid;
+  border-color: $border-color $border-color #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  transform: rotate(90deg);
+  transition: all $a-label-duration $a-label-delay linear;
+
+  .is-searching & {
+    animation: rotate 1s linear infinite;
+  }
+
+  .search__input:valid ~ &,
+  .search__input:focus ~ & {
+    transition: all $a-label-duration 0s linear;
+    visibility: hidden;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border: 3px solid transparent;
+    border-left-color: $border-color;
+    border-radius: 50%;
+    transform: rotate(-45deg);
+    transition: all $a-label-duration $a-label-delay linear;
+    visibility: visible;
+
+    .search__input:valid ~ &,
+    .search__input:focus ~ & {
+      transform: rotate(-90deg);
+      transition: all $a-label-duration 0s linear;
+      visibility: hidden;
+    }
+
+    .is-searching & {
+      transform: rotate(-60deg);
+    }
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    width: 3px;
+    height: 12px;
+    background-color: $border-color;
+    border-radius: 5px;
+    transform-origin: 50% 0;
+    transform: rotate(-45deg) translateY(13px);
+    transition: all $a-label-duration $a-label-delay linear;
+    visibility: visible;
+
+    .is-searching &,
+    .search__input:valid ~ &,
+    .search__input:focus ~ & {
+      transition: all $a-label-duration 0s linear;
+      width: 0;
+      height: 0;
+      visibility: hidden;
+    }
+
+  }
+}
+
+.main {
+  min-height: 50vh;
+  max-height: calc(100% - #{$navbar-height + $header-height});
+  overflow: auto;
+  @include scroll-shadow--vertical;
+}
+
+.result {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  list-style-type: none;
+  text-align: center;
+  line-height: 2.5;
+  font-size: 24px;
+  overflow-x: hidden;
+  transition: opacity $a-result-duration;
+
+  .is-focus-input &,
+  .is-loading & {
+    opacity: 0;
+  }
+}
+
+.result__item {
+  position: relative;
+  transform: rotateX(90deg);
+  transform-style: preserve-3d;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: transform $a-result-duration $a-result-delay,
+              left $a-result-duration;
+
+  @for $i from 1 through 10 {
+    $_delay-unit: .1s * ($i - 1);
+
+    &:nth-last-of-type(#{$i}) {
+      transition-delay: ($a-result-delay * 2 + $_delay-unit), ($a-result-delay + $_delay-unit);
+    }
+  }
+
+  &:nth-of-type(odd)  { left: -100%; }
+  &:nth-of-type(even) { left: 100%; }
+
+  .is-loaded & {
+    left: 0;
+    transform: rotateX(0deg);
+  }
+
+  .is-focus-input & {
+    transition-delay: $a-result-delay;
+  }
+}
+
+.result__item__link {
+  position: relative;
+  max-width: 100%;
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &::after {
+    position: absolute;
+    content: "";
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: currentColor;
+    opacity: 1;
+    transform: rotateX(-90deg) translateY(-50%);
+  }
+}
+
+
+//////
+
+.box {
+  width: 375px;
+  margin: 4em auto;
+  border-top: 60px solid #fff;
+  border-bottom: 70px solid #fff;
+  box-shadow: 0 0 0 24px #fff;
+  border-radius: 20px;
+  text-align: left;
+  background-color: #fff;
+  font-family: sans-serif;
+  color: #999;
+}
+
+.wrapper {
+  height: 667px;
+  outline: 3px solid $border-color;
+}
+
+
+///
+/// reset style
+///
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  padding-top: 1px;
+  padding-bottom: 3em;
+  text-align: center;
+  background-color: #29c699;
+  color: #fff;
+  overflow-y: hidden;
+}
+
+.inner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+}
+
+.intro {
+  width: 80%;
+  max-width: 36rem;
+  padding-bottom: 1rem;
+  margin: .5em auto 1em;
+  text-transform: capitalize;
+  border-bottom: 1px dashed #fff;
+
+  small {
+    display: block;
+    text-transform: none;
+    font-weight: 100;
+    font-style: italic;
+    opacity: .75;
+  }
+
+  label {
+    cursor: pointer;
+
+    &::before {
+      content: "";
+      display: inline-block;
+      vertical-align: middle;
+      width: 1em;
+      height: 1em;
+      box-shadow: inset 0 0 0 .1em;
+      transform: scale(.7);
+      opacity: .75;
+
+      #switcher:checked + & {
+        box-shadow: inset 0 0 0 .1em,
+                    inset 0 0 0 .25em #fff,
+                    inset 0 0 0 1em;
+      }
+    }
+  }
+}
+
+.info {
+  // position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+
+  a {
+    color: inherit;
+  }
+}
