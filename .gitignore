@@ -2,3 +2,4 @@ node_modules
 _dist
 .temp
 .publish
+bower_components
