@@ -38,7 +38,7 @@ gulp.task('css', function () {
 });
 
 gulp.task('js', function () {
-  return gulp.src(path.srcDir + '/js/*.src.js')
+  return gulp.src(path.srcDir + '/js/' + projectName + '.src.js')
     .pipe($.plumber())
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'))
