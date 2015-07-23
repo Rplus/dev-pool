@@ -12,6 +12,8 @@ jQuery(function($) {
 
   var articleOuterHeight = eles.article[1].getBoundingClientRect().top - eles.article[0].getBoundingClientRect().top;
 
+  var articleArr = Array.prototype.slice.call(eles.article, 0);
+
   var touchFactor = {
     start: false,
     move: false,
@@ -38,10 +40,38 @@ jQuery(function($) {
 
   var sortIndex = [];
 
+  var articleTop = [];
+  var articleBottom = [];
+  var articleSort = [];
+
+  for (var i = 0; i < eles.article.length; i++) {
+    articleTop.push(eles.article[i].getBoundingClientRect().top);
+    articleBottom.push(eles.article[i].getBoundingClientRect().bottom);
+    articleSort.push([i, eles.article[i]]);
+  };
+
+  console.log(articleTop, articleBottom);
+
+  var updatePos = function(opt) {
+    var nowIndex;
+
+    for (var i = articleTop.length - 1; i >= 0; i--) {
+      if (i !== opt.start && articleTop[i] < opt.Y) {
+        console.log(articleTop[i], i);
+
+        break;
+      }
+    };
+
+  };
+
   $(eles.article)
     .on(touchFactor.evt.start, function(evt) {
       var _pos = touchFactor.isSupportTouch ? evt.originalEvent.touches[0] : evt;
       console.log('start');
+
+      var _index = articleArr.indexOf(this);
+
       var oPoint = {
         X: _pos.clientX,
         Y: _pos.clientY
@@ -58,25 +88,12 @@ jQuery(function($) {
         dragItem.style.transform = 'translate(' + deltaX + 'px, ' + deltaY + 'px)';
         // transformItem.style.transform = 'rotate3d(' + [deltaX, deltaY, 0, 45].join() + 'deg)';
 
-        if (deltaY < -1 * articleOuterHeight / 2) {
-          console.log('up');
-          if (this.previousElementSibling) {
-            this.previousElementSibling.querySelector('.article--wrap').style.transform = 'translateY(' + articleOuterHeight + 'px)';
-          }
-        } else if (deltaY > articleOuterHeight / 2) {
-          console.log('down');
-          if (this.nextElementSibling) {
-            this.nextElementSibling.querySelector('.article--wrap').style.transform = 'translateY(-' + articleOuterHeight + 'px)';
-          }
-        } else {
-          if (this.nextElementSibling) {
-            this.nextElementSibling.querySelector('.article--wrap').style.transform = 'none';
-          }
-
-          if (this.previousElementSibling) {
-            this.previousElementSibling.querySelector('.article--wrap').style.transform = 'none';
-          }
-        }
+        updatePos({
+          start: _index,
+          X: _movPos.clientX,
+          Y: _movPos.clientY,
+          ele: this
+        });
 
       });
     })

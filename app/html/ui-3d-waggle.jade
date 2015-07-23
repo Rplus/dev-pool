@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title ui-3d-waggle
+    meta(name="viewport", content="width=device-width, initial-scale=.75, user-scalable=1")
+    link(rel="stylesheet", href="../css/ui-3d-waggle.css")
+    //- script(src="https://code.jquery.com/jquery-2.1.1.min.js")
+    script(src="../../bower_components/jquery/dist/jquery.js")
+    //- script(src="../js/ui-3d-waggle.min.js")
+    script(src="../../app/js/ui-3d-waggle.src.js")
+
+  body
+    .body
+
+      h1.intro 3D waggle @ dragging
+        //- small touch, and drag down
+
+      - var i = 3;
+
+      .mobile
+
+        main.articles
+          - while(i--)
+            article.article
+              .article--wrap
+                .article__card
+                  .article__card__thumb(style="background-image: url(../../bower_components/0#{i}.jpg)")
+                  .article__card__info
+                    h3.article__card__info__title= Math.random().toString(36).replace(/[^a-z]+/g, '')
+                    p.article__card__info__desc
+                     | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur minima quam autem tempore iusto, suscipit placeat, magnam et quibusdam, incidunt inventore
+
+
+
+      blockquote.info
+        | inspired from 
+        a(href="https://dribbble.com/shots/1964052-3D-Waggle") 3D Waggle 
+        | by 
+        a(href="https://dribbble.com/kartashov") Anton Kartashov
