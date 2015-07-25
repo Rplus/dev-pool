@@ -86,7 +86,8 @@ $placeholder-bgc: #dcdcdc;
   user-select: none;
   transform-style: preserve-3d;
   background-color: $c-white;
-  transition: transform .2s;
+  transition-property: transform;
+  transition-duration: 0s;
 
   .dragging-target & {
     visibility: hidden;
@@ -94,26 +95,17 @@ $placeholder-bgc: #dcdcdc;
 
   .mobile.is-dragging .article:not(.cloned) & {
     background-color: $card-bgc--gray;
+    transition-duration: .2s;
   }
 
   .article.shift-up & {
     z-index: 1;
-    animation: shift-up .3s;
-
-    @keyframes shift-up {
-      0%   { transform: translateY(($article-height + $article-gap)); }
-      100% { transform: translateY(0); }
-    }
+    transform: translateY(-($article-height + $article-gap));
   }
 
   .article.shift-down & {
     z-index: 1;
-    animation: shift-down .3s;
-
-    @keyframes shift-down {
-      0%   { transform: translateY(-($article-height + $article-gap)); }
-      100% { transform: translateY(0); }
-    }
+    transform: translateY(($article-height + $article-gap));
   }
 }
 

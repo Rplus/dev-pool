@@ -11,11 +11,14 @@ jQuery(function($) {
   eles.articleCard = eles.articles.querySelectorAll('.card');
   eles.articleCloned = eles.articles.querySelector('.cloned');
 
+  eles.$articles = $(eles.articles);
+
   if (eles.article.length < 2) {
     return;
   }
 
   var article = {
+    len: eles.article.len,
     height: eles.article[0].getBoundingClientRect().height,
     outerHeight: eles.article[1].getBoundingClientRect().top - eles.article[0].getBoundingClientRect().top,
     arr: [].slice.call(eles.article, 0)
@@ -64,7 +67,7 @@ jQuery(function($) {
     bottom: []
   };
 
-  for (var i = 0; i < eles.article.length; i++) {
+  for (var i = 0; i < article.len; i++) {
     var _rect = eles.article[i].getBoundingClientRect();
     articlePos.top.push(_rect.top);
     articlePos.center.push(_rect.top + article.height / 2);
@@ -74,6 +77,8 @@ jQuery(function($) {
   console.log(articlePos);
 
   var dragStart = function(_target) {
+    dragIt.start = true;
+
     eles.mobile.classList.add('is-dragging');
 
     // calc point
@@ -82,7 +87,17 @@ jQuery(function($) {
     dragIt.target.left = _target.offsetLeft;
   };
 
+  var dragMove = function() {
+    dragIt.moving = true;
+  };
+
   var dragEnd = function() {
+    dragIt.start = false;
+
+    eles.$articles.off(touchFactor.evt.move);
+
+    resetShift();
+
     eles.mobile.classList.remove('is-dragging');
 
     var draggingTarget = eles.articles.querySelector('.dragging-target');
@@ -113,14 +128,16 @@ jQuery(function($) {
     eles.articleCloned.style.left = dragIt.target.left + 'px';
   };
 
-  var switchCard = function(dir, step) {
+  var swapCard = function(opt) {
+    if (!opt.threshold) { return; }
+
     var id1 = dragIt.target.id;
-    var id2 = id1 + dir * step;
+    var id2 = id1 + opt.dir * opt.step;
 
     var a1 = article.arr[id1];
     var a2 = article.arr[id2];
 
-    if (dir > 0) {
+    if (opt.dir > 0) {
       // if id2 is last one, next will be the `cloned` one.
       a2 = a2.nextElementSibling;
     }
@@ -130,9 +147,69 @@ jQuery(function($) {
     resetArticleOrder();
   };
 
-  var shiftCard = function(dir) {
+  // return [1, 2, 3, 4, ..., n]
+  // ref: http://stackoverflow.com/a/20066663
+  // var shiftOrder = Array.apply(null, {length: article.len}).map(Number.call, Number);
+
+  var shift = {
+    classUp: 'shift-up',
+    classDown: 'shift-down',
+    step: null,
+    max: 0,
+    min: 0
+  };
+
+  // ref: http://stackoverflow.com/a/7180095
+  Array.prototype.move = function(from, to) {
+    this.splice(to, 0, this.splice(from, 1)[0]);
+  };
+
+  var resetShift = function() {
+    shift.max = 0;
+    shift.min = 0;
+
+    for (var i = article.len - 1; i >= 0; i--) {
+      eles.article[i].classList.remove(shift.classUp);
+      eles.article[i].classList.remove(shift.classDown);
+    }
+
+  };
+
+  var shiftCard = function(opt) {
+    // if (!opt.threshold) { return; }
+
+    var _step = opt.dir * opt.step;
+
+    // avoid repeat trigger
+    if (_step === shift.step) { return; }
+
+    shift.step = _step;
+
+    if (_step > shift.max) { shift.max = _step; }
+    if (_step < shift.min) { shift.min = _step; }
+
+    var className = (opt.dir > 0) ? shift.classUp : shift.classDown;
+
+    console.log('step', _step);
+
     var id1 = dragIt.target.id;
-    var id2 = id1 + dir;
+    var id2 = id1 + _step;
+    if (id2 < 0) { id2 = 0; }
+
+    var idSmall = Math.min(id1, id2);
+    var idLarge = Math.max(id1, id2);
+
+    var idMin = id1 + shift.min;
+    var idMax = id1 + shift.max;
+
+    for (var i = idMax; i >= idMin; i--) {
+      if (i < 0) { return; }
+      if (i >= idSmall && i <= idLarge) {
+        eles.article[i].classList.add(className);
+      } else {
+        eles.article[i].classList.remove(className);
+      }
+    }
   };
 
   var resetArticleOrder = function() {
@@ -146,36 +223,44 @@ jQuery(function($) {
     }
   };
 
-  $(eles.articles)
+  var checkOrder = function() {
+  };
+
+  var calcStep = function(deltaY) {
+    var dir = (deltaY > 0) ? 1 : -1;
+    var step = Math.ceil((dir * deltaY - article.height / 2) / article.outerHeight);
+
+    return {
+      dir: dir,
+      step: step,
+      threshold: Math.abs(deltaY) > dragIt.threshold
+    };
+  };
+
+  eles.$articles
     .on(touchFactor.evt.start, '.article', function(e) {
       console.log('start');
       dragStart(this);
       cloneCard(this);
-
-      dragIt.start = true;
 
       dragIt.startPoint = {
         x: e.clientX,
         y: e.clientY
       };
 
-      // $(this).one('animationend', resetArticleOrder);
-    })
-    .on(touchFactor.evt.move, function(e) {
-      if (!dragIt.start) { return; }
-      dragIt.moving = true;
+      // move
+      eles.$articles
+        .on(touchFactor.evt.move, function(e) {
+          if (!dragIt.start) { return; }
 
-      var deltaY = e.clientY - dragIt.startPoint.y;
+          dragMove();
 
-      // console.log(deltaY, dragIt.startPoint.y);
+          var deltaY = e.clientY - dragIt.startPoint.y;
 
-      if (Math.abs(deltaY) > dragIt.threshold) {
-        console.log('shiftCard');
-        // shiftCard(deltaY > 0 ? 1 : -1);
-      }
+          shiftCard(calcStep(deltaY));
 
-      eles.articleCloned.style.transform = 'translateY(' + deltaY + 'px)';
-
+          eles.articleCloned.style.transform = 'translateY(' + deltaY + 'px)';
+        });
     })
     .on(touchFactor.evt.end, function(e) {
       if (dragIt.moving) {
@@ -183,18 +268,14 @@ jQuery(function($) {
         resetArticleOrder();
 
         var deltaY = e.clientY - dragIt.startPoint.y;
-        var dir = (deltaY > 0) ? 1 : -1;
-        var step = ~~((dir * deltaY - article.height / 2) / article.outerHeight) + 1;
 
-        if (Math.abs(deltaY) > dragIt.threshold) {
-          switchCard(dir, step);
-        }
+        swapCard(calcStep(deltaY));
 
         dragIt.moving = false;
       }
 
       dragEnd();
-      dragIt.start = false;
+
       console.log('end');
     });
 
