@@ -246,15 +246,19 @@ jQuery(function($) {
     return 2 * Math.atan(dis * 0.5 / 300) * 180 / Math.PI;
   };
 
+  var lastPos;
+
   eles.$articles
     .on(touchFactor.evt.start, '.article', function(e) {
       console.log('start');
       dragStart(this);
       cloneCard(this);
 
+      var _pos = touchFactor.isSupportTouch ? e.originalEvent.touches[0] : e;
+
       dragIt.startPoint = {
-        x: e.clientX,
-        y: e.clientY
+        x: _pos.clientX,
+        y: _pos.clientY
       };
 
       var prevPosY = 0;
@@ -264,14 +268,20 @@ jQuery(function($) {
         .on(touchFactor.evt.move, function(e) {
           if (!dragIt.start) { return; }
 
+          var _pos = touchFactor.isSupportTouch ? e.originalEvent.touches[0] : e;
+
+          if (touchFactor.isSupportTouch) {
+            lastPos = _pos;
+          }
+
           dragMove();
 
-          var deltaY = e.clientY - dragIt.startPoint.y;
-          var deltaX = e.clientX - dragIt.startPoint.x;
+          var deltaY = _pos.clientY - dragIt.startPoint.y;
+          var deltaX = _pos.clientX - dragIt.startPoint.x;
 
           shiftCard(calcStep(deltaY));
 
-          var newPosY = e.clientY;
+          var newPosY = _pos.clientY;
           var rotateX = (newPosY > prevPosY) ? -60 : 40 ;
 
           eles.articleCloned.style.transform = 'translateY(' + deltaY + 'px) translateX(' + deltaX + 'px) rotateY(' + distanceToDegree(-deltaX) + 'deg) rotateX(' + rotateX + 'deg)';
@@ -280,11 +290,13 @@ jQuery(function($) {
         });
     })
     .on(touchFactor.evt.end, function(e) {
+      var _pos = touchFactor.isSupportTouch ? lastPos : e;
+
       if (dragIt.moving) {
         eles.articleCloned.style.transform = null;
         resetArticleOrder();
 
-        var deltaY = e.clientY - dragIt.startPoint.y;
+        var deltaY = _pos.clientY - dragIt.startPoint.y;
 
         swapCard(calcStep(deltaY));
 
@@ -295,6 +307,5 @@ jQuery(function($) {
 
       console.log('end');
     });
-
 
 });
