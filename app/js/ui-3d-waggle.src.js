@@ -190,8 +190,6 @@ jQuery(function($) {
 
     var className = (opt.dir > 0) ? shift.classUp : shift.classDown;
 
-    console.log('step', _step);
-
     var id1 = dragIt.target.id;
     var id2 = id1 + _step;
     if (id2 < 0) { id2 = 0; }
@@ -256,10 +254,11 @@ jQuery(function($) {
           dragMove();
 
           var deltaY = e.clientY - dragIt.startPoint.y;
+          var deltaX = e.clientX - dragIt.startPoint.x;
 
           shiftCard(calcStep(deltaY));
 
-          eles.articleCloned.style.transform = 'translateY(' + deltaY + 'px)';
+          eles.articleCloned.style.transform = 'translateY(' + deltaY + 'px) translateX(' + deltaX + 'px) ';
         });
     })
     .on(touchFactor.evt.end, function(e) {
