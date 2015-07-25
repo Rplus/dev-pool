@@ -235,6 +235,10 @@ jQuery(function($) {
     };
   };
 
+  var distanceToDegree = function(dis) {
+    return 2 * Math.atan(dis * 0.5 / 300) * 180 / Math.PI;
+  };
+
   eles.$articles
     .on(touchFactor.evt.start, '.article', function(e) {
       console.log('start');
@@ -245,6 +249,8 @@ jQuery(function($) {
         x: e.clientX,
         y: e.clientY
       };
+
+      var prevPosY = 0;
 
       // move
       eles.$articles
@@ -258,7 +264,12 @@ jQuery(function($) {
 
           shiftCard(calcStep(deltaY));
 
-          eles.articleCloned.style.transform = 'translateY(' + deltaY + 'px) translateX(' + deltaX + 'px) ';
+          var newPosY = e.clientY;
+          var rotateX = (newPosY > prevPosY) ? -60 : 40 ;
+
+          eles.articleCloned.style.transform = 'translateY(' + deltaY + 'px) translateX(' + deltaX + 'px) rotateY(' + distanceToDegree(-deltaX) + 'deg) rotateX(' + rotateX + 'deg)';
+
+          prevPosY = newPosY;
         });
     })
     .on(touchFactor.evt.end, function(e) {
