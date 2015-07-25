@@ -101,7 +101,7 @@ $placeholder-bgc: #dcdcdc;
 .card__thumb {
   flex-shrink: 0;
   width: 100px;
-  height: 150px;
+  height: $article-height;
   background-repeat: no-repeat;
   background-position: 50%;
   background-size: cover;
@@ -111,7 +111,7 @@ $placeholder-bgc: #dcdcdc;
 
 .card__info {
   padding: 1em;
-  max-height: 150px;
+  max-height: $article-height;
   overflow: hidden;
   vertical-align: top;
 }
@@ -122,8 +122,8 @@ $placeholder-bgc: #dcdcdc;
 }
 
 .card__info__desc {
-  max-height: 4 * 16px;
-  line-height: 16px;
+  max-height: 4 * 20px;
+  line-height: 20px;
   overflow: hidden;
   font-size: 12px;
   opacity: .75;
