@@ -12,12 +12,12 @@ $card-bgc--white: $c-white;
 $card-bgc--gray: #f6f6f6;
 $placeholder-bgc: #dcdcdc;
 
-%fill {
+@mixin fill($dir: 'full') {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  @if $dir != 'bottom' { top: 0; }
+  @if $dir != 'right' { left: 0; }
+  @if $dir != 'left' { right: 0; }
+  @if $dir != 'top' { bottom: 0; }
 }
 
 @mixin oneline() {
@@ -68,8 +68,8 @@ $placeholder-bgc: #dcdcdc;
 
   // shadow
   &::before {
-    @extend %fill;
     content: "";
+    @include fill;
     z-index: -1;
     margin: 10%;
     color: rgba($c-black, .2);

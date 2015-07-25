@@ -10,6 +10,10 @@ jQuery(function($) {
   eles.articleWrap = eles.articles.querySelectorAll('.article-card');
   eles.articleCard = eles.articles.querySelectorAll('.card');
 
+  if (eles.article.length < 2) {
+    return;
+  }
+
   var articleOuterHeight = eles.article[1].getBoundingClientRect().top - eles.article[0].getBoundingClientRect().top;
 
   var articleArr = Array.prototype.slice.call(eles.article, 0);
