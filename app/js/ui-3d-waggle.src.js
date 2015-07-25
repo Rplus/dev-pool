@@ -157,10 +157,6 @@ jQuery(function($) {
     resetArticleOrder();
   };
 
-  // return [1, 2, 3, 4, ..., n]
-  // ref: http://stackoverflow.com/a/20066663
-  // var shiftOrder = Array.apply(null, {length: article.len}).map(Number.call, Number);
-
   var shift = {
     classUp: 'shift-up',
     classDown: 'shift-down',
