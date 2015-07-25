@@ -48,7 +48,7 @@ jQuery(function($) {
     articleTop.push(eles.article[i].getBoundingClientRect().top);
     articleBottom.push(eles.article[i].getBoundingClientRect().bottom);
     articleSort.push([i, eles.article[i]]);
-  };
+  }
 
   console.log(articleTop, articleBottom);
 
@@ -61,41 +61,15 @@ jQuery(function($) {
 
         break;
       }
-    };
+    }
 
   };
 
   $(eles.article)
     .on(touchFactor.evt.start, function(evt) {
-      var _pos = touchFactor.isSupportTouch ? evt.originalEvent.touches[0] : evt;
-      console.log('start');
-
-      var _index = articleArr.indexOf(this);
-
-      var oPoint = {
-        X: _pos.clientX,
-        Y: _pos.clientY
-      };
-
-      var dragItem = this.querySelector('.article--wrap');
-      var transformItem = this.querySelector('.article__card');
-
-      $(this).on(touchFactor.evt.move + '.drag', function(e) {
-        var _movPos = touchFactor.isSupportTouch ? e.originalEvent.touches[0] : e;
-        var deltaX = _movPos.clientX - oPoint.X;
-        var deltaY = _movPos.clientY - oPoint.Y;
-
-        dragItem.style.transform = 'translate(' + deltaX + 'px, ' + deltaY + 'px)';
-        // transformItem.style.transform = 'rotate3d(' + [deltaX, deltaY, 0, 45].join() + 'deg)';
-
-        updatePos({
-          start: _index,
-          X: _movPos.clientX,
-          Y: _movPos.clientY,
-          ele: this
-        });
-
-      });
+      var _cloneCard
+      var clone = $(this).clone();
+      $(this).parent().append(clone);
     })
     .on(touchFactor.evt.end, function() {
       $(this).off('.drag');
