@@ -1,3 +1,7 @@
+h1 {
+  display: none;
+}
+
 // #
 $radius: .5rem;
 
@@ -50,7 +54,7 @@ $placeholder-bgc: #dcdcdc;
   }
 }
 
-.article--wrap {
+.article-card {
   position: relative;
   perspective: 500px;
 
@@ -78,7 +82,7 @@ $placeholder-bgc: #dcdcdc;
   }
 }
 
-.article__card {
+.card {
   position: relative;
   display: flex;
   box-shadow: 0 1px 5px rgba(#666, .5);
@@ -100,7 +104,7 @@ $placeholder-bgc: #dcdcdc;
 
 }
 
-.article__card__thumb {
+.card__thumb {
   flex-shrink: 0;
   width: 100px;
   height: 150px;
@@ -111,19 +115,19 @@ $placeholder-bgc: #dcdcdc;
   border-bottom-left-radius: $radius;
 }
 
-.article__card__info {
+.card__info {
   padding: 1em;
   max-height: 150px;
   overflow: hidden;
   vertical-align: top;
 }
 
-.article__card__info__title {
+.card__info__title {
   margin-bottom: .5em;
   @include oneline;
 }
 
-.article__card__info__desc {
+.card__info__desc {
   max-height: 4 * 16px;
   line-height: 16px;
   overflow: hidden;

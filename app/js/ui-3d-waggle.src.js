@@ -7,8 +7,8 @@ jQuery(function($) {
   eles.mobile = document.querySelector('.mobile');
   eles.articles = eles.mobile.querySelector('.articles');
   eles.article = eles.articles.querySelectorAll('.article');
-  eles.articleWrap = eles.articles.querySelectorAll('.article--wrap');
-  eles.articleCard = eles.articles.querySelectorAll('.article__card');
+  eles.articleWrap = eles.articles.querySelectorAll('.article-card');
+  eles.articleCard = eles.articles.querySelectorAll('.card');
 
   var articleOuterHeight = eles.article[1].getBoundingClientRect().top - eles.article[0].getBoundingClientRect().top;
 
