@@ -1,12 +1,10 @@
-h1 {
-  display: none;
-}
-
-// #
 $radius: .5rem;
 
 $c-white: #fff;
 $c-black: #000;
+
+$article-height: 150px;
+$article-gap: 30px;
 
 $card-bgc--white: $c-white;
 $card-bgc--gray: #f6f6f6;
@@ -35,36 +33,39 @@ $placeholder-bgc: #dcdcdc;
 ///
 
 .articles {
+  position: relative;
   padding: 2em 10%;
 }
 
 .article {
-  height: 150px;
-  margin-bottom: 2em;
+  height: $article-height;
+  margin-bottom: $article-gap;
   @include radius;
+  cursor: grab;
+  background-color: #e8e7ec;
+  box-shadow: inset 0 1px 3px rgba(#666, .5);
 
-  &.over {
-    opacity: .5;
+  .is-dragging & {
+    cursor: grabbing;
+
+    &:not(.cloned) {
+    }
   }
 
-  // &,
-  .mobile:active & {
-    background-color: #e8e7ec;
-    box-shadow: inset 0 1px 3px rgba(#666, .5);
+  // .mobile:active &,
+  &.cloned {
+    position: absolute;
+    z-index: 2;
+    display: none;
+
+    .is-dragging & {
+      display: block;
+    }
   }
 }
 
 .article-card {
   position: relative;
-  perspective: 500px;
-
-  &:not(:active) {
-    // transition: transform .3s;
-  }
-
-  &:active {
-    z-index: 1;
-  }
 
   // shadow
   &::before {
@@ -74,11 +75,6 @@ $placeholder-bgc: #dcdcdc;
     margin: 10%;
     color: rgba($c-black, .2);
     border-radius: 30%;
-
-    .article:active & {
-      background-color: currentColor;
-      box-shadow: 0 0 40px 20px;
-    }
   }
 }
 
@@ -87,21 +83,38 @@ $placeholder-bgc: #dcdcdc;
   display: flex;
   box-shadow: 0 1px 5px rgba(#666, .5);
   @include radius;
-  cursor: grab;
   user-select: none;
   transform-style: preserve-3d;
-  // transition: transform .1s;
+  background-color: $c-white;
+  transition: transform .2s;
 
-  .mobile:active & {
+  .dragging-target & {
+    visibility: hidden;
+  }
+
+  .mobile.is-dragging .article:not(.cloned) & {
     background-color: $card-bgc--gray;
+  }
 
-    &:active {
-      z-index: 1;
-      background-color: #fff;
-      cursor: grabbing;
+  .article.shift-up & {
+    z-index: 1;
+    animation: shift-up .3s;
+
+    @keyframes shift-up {
+      0%   { transform: translateY(($article-height + $article-gap)); }
+      100% { transform: translateY(0); }
     }
   }
 
+  .article.shift-down & {
+    z-index: 1;
+    animation: shift-down .3s;
+
+    @keyframes shift-down {
+      0%   { transform: translateY(-($article-height + $article-gap)); }
+      100% { transform: translateY(0); }
+    }
+  }
 }
 
 .card__thumb {
@@ -153,8 +166,9 @@ $placeholder-bgc: #dcdcdc;
   text-align: left;
   font-family: sans;
 
-  &:active {
+  &.is-dragging {
     background-color: $card-bgc--gray;
+    cursor: grabbing;
   }
 }
 
