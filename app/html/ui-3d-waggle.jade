@@ -14,6 +14,13 @@
 -   return s;
 - };
 
+- var imgs = [];
+- imgs.push('http://i.imgur.com/DuOCzrV.jpg');
+- imgs.push('http://i.imgur.com/PD9tSPF.jpg');
+- imgs.push('http://i.imgur.com/IpVQnJ8.jpg');
+- imgs.push('http://i.imgur.com/InRZF6d.jpg');
+- imgs.push('http://i.imgur.com/TzDPEC0.jpg');
+
 html(lang="en")
   head
     meta(charset="UTF-8")
@@ -40,7 +47,7 @@ html(lang="en")
             article.article
               .article-card
                 .card
-                  .card__thumb(style="background-image: url(../../bower_components/0#{i}.jpg)")
+                  .card__thumb(style="background-image: url(#{imgs[i]})")
                   .card__info
                     h3.card__info__title= rs(10, 3)
                     p.card__info__desc= rs(100, 50)
