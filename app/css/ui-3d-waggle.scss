@@ -43,40 +43,30 @@ $placeholder-bgc: #dcdcdc;
   margin-bottom: $article-gap;
   @include radius;
   cursor: grab;
-  background-color: #e8e7ec;
-  box-shadow: inset 0 1px 3px rgba(#666, .5);
+
+  &:not(.clone) {
+    background-color: #e8e7ec;
+    box-shadow: inset 0 1px 3px rgba(#666, .5);
+  }
 
   .is-dragging & {
     cursor: grabbing;
-
-    &:not(.cloned) {
-    }
   }
 
-  // .mobile:active &,
   &.cloned {
     position: absolute;
     z-index: 2;
-    display: none;
+    visibility: hidden;
+    box-shadow: 0 30px 30px -10px rgba($c-black, .3);
 
     .is-dragging & {
-      display: block;
+      visibility: visible;
     }
   }
 }
 
 .article-card {
   position: relative;
-
-  // shadow
-  &::before {
-    content: "";
-    @include fill;
-    z-index: -1;
-    margin: 10%;
-    color: rgba($c-black, .2);
-    border-radius: 30%;
-  }
 }
 
 .card {
@@ -100,12 +90,10 @@ $placeholder-bgc: #dcdcdc;
   }
 
   .article.shift-up & {
-    z-index: 1;
     transform: translateY(-($article-height + $article-gap));
   }
 
   .article.shift-down & {
-    z-index: 1;
     transform: translateY(($article-height + $article-gap));
   }
 }
