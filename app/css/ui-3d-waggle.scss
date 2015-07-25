@@ -77,8 +77,7 @@ $placeholder-bgc: #dcdcdc;
   user-select: none;
   transform-style: preserve-3d;
   background-color: $c-white;
-  transition-property: transform;
-  transition-duration: 0s;
+  transition: transform 0s cubic-bezier(1, 0.2, 0.6, 1.5);
 
   .dragging-target & {
     visibility: hidden;
