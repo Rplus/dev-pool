@@ -150,6 +150,10 @@ $placeholder-bgc: #dcdcdc;
   right: 0;
   bottom: 0;
   overflow: auto;
+
+  &.disable-scroll {
+    overflow: hidden;
+  }
 }
 
 .mobile {

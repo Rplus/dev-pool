@@ -4,6 +4,7 @@ jQuery(function($) {
   'use strict';
 
   var eles = {};
+  eles.body = document.querySelector('.body');
   eles.mobile = document.querySelector('.mobile');
   eles.articles = eles.mobile.querySelector('.articles');
   eles.article = eles.articles.querySelectorAll('.article');
@@ -85,6 +86,11 @@ jQuery(function($) {
     dragIt.target.id = article.arr.indexOf(_target);
     dragIt.target.top = _target.offsetTop;
     dragIt.target.left = _target.offsetLeft;
+
+    if (touchFactor.isSupportTouch) {
+      eles.body.classList.add('disable-scroll');
+    }
+
   };
 
   var dragMove = function() {
@@ -104,6 +110,10 @@ jQuery(function($) {
 
     if (draggingTarget) {
       draggingTarget.classList.remove('dragging-target');
+    }
+
+    if (touchFactor.isSupportTouch) {
+      eles.body.classList.remove('disable-scroll');
     }
   };
 
@@ -219,9 +229,6 @@ jQuery(function($) {
       article.arr[i].classList.remove('shift-up');
       article.arr[i].classList.remove('shift-down');
     }
-  };
-
-  var checkOrder = function() {
   };
 
   var calcStep = function(deltaY) {
