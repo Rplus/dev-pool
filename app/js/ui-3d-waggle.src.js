@@ -141,8 +141,10 @@ jQuery(function($) {
   var swapCard = function(opt) {
     if (!opt.threshold) { return; }
 
+    // for long distance dragging,
+    // id2 should not be larger than last article
     var id1 = dragIt.target.id;
-    var id2 = id1 + opt.dir * opt.step;
+    var id2 = Math.min(id1 + opt.dir * opt.step, article.len - 1);
 
     var a1 = article.arr[id1];
     var a2 = article.arr[id2];
@@ -204,7 +206,7 @@ jQuery(function($) {
     var idLarge = Math.max(id1, id2);
 
     var idMin = id1 + shift.min;
-    var idMax = id1 + shift.max;
+    var idMax = Math.min(id1 + shift.max, article.len - 1);
 
     for (var i = idMax; i >= idMin; i--) {
       if (i < 0) { return; }
