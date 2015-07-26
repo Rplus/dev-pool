@@ -248,6 +248,10 @@ jQuery(function($) {
 
   eles.$articles
     .on(touchFactor.evt.start, '.article', function(e) {
+
+      // avoid select the .cloned article
+      if (this.classList.contains('cloned')) { return; }
+
       console.log('start');
       dragStart(this);
       cloneCard(this);
