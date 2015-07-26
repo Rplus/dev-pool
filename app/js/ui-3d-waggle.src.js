@@ -19,7 +19,7 @@ jQuery(function($) {
   }
 
   var article = {
-    len: eles.article.len,
+    len: eles.article.length,
     height: eles.article[0].getBoundingClientRect().height,
     outerHeight: eles.article[1].getBoundingClientRect().top - eles.article[0].getBoundingClientRect().top,
     arr: [].slice.call(eles.article, 0)
