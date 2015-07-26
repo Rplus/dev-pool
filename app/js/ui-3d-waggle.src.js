@@ -220,7 +220,7 @@ jQuery(function($) {
 
   var resetArticleOrder = function() {
     // reset
-    eles.article = eles.articles.querySelectorAll('.article');
+    eles.article = eles.articles.querySelectorAll('.article:not(.cloned)');
     article.arr = [].slice.call(eles.article, 0);
 
     for (var i = article.arr.length - 1; i >= 0; i--) {
