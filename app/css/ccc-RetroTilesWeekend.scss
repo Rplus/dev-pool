@@ -1,0 +1,82 @@
+$c-darker: #262626;
+$c-lighter: #dfdfc4;
+
+$box-size: 400px;
+
+$unit-size: 16px;
+
+///
+/// major style
+///
+
+.box {
+  position: relative;
+  width: $box-size;
+  height: $box-size;
+  margin: 0 auto;
+
+  $i: 1.5;
+
+  background:
+    linear-gradient(45deg, $c-darker 25%, transparent 25%) $unit-size*($i + 2) $unit-size*($i + 2),
+    linear-gradient(135deg, $c-darker 25%, transparent 25%) $unit-size*($i + 2) $unit-size*($i + 2),
+    linear-gradient(45deg, $c-darker 25%, transparent 25%) $unit-size*($i) $unit-size*($i + 3),
+    linear-gradient(225deg, $c-darker 25%, transparent 25%) $unit-size*($i + 2) $unit-size*($i + 1)
+    ;
+
+  background-color: $c-lighter;
+  background-size: $unit-size*4 $unit-size*4;
+}
+
+
+
+///
+/// reset style
+///
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  padding-top: 1px;
+  text-align: center;
+  background-color: #2b2e2d;
+  color: #e4e3c8;
+}
+
+.intro {
+  width: 80%;
+  max-width: 30rem;
+  padding-bottom: 1rem;
+  margin: .5em auto 1em;
+  border-bottom: 1px dashed #999;
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  color: #999;
+
+  a {
+    color: inherit;
+  }
+}
