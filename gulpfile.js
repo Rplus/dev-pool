@@ -42,11 +42,13 @@ gulp.task('js', function () {
     .pipe($.plumber())
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'))
+    .pipe($.sourcemaps.init())
     .pipe($.babel())
     .pipe($.uglify())
     .pipe($.rename(function (path) {
       path.basename = path.basename.replace('.src', '.min');
     }))
+    .pipe($.sourcemaps.write('./'))
     .pipe(gulp.dest(path.distDir + '/js/'))
 });
 
