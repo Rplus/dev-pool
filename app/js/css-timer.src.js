@@ -4,7 +4,7 @@ let eles = {
 };
 
 let prePadding0 = function($_str = 0, $_digi = 6) {
-  return ('0'.repeat($_digi) + $_str).slice(-$_digi);
+  return (Array($_digi + 1).join('0') + $_str).slice(-$_digi);
 };
 
 let timer = {
