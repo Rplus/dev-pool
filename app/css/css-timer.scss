@@ -40,7 +40,7 @@
 
   // Just a trick to size the digit container correctly
   &::before {
-    content: '.';
+    content: '0';
     // We could also use opacity: 0; etc ...
     color: transparent;
   }
