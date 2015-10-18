@@ -9,24 +9,25 @@ var $ = require('gulp-load-plugins')();
 var del = require('del');
 var reload = browserSync.reload;
 
-var appPath = {};
+var appPath = {
+  srcDir: 'app/',
+  distDir: '_dist/'
+};
 
 // if you want to generate special css,
 // just run `gulp serve --p #{$projectName}`
 // this use in 'css' task now. it will speedup compile speed
-var projectName = '*';
-
-appPath.srcDir = 'app';
-appPath.distDir = '_dist';
+var projectName = '**/';
 
 gulp.task('css', function () {
-  return gulp.src(appPath.srcDir + '/css/' + projectName + '.{styl,scss}')
+  return gulp.src(appPath.srcDir + projectName + '*.{styl,scss}', {base: appPath.srcDir})
     .pipe($.plumber({
         errorHandler: function (err) {
             console.log(err);
             this.emit('end');
         }
     }))
+    .pipe($.sourcemaps.init())
     .pipe($.if('*.styl', $.stylus()))
     .pipe($.if('*.scss', $.sass({
       outputStyle: "expanded"
@@ -34,11 +35,12 @@ gulp.task('css', function () {
     .pipe($.postcss([
       require('autoprefixer')({browsers: ['last 1 version']})
     ]))
-    .pipe(gulp.dest(appPath.distDir + '/css/'))
+    .pipe($.sourcemaps.write('./'))
+    .pipe(gulp.dest(appPath.distDir))
 });
 
 gulp.task('js', function () {
-  return gulp.src(appPath.srcDir + '/js/' + projectName + '.src.js')
+  return gulp.src(appPath.srcDir + projectName + '*.js', {base: appPath.srcDir})
     .pipe($.plumber())
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'))
@@ -49,23 +51,28 @@ gulp.task('js', function () {
       path.basename = path.basename.replace('.src', '.min');
     }))
     .pipe($.sourcemaps.write('./'))
-    .pipe(gulp.dest(appPath.distDir + '/js/'))
+    .pipe(gulp.dest(appPath.distDir))
 });
 
 gulp.task('html', function () {
-  return gulp.src(appPath.srcDir + '/html/*.{html,jade}')
+  return gulp.src(appPath.srcDir + projectName + '*.{html,jade}', {base: appPath.srcDir})
     .pipe($.plumber({
         errorHandler: function (err) {
             console.log(err);
             this.emit('end');
         }
     }))
-    .pipe($.if('*.jade', $.jade()))
-    .pipe(gulp.dest(appPath.distDir + '/html/'))
+    .pipe($.if('*.jade', $.jade({
+      pretty: true
+    })))
+    .pipe(gulp.dest(appPath.distDir))
 });
 
 gulp.task('clean', del.bind(null, [appPath.distDir]));
-gulp.task('clean:css', del.bind(null, [appPath.distDir + '/css']));
+
+gulp.task('clean:css', function() {
+  del([appPath.distDir + '**/*.css', appPath.distDir + 'css'])
+});
 
 gulp.task('serve', function () {
   browserSync({
@@ -78,24 +85,25 @@ gulp.task('serve', function () {
       forms: false
     },
     scrollThrottle: 500,
-    startPath: ($.util.env.p ? '_dist/html/' + $.util.env.p + '.html' : null),
+    startPath: ($.util.env.p ? appPath.distDir + $.util.env.p : null),
     server: ''
   });
 });
 
 // Watch Files For Changes & Reload
 gulp.task('dev', ['serve'], function () {
-  projectName = $.util.env.p ? $.util.env.p : '*';
+  projectName = $.util.env.p ? $.util.env.p + '/' : projectName;
+
   // watch the folder to reload if files was change
-  gulp.watch([appPath.srcDir + '/js/*.js'], ['js', reload]);
-  gulp.watch([appPath.srcDir + '/css/*.{styl,scss}'], ['css', reload]);
-  gulp.watch([appPath.srcDir + '/html/*.{html,jade}'], ['html', reload]);
+  gulp.watch([appPath.srcDir + projectName + '*.js'], ['js', reload]);
+  gulp.watch([appPath.srcDir + projectName + '*.{styl,scss}'], ['css', reload]);
+  gulp.watch([appPath.srcDir + projectName + '*.{html,jade}'], ['html', reload]);
 });
 
 // deploy dist folder to github branch gh-pages
 gulp.task('deploy', function() {
   var name = $.util.env.p ? $.util.env.p : '**';
-  return gulp.src(appPath.distDir + '/' + name + '/*')
+  return gulp.src(appPath.distDir + name + '/*')
     .pipe($.ghPages());
 });
 
