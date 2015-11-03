@@ -7,7 +7,6 @@
   font-size: 32px;
   font-family: sans-serif;
   font-weight: 900;
-
 }
 
 %cloud {
@@ -66,16 +65,16 @@
     border-bottom: 6em solid #99b;
     border-right: 4.2em solid transparent;
     border-left: 4.2em solid transparent;
-    transition: all .4s;
+    transition: transform .4s;
   }
 
   .mountain--L {
     left: -15%;
     opacity: .4;
+    transform-origin: 50% 100%;
 
     #card-switcher:checked ~ & {
-      left: 30%;
-      font-size: .9em;
+      transform: translateX(144px) scale(.9);
     }
   }
 
@@ -85,7 +84,7 @@
     opacity: .3;
 
     #card-switcher:checked ~ & {
-      left: -10%;
+      transform: translateX(-192px);
     }
   }
 
