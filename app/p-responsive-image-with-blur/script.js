@@ -2,6 +2,8 @@
 
   let progressiveImages = [].map.call(document.querySelectorAll('.image-thumbnail'), (i) => i);
 
+  let lazyLoadingBuffer = 300;
+
   let originImgLoaded = function(oimg) {
     oimg.parentNode.className += ' done ';
   };
@@ -26,7 +28,8 @@
     progressiveImages.forEach(function(pimg, i) {
       let _rect = pimg.getBoundingClientRect();
 
-      if ((_rect.top > 0 && _rect.top < winH) || (_rect.bottom > 0 && _rect.bottom < winH)) {
+      if ((_rect.top > (0 - lazyLoadingBuffer) && _rect.top < (winH + lazyLoadingBuffer)) ||
+          (_rect.bottom > (0 - lazyLoadingBuffer) && _rect.bottom < (winH + lazyLoadingBuffer))) {
         let _index = progressiveImages.indexOf(pimg);
         _indexWaitingforRemove.push(_index);
         insertOriginImg(pimg);
