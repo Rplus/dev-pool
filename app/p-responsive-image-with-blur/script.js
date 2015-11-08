@@ -1,14 +1,23 @@
-;(function() {
+;(() => {
 
   let progressiveImages = [].map.call(document.querySelectorAll('.image-thumbnail'), (i) => i);
 
-  let lazyLoadingBuffer = 300;
+  let imagesPos = progressiveImages.map((pimg) => {
+    let _rect = pimg.getBoundingClientRect();
+    return {
+      imgEl: pimg,
+      top: _rect.top + window.pageYOffset,
+      bottom: _rect.bottom + window.pageYOffset
+    };
+  });
 
-  let originImgLoaded = function(oimg) {
+  let lazyLoadingBuffer = 30;
+
+  let originImgLoaded = (oimg) => {
     oimg.parentNode.className += ' done ';
   };
 
-  let insertOriginImg = function(thumbImg) {
+  let insertOriginImg = (thumbImg) => {
     let originImg = new Image();
     originImg.className = 'image-progressive';
     originImg.onload = () => {
@@ -18,35 +27,39 @@
     thumbImg.parentNode.appendChild(originImg);
   };
 
-  let detectImgInViewport = function() {
+  let detectImgInViewport = () => {
     // if no image waiting for calculating position, return
-    if (!progressiveImages.length) { return; }
+    if (!imagesPos.length) { return; }
 
-    let winH = window.innerHeight;
+    // let winH = window.innerHeight;
+    let _viewportTop = window.pageYOffset;
+    let _viewportBottom = _viewportTop + window.innerHeight;
+
     let _indexWaitingforRemove = [];
 
-    progressiveImages.forEach(function(pimg, i) {
-      let _rect = pimg.getBoundingClientRect();
-
-      if ((_rect.top > (0 - lazyLoadingBuffer) && _rect.top < (winH + lazyLoadingBuffer)) ||
-          (_rect.bottom > (0 - lazyLoadingBuffer) && _rect.bottom < (winH + lazyLoadingBuffer))) {
-        let _index = progressiveImages.indexOf(pimg);
-        _indexWaitingforRemove.push(_index);
-        insertOriginImg(pimg);
+    imagesPos.forEach((imgCachedData, i) => {
+      if (
+        (imgCachedData.bottom < _viewportBottom && imgCachedData.bottom > _viewportTop) ||
+        (imgCachedData.top > _viewportTop && imgCachedData.top < _viewportBottom)
+      ) {
+        insertOriginImg(imgCachedData.imgEl);
+        _indexWaitingforRemove.push(i);
       }
     });
 
     // remove images from calculating position
     if (_indexWaitingforRemove.length) {
-      progressiveImages.splice(_indexWaitingforRemove[0], _indexWaitingforRemove.length);
+      for (var i = _indexWaitingforRemove.length - 1; i >= 0; i--) {
+        imagesPos.splice(_indexWaitingforRemove[i], 1);
+      }
     }
   };
 
-  window.addEventListener('scroll', function() {
+  window.addEventListener('scroll', () => {
     detectImgInViewport();
   });
 
-  let init = (function() {
+  let init = (() => {
     detectImgInViewport();
   })();
 
