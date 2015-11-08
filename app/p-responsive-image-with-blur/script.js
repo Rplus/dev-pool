@@ -1,8 +1,8 @@
-;(function() {
+;(() => {
 
   let progressiveImages = [].map.call(document.querySelectorAll('.image-thumbnail'), (i) => i);
 
-  let imagesPos = progressiveImages.map(function(pimg) {
+  let imagesPos = progressiveImages.map((pimg) => {
     let _rect = pimg.getBoundingClientRect();
     return {
       imgEl: pimg,
@@ -13,11 +13,11 @@
 
   let lazyLoadingBuffer = 30;
 
-  let originImgLoaded = function(oimg) {
+  let originImgLoaded = (oimg) => {
     oimg.parentNode.className += ' done ';
   };
 
-  let insertOriginImg = function(thumbImg) {
+  let insertOriginImg = (thumbImg) => {
     let originImg = new Image();
     originImg.className = 'image-progressive';
     originImg.onload = () => {
@@ -27,7 +27,7 @@
     thumbImg.parentNode.appendChild(originImg);
   };
 
-  let detectImgInViewport = function() {
+  let detectImgInViewport = () => {
     // if no image waiting for calculating position, return
     if (!imagesPos.length) { return; }
 
@@ -37,7 +37,7 @@
 
     let _indexWaitingforRemove = [];
 
-    imagesPos.forEach(function(imgCachedData, i) {
+    imagesPos.forEach((imgCachedData, i) => {
       if (
         (imgCachedData.bottom < _viewportBottom && imgCachedData.bottom > _viewportTop) ||
         (imgCachedData.top > _viewportTop && imgCachedData.top < _viewportBottom)
@@ -50,17 +50,16 @@
     // remove images from calculating position
     if (_indexWaitingforRemove.length) {
       for (var i = _indexWaitingforRemove.length - 1; i >= 0; i--) {
-        _indexWaitingforRemove[i]
         imagesPos.splice(_indexWaitingforRemove[i], 1);
       }
     }
   };
 
-  window.addEventListener('scroll', function() {
+  window.addEventListener('scroll', () => {
     detectImgInViewport();
   });
 
-  let init = (function() {
+  let init = (() => {
     detectImgInViewport();
   })();
 
