@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title progressive image loader
+    meta(name="viewport", content="width=device-width")
+    link(rel="stylesheet", href="style.css")
+    script(src="/bower_components/modernizr.js")
+
+  body
+    h1.intro progressive image loader with SVG blur effect
+
+    -
+      var images = [
+        {
+          w: 512,
+          h: 410,
+          oriSrc: 'https://lh3.googleusercontent.com/-hmwEuHZo0HM/Vj8jxl8yaHI/AAAAAAAACuY/p_iM383LRPI/s550-Ic42/cat-1404368.jpg',
+          thumbSrc: 'https://lh3.googleusercontent.com/-hmwEuHZo0HM/Vj8jxl8yaHI/AAAAAAAACuA/wzIfMQWBKD0/s20-Ic42/cat-1404368.jpg',
+          imgsrc: 'http://www.freeimages.com/photo/cat-1404368',
+          caption: 'Look at me ~'
+        },
+        {
+          w: 330,
+          h: 440,
+          oriSrc: 'https://lh3.googleusercontent.com/-Wneo8b-ylQY/Vj9tv696byI/AAAAAAAACug/DZWmVdVydO0/s440-Ic42/cat-1396828.jpg',
+          thumbSrc: 'https://lh3.googleusercontent.com/-Wneo8b-ylQY/Vj9tv696byI/AAAAAAAACug/DZWmVdVydO0/s20-Ic42/cat-1396828.jpg',
+          imgsrc: 'http://www.freeimages.com/photo/cat-1396828',
+          caption: 'wo ~'
+        },
+        {
+          w: 586,
+          h: 440,
+          oriSrc: 'https://lh3.googleusercontent.com/-Awz2oszh4cU/Vj9v0wv6g2I/AAAAAAAACu8/MaeGtl5Ad5A/s586-Ic42/cat-yawning-1362103.jpg',
+          thumbSrc: 'https://lh3.googleusercontent.com/-Awz2oszh4cU/Vj9v0wv6g2I/AAAAAAAACu8/MaeGtl5Ad5A/s20-Ic42/cat-yawning-1362103.jpg',
+          imgsrc: 'http://www.freeimages.com/photo/cat-yawning-1362103',
+          caption: 'ha ~'
+        },
+        {
+          w: 292,
+          h: 439,
+          oriSrc: 'https://lh3.googleusercontent.com/-VJBoM5uq8vw/Vj91GSe72xI/AAAAAAAACvU/-a57RaxYwzM/s439-Ic42/cat-1058028.jpg',
+          thumbSrc: 'https://lh3.googleusercontent.com/-VJBoM5uq8vw/Vj91GSe72xI/AAAAAAAACvU/-a57RaxYwzM/s20-Ic42/cat-1058028.jpg',
+          imgsrc: 'http://www.freeimages.com/photo/cat-1058028',
+          caption: 'mmmmmmm'
+        }
+      ];
+
+    each image in images
+      figure.image
+        .image-wrapper(style=`max-width: ${image.w}px; max-height: ${image.h}px`)
+          .image-placeholder(style=`padding-bottom: ${Math.floor(image.h * 1000 / image.w) * 0.1}%`)
+          img.image-thumbnail(
+            src=image.thumbSrc,
+            data-src=image.oriSrc)
+          noscript
+            img(data-src=image.oriSrc, width=image.w, height=image.h)
+          .image-source=`source: ${image.imgsrc}`
+
+        figcaption.image-caption= image.caption
+
+    svg.sr-only(xmlns="http://www.w3.org/2000/svg")
+      def
+        filter#blur-effect--20
+          feGaussianBlur(stdDeviation="20")
+
+    //- firefox filter path is very strange,
+    //- if write in externel css file, firefox will render likes empty.
+    //- so I write this in HTML style
+    style.
+      :root.svg .image-thumbnail {
+        -webkit-filter: url("#blur-effect--20");
+                filter: url("#blur-effect--20");
+      }
+
+    blockquote.info
+      | inspired from <a href="https://medium.com/">Medium</a> image loading
+
+    script(src="script.js")
