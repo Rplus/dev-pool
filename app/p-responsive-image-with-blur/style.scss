@@ -1,0 +1,123 @@
+.image {
+  text-align: center;
+}
+
+.image-wrapper {
+  position: relative;
+  margin: auto;
+  overflow: hidden;
+}
+
+.image-placeholder {
+  ~ * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.image-thumbnail {
+  :root.svg & {
+    // // Firefox sucks!
+    // filter: url('#blur-effect--20');
+  }
+}
+
+.image-progressive {
+  opacity: 0;
+  transition: opacity .3s;
+
+  .image-wrapper.done & {
+    opacity: 1;
+  }
+}
+
+.image-source {
+  top: auto;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  height: auto;
+  padding: .25em 1em;
+  text-align: right;
+  background-color: rgba(#fff,.5);
+  font-style: italic;
+  font-size: smaller;
+  text-shadow: 1px 1px 1px #fff;
+  opacity: .5;
+  transition: opacity .3s, background-color .3s;
+
+  &:hover {
+    background-color: rgba(#fff,.75);
+  }
+
+  .image-wrapper:hover & {
+    opacity: 1;
+  }
+}
+
+///
+/// reset style
+///
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  padding-top: 1px;
+  padding-bottom: 5rem;
+  text-align: center;
+  background-color: #fff;
+  color: #333;
+}
+
+.intro {
+  width: 80%;
+  max-width: 30rem;
+  padding-bottom: 1rem;
+  margin: .5em auto 1em;
+  text-transform: capitalize;
+  border-bottom: 1px dashed #999;
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  color: #999;
+
+  a {
+    color: inherit;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
