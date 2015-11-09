@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-html(lang="en")
+html.no-js(lang="en")
   head
     meta(charset="UTF-8")
     title progressive image loader
     meta(name="viewport", content="width=device-width")
     link(rel="stylesheet", href="style.css")
-    script(src="/bower_components/modernizr.js")
+
+    script.
+      (function(_html) {
+        _html.className = _html.className.replace(/\bno-js\b/, ' js ');
+        _html.className += ('undefined' !== typeof window.SVGRect) ? ' svg ' : ' no-svg ';
+      })(document.documentElement);
 
   body
     h1.intro progressive image loader with SVG blur effect
@@ -54,7 +59,7 @@ html(lang="en")
             src=image.thumbSrc,
             data-src=image.oriSrc)
           noscript
-            img(data-src=image.oriSrc, width=image.w, height=image.h)
+            img(src=image.oriSrc, width="100%")
           .image-source=`source: ${image.imgsrc}`
 
         figcaption.image-caption= image.caption
