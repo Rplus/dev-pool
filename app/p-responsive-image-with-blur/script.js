@@ -13,8 +13,40 @@
 
   let lazyLoadingBuffer = 30;
 
+  // ref: https://gist.github.com/Rplus/16117dc7b7567ba27162
+  // ref: https://github.com/Leaflet/Leaflet/blob/v1.0.0-beta.2/src/dom/DomUtil.js#L189
+  let prefixedTransitionEnd = (() => {
+    let bs = document.body.style;
+    let prefixedProp;
+    let prefix;
+
+    'webkit,,Moz,O,ms'.split(',').forEach((_p, i) => {
+      if (prefixedProp) { return; }
+
+      let prop = 'transition';
+      if (_p.length) {
+        prop = prop.charAt(0).toUpperCase() + prop.substr(1);
+      }
+
+      if ((prop = _p + prop) in bs) {
+        prefix = _p;
+        prefixedProp = prop;
+      }
+    });
+
+    return prefixedProp + ( prefix.length ? 'End' : 'end');
+  })();
+
+  let originImgTransitionEnd = (oimg) => {
+    let _parent = oimg.parentNode;
+    _parent.removeChild(_parent.querySelector('.image-thumbnail'));
+  };
+
   let originImgLoaded = (oimg) => {
     oimg.parentNode.className += ' done ';
+    oimg.addEventListener(prefixedTransitionEnd, () => {
+      originImgTransitionEnd(oimg);
+    });
   };
 
   let insertOriginImg = (thumbImg) => {
