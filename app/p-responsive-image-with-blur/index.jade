@@ -59,7 +59,7 @@ html.no-js(lang="en")
             src=image.thumbSrc,
             data-src=image.oriSrc)
           noscript
-            img(data-src=image.oriSrc, width=image.w, height=image.h)
+            img(src=image.oriSrc, width="100%")
           .image-source=`source: ${image.imgsrc}`
 
         figcaption.image-caption= image.caption
