@@ -1,0 +1,274 @@
+$radius: .5rem;
+
+$c-white: #fff;
+$c-black: #000;
+
+$article-height: 150px;
+$article-gap: 30px;
+
+$card-bgc--white: $c-white;
+$card-bgc--gray: #f6f6f6;
+$placeholder-bgc: #dcdcdc;
+
+@mixin fill($dir: 'full') {
+  position: absolute;
+  @if $dir != 'bottom' { top: 0; }
+  @if $dir != 'right' { left: 0; }
+  @if $dir != 'left' { right: 0; }
+  @if $dir != 'top' { bottom: 0; }
+}
+
+@mixin oneline() {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@mixin radius($r: $radius) {
+  border-radius: $r;
+}
+
+///
+/// major style
+///
+
+.articles {
+  position: relative;
+  padding: 2em 10%;
+  perspective: 800px;
+}
+
+.article {
+  height: $article-height;
+  margin-bottom: $article-gap;
+  @include radius;
+  cursor: grab;
+
+  &:not(.clone) {
+    background-color: #e8e7ec;
+    box-shadow: inset 0 1px 3px rgba(#666, .5);
+  }
+
+  .is-dragging & {
+    cursor: grabbing;
+  }
+
+  &.cloned {
+    position: absolute;
+    z-index: 2;
+    visibility: hidden;
+    box-shadow: 0 30px 30px -10px rgba($c-black, .3);
+
+    .is-dragging & {
+      visibility: visible;
+    }
+  }
+}
+
+.article-card {
+  position: relative;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  box-shadow: 0 1px 5px rgba(#666, .5);
+  @include radius;
+  user-select: none;
+  transform-style: preserve-3d;
+  background-color: $c-white;
+  transition: transform 0s cubic-bezier(1, 0.2, 0.6, 1.5);
+
+  .dragging-target & {
+    visibility: hidden;
+  }
+
+  .mobile.is-dragging .article:not(.cloned) & {
+    background-color: $card-bgc--gray;
+    transition-duration: .2s;
+  }
+
+  .article.shift-up & {
+    transform: translateY(-($article-height + $article-gap));
+  }
+
+  .article.shift-down & {
+    transform: translateY(($article-height + $article-gap));
+  }
+}
+
+.card__thumb {
+  flex-shrink: 0;
+  width: 100px;
+  height: $article-height;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: cover;
+  border-top-left-radius: $radius;
+  border-bottom-left-radius: $radius;
+}
+
+.card__info {
+  padding: 1em;
+  max-height: $article-height;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.card__info__title {
+  margin-bottom: .5em;
+  @include oneline;
+}
+
+.card__info__desc {
+  max-height: 4 * 20px;
+  line-height: 20px;
+  overflow: hidden;
+  font-size: 12px;
+  opacity: .75;
+}
+
+//////
+
+.body {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+
+  &.disable-scroll {
+    overflow: hidden;
+  }
+}
+
+.mobile {
+  position: relative;
+  max-width: 375px;
+  margin: 30px auto;
+  box-shadow: 0 0 0 3px #666;
+  border-radius: 2px;
+  background-color: $c-white;
+  text-align: left;
+  font-family: sans;
+
+  &.is-dragging {
+    background-color: $card-bgc--gray;
+    cursor: grabbing;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -100px;
+    left: -20px;
+    right: -20px;
+    bottom: -120px;
+    z-index: -1;
+    border-radius: 50px;
+    border: 3px solid #aaa;
+    background-color: #f9f9f9;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -90px;
+    z-index: -1;
+    width: 60px;
+    height: 60px;
+    margin: auto;
+    border: 8px double #ccc;
+    border-radius: 50%;
+  }
+}
+
+
+
+///
+/// reset style
+///
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  padding-top: 1px;
+  padding-bottom: 3em;
+  text-align: center;
+  background-color: #fff;
+  color: #333;
+}
+
+.inner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+}
+
+.intro {
+  width: 80%;
+  max-width: 36rem;
+  padding-bottom: 1rem;
+  margin: .5em auto 1em;
+  text-transform: capitalize;
+  border-bottom: 1px dashed #999;
+
+  small {
+    display: block;
+    text-transform: none;
+    font-weight: 100;
+    font-style: italic;
+    opacity: .75;
+  }
+
+  label {
+    cursor: pointer;
+
+    &::before {
+      content: "";
+      display: inline-block;
+      vertical-align: middle;
+      width: 1em;
+      height: 1em;
+      box-shadow: inset 0 0 0 .1em;
+      transform: scale(.7);
+      opacity: .75;
+
+      #switcher:checked + & {
+        box-shadow: inset 0 0 0 .1em,
+                    inset 0 0 0 .25em #fff,
+                    inset 0 0 0 1em;
+      }
+    }
+  }
+}
+
+.info {
+  // position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+
+  a {
+    color: inherit;
+  }
+}

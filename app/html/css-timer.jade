@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title css-timer
+    meta(name="viewport", content="width=device-width")
+    link(rel="stylesheet", href="../css/css-timer.css")
+
+  body
+    h1.intro CSS Timer
+
+    input#play(type='radio', name='ctrl', value='play')
+    label(for='play')  Play
+    input#pause(type='radio', name='ctrl', value='pause')
+    label(for='pause')  Pause
+    input#reset(type='radio', name='ctrl', value='reset')
+    label(for='reset')  RESET
+    br
+    br
+    input#visible(type='checkbox')
+    label(for='visible')  Behind the scenes
+
+
+    - var i = 6
+    #counter
+      - while(i--)
+        .digit
+
+      hr.divier
+
+      #js-diff 000000
+
+    .info
+      | fork from <a href="http://codepen.io/bali_balo/details/527676fb10a5638253c6897ff73e189b/">Timer demo</a> By <a href="http://codepen.io/bali_balo">Bali Balo</a>
+
+    script(src="../js/css-timer.min.js")
