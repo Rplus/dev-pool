@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+html(lang="en")
+head
+  meta(charset="UTF-8")
+  title Fork me on GitHub [corner style generator]
+  link(rel="stylesheet", href="style.css")
+body
+
+  .box
+    h1.intro Fork me on GitHub
+      small corner style generator
+
+    form#corner-opts
+      h2 options:
+      dl
+        dt
+          label(for="opts_pos") position
+        dd
+          table
+            tr
+              td
+                label
+                  input(type="radio", name="opts_pos", value="+.-")
+                  | top-left
+              td
+                label
+                  input(type="radio", name="opts_pos", value="+.+", checked)
+                  | top-right
+            tr
+              td
+                label
+                  input(type="radio", name="opts_pos", value="-.-")
+                  | bottom-left
+              td
+                label
+                  input(type="radio", name="opts_pos", value="-.+")
+                  | bottom-right
+
+        dt
+          label(for="color") color
+        dd
+          input#color(type="color", name="color", value="#000000", required)
+        dt
+          label(for="url") url
+        dd
+          input#url(type="url", name="url", value="###", required)
+        dt
+          label(for="size") size
+          small  /px/
+        dd
+          input#size(type="number", name="size", min="0", step="5", value="80", required)
+
+      hr
+
+      .text-center
+        input(type="reset")
+
+
+    textarea#textarea(cols="50", rows="10")
+    .text-right
+      button.btn(type="button", data-clipboard-target="#textarea") copy
+
+  #apply
+
+  script#corner-tpl(type="text/template")
+    div(class="github-corner")
+      a(href="${url}", title="Fork me on GitHub")
+        svg(viewbox="0 0 100 100" fill="currentColor")
+          title Fork me on GitHub
+          path(d="M0 0v100h100V0H0zm60 70.2h.2c1 2.7.3 4.7 0 5.2 1.4 1.4 2 3 2 5.2 0 7.4-4.4 9-8.7 9.5.7.7 1.3 2 1.3 3.7V99c0 .5 1.4 1 1.4 1H44s1.2-.5 1.2-1v-3.8c-3.5 1.4-5.2-.8-5.2-.8-1.5-2-3-2-3-2-2-.5-.2-1-.2-1 2-.7 3.5.8 3.5.8 2 1.7 4 1 5 .3.2-1.2.7-2 1.2-2.4-4.3-.4-8.8-2-8.8-9.4 0-2 .7-4 2-5.2-.2-.5-1-2.5.2-5 0 0 1.5-.6 5.2 1.8 1.5-.4 3.2-.6 4.8-.6 1.6 0 3.3.2 4.8.7 2.8-2 4.4-2 5-2z")
+    style.
+        .github-corner {
+          position: absolute;
+          ${dirX}: 0;
+          ${dirY}: 0;
+          width: ${size}px;
+          height: ${size}px;
+          overflow: hidden;
+        }
+
+        .github-corner a {
+          position: absolute;
+          right: 0;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          transform: ${trans};
+          color: ${color};
+        }
+
+  blockquote.info
+    | inspired from <a href="http://tholman.com/github-corners/">GitHub Corners</a>, and <a href="https://github.com/tholman/github-corners/issues/5">issue</a>
+
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js")
+  script(src="script.js")
