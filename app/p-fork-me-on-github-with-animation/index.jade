@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+html(lang="en")
+head
+  meta(charset="UTF-8")
+  title Fork me on GitHub [corner style generator]
+  link(rel="stylesheet", href="style.css")
+body
+
+  .box
+    h1.intro Fork me on GitHub
+      small *animated* corner style generator
+
+    form#corner-opts
+      h2 options:
+      dl
+        dt
+          label(for="opts_pos") position
+        dd
+          table
+            tr
+              td
+                label
+                  input(type="radio", name="opts_pos", value="+-")
+                  | top-left
+              td
+                label
+                  input(type="radio", name="opts_pos", value="++", checked)
+                  | top-right
+            tr
+              td
+                label
+                  input(type="radio", name="opts_pos", value="--")
+                  | bottom-left
+              td
+                label
+                  input(type="radio", name="opts_pos", value="-+")
+                  | bottom-right
+
+        dt
+          label(for="color") color
+          small  /cat/
+        dd
+          input#color(type="color", name="color", value="#ffffff", required)
+        dt
+          label(for="fill") fill color
+          small  /background-color/
+        dd
+          input#fill(type="color", name="fill", value="#000000", required)
+        dt
+          label(for="url") url
+          small  /link/
+        dd
+          input#url(type="url", name="url", value="###", required)
+        dt
+          label(for="size") size
+          small  /px/
+        dd
+          input#size(type="number", name="size", min="0", step="5", value="80", required)
+        dt
+          label(for="transparent") transparent
+          small  /mix-blend-mode/
+        dd
+          select#transparent
+            optgroup(label="disable")
+              option(label="no", value="")
+            optgroup(label="enable")
+              each i in ['normal', 'multiply', 'screen', 'overlay', 'darken', 'lighten', 'color-dodge', 'color-burn', 'hard-light', 'soft-light', 'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity']
+                option(label=i, value=i, selected=( i === 'darken' ))
+
+      hr
+
+      .text-center
+        input(type="reset")
+
+
+    textarea#textarea(cols="50", rows="10")
+    .text-right
+      button.btn(type="button", data-clipboard-target="#textarea") copy
+
+  #apply
+
+  script#corner-tpl(type="text/template")
+    a.github-corner(href="${url}", title="Fork me on GitHub")
+      svg(width="${size}", height="${size}", viewbox="0 0 250 250")
+        title Fork me on GitHub
+        path(d="M0 0h250v250")
+        path.octo-arm(d="M127.4 110c-14.6-9.2-9.4-19.5-9.4-19.5 3-7 1.5-11 1.5-11-1-6.2 3-2 3-2 4 4.7 2 11 2 11-2.2 10.4 5 14.8 9 16.2", fill="currentColor", style="transform-origin:130px 110px")
+        path.octo-body(d="M113.2 114.3s3.6 1.6 4.7.6l15-13.7c3-2.4 6-3 8.2-2.7-8-11.2-14-25 3-41 4.7-4.4 10.6-6.4 16.2-6.4.6-1.6 3.6-7.3 11.8-10.7 0 0 4.5 2.7 6.8 16.5 4.3 2.7 8.3 6 12 9.8 3.3 3.5 6.7 8 8.6 12.3 14 3 16.8 8 16.8 8-3.4 8-9.4 11-11.4 11 0 5.8-2.3 11-7.5 15.5-16.4 16-30 9-40 .2 0 3-1 7-5.2 11l-13.3 11c-1 1 .5 5.3.8 5z", fill="currentColor")
+
+      style.
+        .github-corner svg {
+          position: absolute;
+          ${dirX}: 0;
+          ${dirY}: 0;
+          ${trans}
+          ${mixBlendMode}
+          color: ${color};
+          fill: ${fill};
+        }
+        .github-corner:hover .octo-arm {
+          animation: octocat-wave .56s;
+        }
+        @keyframes octocat-wave {
+          0%, 100% {transform: rotate(0); }
+          20%, 60% {transform: rotate(-20deg); }
+          40%, 80% {transform: rotate(10deg); }
+        }
+
+  blockquote.info
+    | inspired from <a href="http://tholman.com/github-corners/">GitHub Corners</a>, and <a href="https://github.com/tholman/github-corners/issues/5#issue-116228491">issue</a>
+
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js")
+  script(src="script.js")
