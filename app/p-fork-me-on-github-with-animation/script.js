@@ -6,12 +6,23 @@ let corner = {
   target: document.getElementById('apply')
 };
 
+let animationStyle = `
+  .github-corner:hover .octo-arm {
+    animation: octocat-wave .56s;
+  }
+  @keyframes octocat-wave {
+    0%, 100% {transform: rotate(0); }
+    20%, 60% {transform: rotate(-20deg); }
+    40%, 80% {transform: rotate(10deg); }
+  }`;
+
 corner.form = document.getElementById('corner-opts');
 
 let update = function () {
   let color = corner.form.color.value;
   let fill = corner.form.fill.value;
   let transparent = corner.form.transparent.value;
+  let _animationStyle = corner.form.animation.checked ? animationStyle : '';
   let size = corner.form.size.value;
   let url = corner.form.url.value;
 
@@ -40,6 +51,7 @@ let update = function () {
       .replace(/\${dirX}/, dirX)
       .replace(/\${dirY}/, dirY)
       .replace(/\${mixBlendMode}/, transparent)
+      .replace(/\${animation}/, _animationStyle)
 
       // minify
       .replace(/\s*([:{}; ])\s*/g, '$1')
@@ -55,8 +67,8 @@ let update = function () {
   // bind events
   new Clipboard('.btn');
   corner.form.addEventListener('input', update);
+  corner.form.addEventListener('change', update);
   corner.form.addEventListener('reset', function () {
     setTimeout(update, 0);
   });
-  corner.form.getElementsByTagName('table')[0].addEventListener('change', update);
 })();

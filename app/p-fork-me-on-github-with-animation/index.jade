@@ -57,6 +57,10 @@ body
         dd
           input#size(type="number", name="size", min="0", step="5", value="80", required)
         dt
+          label(for="animation") animation
+        dd
+          input#animation(type="checkbox", name="animation", checked)
+        dt
           label(for="transparent") transparent
           small  /mix-blend-mode/
         dd
@@ -97,14 +101,7 @@ body
           color: ${color};
           fill: ${fill};
         }
-        .github-corner:hover .octo-arm {
-          animation: octocat-wave .56s;
-        }
-        @keyframes octocat-wave {
-          0%, 100% {transform: rotate(0); }
-          20%, 60% {transform: rotate(-20deg); }
-          40%, 80% {transform: rotate(10deg); }
-        }
+        ${animation}
 
   blockquote.info
     | inspired from <a href="http://tholman.com/github-corners/">GitHub Corners</a>, and <a href="https://github.com/tholman/github-corners/issues/5#issue-116228491">issue</a>
