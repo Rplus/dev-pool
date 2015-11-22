@@ -1,7 +1,7 @@
 /* globals Clipboard */
 
 let corner = {
-  tpl: document.getElementById('corner-tpl').innerText.trim(),
+  tpl: document.getElementById('corner-tpl').textContent.trim(),
   textarea: document.getElementById('textarea'),
   target: document.getElementById('apply')
 };
