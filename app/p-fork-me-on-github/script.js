@@ -13,9 +13,8 @@ let update = function () {
   let size = corner.form.size.value;
   let url = corner.form.url.value;
 
-  let [ay, ax] = corner.form.opts_pos.value.split('.').map(function (i) {
-    return i === '+' ? 1 : -1;
-  });
+  let [ay, ax] = [].filter.call(corner.form.opts_pos, i => i.checked)[0].value
+    .split('.').map(i => i === '+' ? 1 : -1);
 
   let dirX = ax > 0 ? 'right' : 'left';
   let dirY = ay > 0 ? 'top' : 'bottom';
