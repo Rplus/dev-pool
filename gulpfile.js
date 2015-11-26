@@ -22,21 +22,21 @@ var projectName = '**/';
 gulp.task('css', function () {
   return gulp.src(appPath.srcDir + projectName + '*.{styl,scss}', {base: appPath.srcDir})
     .pipe($.plumber({
-        errorHandler: function (err) {
-            console.log(err);
-            this.emit('end');
-        }
+      errorHandler: function (err) {
+        console.log(err);
+        this.emit('end');
+      }
     }))
     .pipe($.sourcemaps.init())
     .pipe($.if('*.styl', $.stylus()))
     .pipe($.if('*.scss', $.sass({
-      outputStyle: "expanded"
+      outputStyle: 'expanded'
     })))
     .pipe($.postcss([
       require('autoprefixer')({browsers: ['last 1 version']})
     ]))
     .pipe($.sourcemaps.write('./'))
-    .pipe(gulp.dest(appPath.distDir))
+    .pipe(gulp.dest(appPath.distDir));
 });
 
 gulp.task('js', function () {
@@ -51,27 +51,27 @@ gulp.task('js', function () {
       path.basename = path.basename.replace('.src', '.min');
     }))
     .pipe($.sourcemaps.write('./'))
-    .pipe(gulp.dest(appPath.distDir))
+    .pipe(gulp.dest(appPath.distDir));
 });
 
 gulp.task('html', function () {
   return gulp.src(appPath.srcDir + projectName + '*.{html,jade}', {base: appPath.srcDir})
     .pipe($.plumber({
-        errorHandler: function (err) {
-            console.log(err);
-            this.emit('end');
-        }
+      errorHandler: function (err) {
+        console.log(err);
+        this.emit('end');
+      }
     }))
     .pipe($.if('*.jade', $.jade({
       pretty: true
     })))
-    .pipe(gulp.dest(appPath.distDir))
+    .pipe(gulp.dest(appPath.distDir));
 });
 
 gulp.task('clean', del.bind(null, [appPath.distDir]));
 
-gulp.task('clean:css', function() {
-  del([appPath.distDir + '**/*.css', appPath.distDir + 'css'])
+gulp.task('clean:css', function () {
+  del([appPath.distDir + '**/*.css', appPath.distDir + 'css']);
 });
 
 gulp.task('serve', function () {
@@ -101,7 +101,7 @@ gulp.task('dev', ['serve'], function () {
 });
 
 // deploy dist folder to github branch gh-pages
-gulp.task('deploy', function() {
+gulp.task('deploy', function () {
   var name = $.util.env.p ? $.util.env.p : '**';
   return gulp.src(appPath.distDir + name + '/*')
     .pipe($.ghPages());
