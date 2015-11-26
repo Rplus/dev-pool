@@ -73,6 +73,13 @@ $bdw: .3em;
 }
 
 .dropdown__list {
+  margin-top: -100%;
+  transition: margin-top .3s;
+
+  #dropdown-1:checked ~ .dropdown__lists & {
+    margin-top: 0;
+  }
+
   &:first-child {
     border-radius: $bdr $bdr 0 0;
   }
