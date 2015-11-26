@@ -1,33 +1,14 @@
-// #fafafa
-// #d8cbc2
-// #ff8476
-$border-radius: .2em;
+$main-color: #d8cbc2;
+$bdr: .2em;
+$bdw: .3em;
 
 .dropdown {
   position: relative;
-  overflow: hidden;
-  font-size: 2rem;
-  border-radius: $border-radius;
+  font-size: 1.5rem;
+  color: $main-color;
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    z-index: 1;
-    height: .3em;
-    background-color: #d8cbc2;
-  }
-
-  &::before {
-    top: 0;
-    border-radius: $border-radius $border-radius 0 0;
-  }
-
-  &::after {
-    bottom: 0;
-    border-radius: 0 0 $border-radius $border-radius;
+  a {
+    color: inherit;
   }
 
   .svg-icon {
@@ -35,7 +16,7 @@ $border-radius: .2em;
     width: 3.5em;
     height: 3.5em;
     padding: 1.2em;
-    fill: #d8cbc2;
+    fill: currentColor;
   }
 }
 
@@ -56,49 +37,44 @@ $border-radius: .2em;
 .dropdown__lists {
   $gap: 1em;
 
-  position: relative;
+  position: absolute;
+  top: 100%;
+
   margin: 0;
   padding-left: 0;
   list-style-type: none;
 
   max-height: 0;
-  overflow: hidden;
-  visibility: hidden;
   opacity: 0;
-  transition: max-height .3s, opacity .6s, transform .5s;
-  transform: translateY(-20%);
+  visibility: hidden;
+  transition: max-height .3s, opacity .6s, transform .5s, visibility 0s .3s;
 
   #dropdown-1:checked ~ & {
-    max-height: 20em;
+    max-height: 10em;
     visibility: visible;
     opacity: 1;
-    transform: translateY(0);
-  }
-
-  &::before {
-    content: '';
-    display: block;
-    height: $gap;
+    transform: translateY($gap);
+    transition: max-height .3s, opacity .6s, transform .5s, visibility 0s 0s;
   }
 
   &::after {
     content: '';
     position: absolute;
-    top: $gap;
+    top: 0;
     left: 50%;
     z-index: -1;
     width: .5em;
     height: .5em;
-    border-top-left-radius: $border-radius * .5;
+    border-top-left-radius: $bdr * .5;
     background-color: #fafafa;
     transform: translate(-50%, -50%) rotate(45deg);
+    border-radius: $bdr;
   }
 }
 
 .dropdown__list {
   &:first-child {
-    overflow: hidden;
-    border-radius: $border-radius $border-radius 0 0;
+    border-radius: $bdr $bdr 0 0;
   }
 }
 
@@ -106,14 +82,36 @@ $border-radius: .2em;
   position: relative;
   display: block;
   background-color: #fafafa;
+  background-repeat: repeat-x;
   cursor: pointer;
 
   &:hover {
     background-color: darken(#fafafa,2%);
   }
 
+  .dropdown__list:first-child & {
+    border-top-left-radius: $bdr;
+    border-top-right-radius: $bdr;
+  }
+
+  .dropdown__list:last-child & {
+    border-bottom-left-radius: $bdr;
+    border-bottom-right-radius: $bdr;
+    background-image: linear-gradient(to top, currentColor $bdw, transparent $bdw);
+  }
+
   .dropdown > & {
-    border-radius: $border-radius;
+    position: relative;
+    z-index: 1;
+    border-radius: $bdr;
+    background-image: linear-gradient(currentColor $bdw, transparent $bdw),
+                      linear-gradient(to top, currentColor $bdw, transparent $bdw);
+    transition: background-position .2s .3s;
+  }
+
+  #dropdown-1:checked ~ & {
+    background-position: 0 0, 0 $bdw*1.2;
+    transition-delay: 0s;
   }
 
   .has-noti &::before {
@@ -145,9 +143,6 @@ $border-radius: .2em;
 ///
 .nav {
   display: inline-block;
-}
-
-.box {
 }
 
 
