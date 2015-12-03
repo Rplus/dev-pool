@@ -1,0 +1,167 @@
+$masker-color: #fff;
+
+$circle-size: 4rem;
+$circle-gap-ratio: .125;
+
+$loading-time: 1s;
+
+.img-box {
+  position: absolute;
+  width: 100%;
+  max-width: 30rem;
+  overflow: hidden;
+  background-color: $masker-color;
+  transform: translateX(calc(50vw - 50%));
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+  }
+}
+
+.img-box__loading-masker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  transition: background .01s $loading-time*.9;
+
+  .img-box--done & {
+    display: none;
+  }
+
+  .img-box:hover &,
+  .img-box--loading & {
+    background-color: transparent;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    width: $circle-size * (1 + $circle-gap-ratio);
+    height: $circle-size * (1 + $circle-gap-ratio);
+    border-radius: 50%;
+    border: .25rem solid transparent;
+    color: $masker-color;
+    transition: transform $loading-time $loading-time;
+    will-change: transform;
+  }
+
+  &::before {
+    box-shadow: inset 0 0 0 $circle-size;
+
+    .img-box:hover &,
+    .img-box--loading & {
+      transform: translate(-50%, -50%) scale(0);
+    }
+  }
+
+  &::after {
+    box-shadow: 0 0 0 100vh;
+
+    .img-box:hover &,
+    .img-box--loading & {
+      transform: translate(-50%, -50%) scale(20);
+    }
+  }
+}
+
+.loading-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  width: $circle-size * 2;
+  height: $circle-size * 2;
+  fill: none;
+  opacity: 1;
+  background-color: $masker-color;
+  z-index: 1;
+  stroke: #999;
+  stroke-width: $circle-size * $circle-gap-ratio * .3;
+  stroke-dasharray: 0 $circle-size * 3.14;
+  transition: stroke-dasharray $loading-time $loading-time*2,
+              opacity .001s $loading-time*2;
+
+  .img-box:hover &,
+  .img-box--loading & {
+    stroke-dasharray: $circle-size * 3.14 $circle-size * 3.14;
+    opacity: 0;
+    transition: stroke-dasharray $loading-time,
+                opacity .001s $loading-time;
+  }
+}
+
+///
+/// reset style
+///
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  padding-top: 1px;
+  padding-bottom: 5rem;
+  text-align: center;
+  background-color: #fff;
+  background-image: linear-gradient(#ffc, rgba(#fff, .3));
+  color: #333;
+}
+
+.intro {
+  width: 80%;
+  max-width: 30rem;
+  padding-bottom: 1rem;
+  margin: .5em auto 1em;
+  text-transform: capitalize;
+  border-bottom: 1px dashed #999;
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  color: #999;
+
+  a {
+    color: inherit;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}

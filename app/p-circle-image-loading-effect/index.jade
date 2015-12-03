@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+html(lang="en")
+head
+  meta(charset="UTF-8")
+  title circle image loading effect
+  meta(name="viewport", content="width=device-width")
+  link(rel="stylesheet", href="style.css")
+
+body
+  h1.intro circle image loading effect
+    small hover to see effect
+
+  - var img = [];
+  - img[0] = {url: 'https://lh3.googleusercontent.com/-hmwEuHZo0HM/Vj8jxl8yaHI/AAAAAAAACuY/p_iM383LRPI/s550-Ic42/cat-1404368.jpg', width: 512, height: 410};
+
+  .img-box
+    img(data-src=img[0].url, alt="", width=img[0].width, height=img[0].height)
+    .img-box__placeholder(style="padding-bottom: #{img[0].height*100 / img[0].width}%")
+    .img-box__loading-masker
+      svg.loading-icon(viewbox="0 0 100 100")
+        circle(r="25", cx="50", cy="50")
+
+  blockquote.info
+    | inspired from <a href="http://michaelvillar.com/motion">Motion Experiments</a> by <a href="https://twitter.com/michaelvillar">@michaelvillar</a>
+
+
+  script(src="script.js")
