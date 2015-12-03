@@ -1,0 +1,216 @@
+$main-color: #d8cbc2;
+$bdr: .2em;
+$bdw: .3em;
+
+.dropdown {
+  position: relative;
+  font-size: 1.5rem;
+  color: $main-color;
+
+  a {
+    color: inherit;
+  }
+
+  .svg-icon {
+    display: block;
+    width: 3.5em;
+    height: 3.5em;
+    padding: 1.2em;
+    fill: currentColor;
+  }
+}
+
+.dropdown__reset {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+
+  #dropdown-1:checked ~ & {
+    display: block;
+    cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAV1BMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABcPecEAAAAHHRSTlMADhMVFx0tMjpDSEmetba/xcvS09TZ2+rr8PT3WJPOfQAAAHZJREFUeAFVjdsSwiAMBY/2ArVSRWy5cP7/O5VCZsq+kN3JBOD2tA+czN/3BNwtmZfTPbmPMPyTdHVyg2Mhquo80IZQn7zWVSHJsUbUwLUEhT74uXMp4lLEfZDi2qAiCxZGVnUq0wvDR44tmdwnYDCufbce24gfVTERkJvGGyEAAAAASUVORK5CYII=), pointer;
+  }
+}
+
+.dropdown__lists {
+  $gap: 1em;
+
+  position: absolute;
+  top: 100%;
+
+  margin: 0;
+  padding-left: 0;
+  list-style-type: none;
+
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: max-height .3s, opacity .6s, transform .5s, visibility 0s .3s;
+
+  #dropdown-1:checked ~ & {
+    max-height: 10em;
+    visibility: visible;
+    opacity: 1;
+    transform: translateY($gap);
+    transition: max-height .3s, opacity .6s, transform .5s, visibility 0s 0s;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: -1;
+    border: .25em solid;
+    border-color: #fafafa transparent transparent #fafafa;
+    border-top-left-radius: $bdr;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+}
+
+.dropdown__list {
+  margin-top: -100%;
+  transition: margin-top .3s;
+
+  #dropdown-1:checked ~ .dropdown__lists & {
+    margin-top: 0;
+  }
+
+  &:first-child {
+    border-radius: $bdr $bdr 0 0;
+  }
+}
+
+.dropdown__item {
+  position: relative;
+  display: block;
+  background-color: #fafafa;
+  background-repeat: repeat-x;
+  cursor: pointer;
+
+  &:hover {
+    background-color: darken(#fafafa,2%);
+  }
+
+  .dropdown__list:first-child & {
+    border-top-left-radius: $bdr;
+    border-top-right-radius: $bdr;
+  }
+
+  .dropdown__list:last-child & {
+    border-bottom-left-radius: $bdr;
+    border-bottom-right-radius: $bdr;
+    background-image: linear-gradient(to top, currentColor $bdw, transparent $bdw);
+  }
+
+  .dropdown > & {
+    position: relative;
+    z-index: 1;
+    border-radius: $bdr;
+    background-image: linear-gradient(currentColor $bdw, transparent $bdw),
+                      linear-gradient(to top, currentColor $bdw, transparent $bdw);
+    transition: background-position .2s .3s;
+  }
+
+  #dropdown-1:checked ~ & {
+    background-position: 0 0, 0 $bdw*1.2;
+    transition-delay: 0s;
+  }
+
+  .has-noti &::before {
+    content: '';
+    position: absolute;
+    top: 30%;
+    right: 25%;
+    width: .6em;
+    height: .6em;
+    border-radius: 50%;
+    color: #ff8476;
+    background-color: currentColor;
+    box-shadow: 0 0 3px;
+
+    #dropdown-1:checked ~ .dropdown__lists & {
+      animation: beating .85s infinite;
+    }
+  }
+}
+
+
+@keyframes beating {
+  0%, 20%, 40%, 100% { transform: scale(1); }
+  10%, 30%{ transform: scale(1.15); }
+}
+
+
+
+///
+.nav {
+  display: inline-block;
+}
+
+
+///
+/// reset style
+///
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  padding-top: 1px;
+  padding-bottom: 5rem;
+  text-align: center;
+  background-color: #fff;
+  color: #333;
+}
+
+.intro {
+  width: 80%;
+  max-width: 30rem;
+  padding-bottom: 1rem;
+  margin: .5em auto 1em;
+  text-transform: capitalize;
+  border-bottom: 1px dashed #999;
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  color: #999;
+
+  a {
+    color: inherit;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}

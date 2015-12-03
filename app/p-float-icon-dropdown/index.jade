@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+html.no-js(lang="en")
+  head
+    meta(charset="UTF-8")
+    title dropdown with float icon
+    meta(name="viewport", content="width=device-width")
+    link(rel="stylesheet", href="style.css")
+  body
+
+    include _svg.jade
+
+    mixin svg-icon(type)
+      svg.svg-icon
+        use(xlink:href=`#icon-${type}`)
+
+    h1.intro dropdown menu
+      small with float icon
+
+    .box
+
+      nav.nav
+        .dropdown
+          input#dropdown-1.sr-only(type="checkbox", checked)
+          label.dropdown__reset(for="dropdown-1")
+          label.dropdown__item(for="dropdown-1")
+            +svg-icon('user')
+
+          ul.dropdown__lists
+            each icon in ['heart', 'envelope', 'cog']
+              li.dropdown__list(class=(icon === 'envelope' ? 'has-noti': ''))
+                a.dropdown__item(href="###")
+                  +svg-icon(icon)
+
+    blockquote.info
+      | inspired from <a href="https://www.facebook.com/groups/895693593842577/permalink/908347305910539/?comment_id=908370872574849">Daily UI</a>, day27 #‎Dropdown‬, by <a href="https://www.facebook.com/ray.weng.5">Ray Weng</a>
