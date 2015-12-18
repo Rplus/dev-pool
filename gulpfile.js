@@ -20,7 +20,7 @@ var appPath = {
 var projectName = '**/';
 
 gulp.task('css', function () {
-  return gulp.src(appPath.srcDir + projectName + '*.{styl,scss}', {base: appPath.srcDir})
+  return gulp.src(appPath.srcDir + projectName + '*.{css,styl,scss}', {base: appPath.srcDir})
     .pipe($.plumber({
       errorHandler: function (err) {
         console.log(err);
@@ -28,6 +28,23 @@ gulp.task('css', function () {
       }
     }))
     .pipe($.sourcemaps.init())
+    .pipe($.if('*.css', $.postcss([
+      require('postcss-use')({
+        modules: [
+          'cssnext',
+          'postcss-simple-vars',
+          'postcss-discard-comments',
+          'postcss-custom-media',
+          'postcss-media-minmax',
+          'postcss-conditionals',
+          'postcss-each',
+          'postcss-for',
+          'postcss-nested',
+          'postcss-transform-shortcut',
+          'lost'
+        ]
+      })
+    ])))
     .pipe($.if('*.styl', $.stylus()))
     .pipe($.if('*.scss', $.sass({
       outputStyle: 'expanded'
@@ -96,7 +113,7 @@ gulp.task('dev', ['serve'], function () {
 
   // watch the folder to reload if files was change
   gulp.watch([appPath.srcDir + projectName + '*.js'], ['js', reload]);
-  gulp.watch([appPath.srcDir + projectName + '*.{styl,scss}'], ['css', reload]);
+  gulp.watch([appPath.srcDir + projectName + '*.{css,styl,scss}'], ['css', reload]);
   gulp.watch([appPath.srcDir + projectName + '*.{html,jade}'], ['html', reload]);
 });
 
