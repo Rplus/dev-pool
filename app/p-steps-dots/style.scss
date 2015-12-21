@@ -1,0 +1,147 @@
+$text-color: #fff;
+$active-color: #ffa000;
+$inactive-color: #7fc19d;
+$stroke-width: 1px;
+$radio-size: 1em;
+$bg-color: #009688;
+
+$duration: .5s;
+
+.step {
+  position: relative;
+  width: $radio-size;
+  height: $radio-size;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow:
+    inset 0 0 0 $stroke-width $active-color,
+    inset 0 0 0 0 $bg-color,
+    inset 0 0 0 $radio-size $active-color;
+  transition: box-shadow $duration;
+}
+
+input:checked + .step ~ .step {
+  box-shadow:
+    inset 0 0 0 $stroke-width $inactive-color,
+    inset 0 0 0 $radio-size $bg-color,
+    inset 0 0 0 $radio-size $active-color;
+}
+
+.box {
+  position: relative;
+  max-width: 30em;
+  margin: 0 auto 3em;
+  display: flex;
+  justify-content: space-between;
+
+  hr {
+    margin: 0;
+    border: none;
+    color: $inactive-color;
+
+    &,
+    &:before,
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+    }
+
+    &::before,
+    &::after {
+      content: '';
+      background-image: linear-gradient(
+        transparent calc(50% - #{$stroke-width*.5}),
+        currentColor calc(50% - #{$stroke-width*.5}),
+        currentColor calc(50% + #{$stroke-width*.5}),
+        transparent calc(50% + #{$stroke-width*.5})
+      );
+    }
+
+    &::after {
+      color: $active-color;
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      transition: transform $duration linear;
+    }
+  }
+}
+
+
+@for $i from 2 through 9 {
+  .box[data-max="#{$i}"] {
+    @for $j from 1 through $i {
+      input:nth-of-type(#{$j}):checked {
+        & ~ hr::after {
+          transform: scaleX(#{($j - 1) / ($i - 1)});
+        }
+      }
+    }
+  }
+}
+
+
+// reset style
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  padding-top: 1px;
+  padding-bottom: 5rem;
+  text-align: center;
+  background-color: $bg-color;
+  color: $text-color;
+}
+
+.intro {
+  width: 80%;
+  max-width: 30rem;
+  padding-bottom: 1rem;
+  margin: .5em auto 1em;
+  text-transform: capitalize;
+  border-bottom: 1px dashed rgba($text-color, .3);
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .5;
+
+  a {
+    color: inherit;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}

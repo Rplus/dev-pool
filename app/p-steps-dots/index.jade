@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title Steps Dots
+    meta(name="viewport", content="width=device-width")
+    link(rel="stylesheet", href="style.css")
+  body
+
+    h1.intro Steps Dots
+      small by css
+
+    - var globalStep = 0;
+
+    mixin step-group(step, target)
+      - var maxStep = step;
+      - target = target || 1;
+      - globalStep += 1;
+
+      form.box(data-max="#{maxStep}"): while step--
+        input.sr-only(
+          type="radio",
+          name="step-#{globalStep}",
+          id="step-#{globalStep}-#{maxStep - step}",
+          checked=(maxStep - step === target))
+        label.step(for="step-#{globalStep}-#{maxStep - step}")
+        if !step
+          hr
+
+
+    +step-group(2)
+
+    +step-group(3, 3)
+
+    +step-group(7, 2)
+
+    blockquote.info
+      | inspired from #[a(href="http://codepen.io/pixelass/pen/dGMjbr") SVG pager dots] by #[a(href="http://codepen.io/pixelass") Gregor Adams]
+
+    script(src="script.js")
