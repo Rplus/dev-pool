@@ -30,17 +30,14 @@ $img-size: 300px 200px;
 }
 
 .figure__img {
-  position: absolute;
-  left: 50%;
-  top: 50%;
   width: nth($img-size, 1);
   height: nth($img-size, 2);
-  transform: translate(-50%, -50%) scale(1.1);
+  transform: scale(1.1);
   transition: transform .3s;
   pointer-events: none;
 
   .item:hover & {
-    transform: translate(-50%, -50%) scale(1);
+    transform: scale(1);
   }
 }
 
