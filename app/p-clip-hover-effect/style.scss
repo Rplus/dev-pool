@@ -27,6 +27,19 @@ $img-size: 300px 200px;
   height: nth($img-size, 2);
   overflow: hidden;
   margin: 5px;
+
+  // fake border-radius for fixing (overflow: hidden + transform) bug
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 3px;
+    box-shadow: 0 0 0 5px #2f3238;
+    pointer-events: none;
+  }
 }
 
 .figure__img {
