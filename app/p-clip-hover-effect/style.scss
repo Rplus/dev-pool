@@ -1,0 +1,138 @@
+$text-color: #f5f5f5;
+$mask-bgc: #3b3e46;
+$mask-size: 800px;
+$hole-size: 300px;
+$img-size: 300px 200px;
+
+@import "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600";
+
+.items {
+  margin: 0;
+  padding-left: 0;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.item {
+  display: inline-block;
+}
+
+.figure {
+  position: relative;
+  width: nth($img-size, 1);
+  height: nth($img-size, 2);
+  overflow: hidden;
+  margin: 5px;
+}
+
+.figure__img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: nth($img-size, 1);
+  height: nth($img-size, 2);
+  transform: translate(-50%, -50%) scale(1.1);
+  transition: transform .3s;
+  pointer-events: none;
+
+  .item:hover & {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.figure__figcaption {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  opacity: .2;
+  pointer-events: none;
+  transition: opacity .15s;
+
+  .item:hover & {
+    opacity: 1;
+  }
+}
+
+.figure__mask {
+  position: absolute;
+  top: - $mask-size / 2;
+  left: - $mask-size / 2;
+  width: $mask-size;
+  height: $mask-size;
+  color: $mask-bgc;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 400px;
+  transition: box-shadow .3s;
+  pointer-events: none;
+
+  .item:hover & {
+    box-shadow: inset 0 0 0 ($mask-size - $hole-size)*.5;
+  }
+}
+
+// reset style
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  padding-top: 1px;
+  padding-bottom: 5rem;
+  text-align: center;
+  background-color: #2f3238;
+  color: $text-color;
+}
+
+.intro {
+  width: 80%;
+  max-width: 30rem;
+  padding-bottom: 1rem;
+  margin: .5em auto 1em;
+  text-transform: capitalize;
+  border-bottom: 1px dashed rgba($text-color, .3);
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .5;
+
+  a {
+    color: inherit;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}

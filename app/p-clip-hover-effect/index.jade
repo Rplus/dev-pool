@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title [CSS+JS] clip hover effect
+    meta(name="viewport", content="width=device-width")
+    link(rel="stylesheet", href="style.css")
+  body
+    -
+      var items = [
+        { title: 'X-rays', src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/9473/i-xrays.png' },
+        { title: 'Worms', src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/9473/i-worms.png' },
+        { title: 'Aurora', src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/9473/i-aurora.png' },
+        { title: 'Angus', src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/9473/i-angus.png' },
+        { title: 'Huitzi', src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/9473/i-huitzi.png' },
+        { title: 'Dalí', src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/9473/i-dali.png' },
+        { title: 'The Bride', src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/9473/i-bride.png' },
+        { title: 'The Man', src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/9473/i-man.png' },
+        { title: 'D', src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/9473/i-d.png' },
+        { title: 'V', src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/9473/i-v.png' },
+        { title: 'V II', src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/9473/i-v2.png' },
+        { title: 'V III', src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/9473/i-v3.png' }
+      ];
+
+    h1.intro [CSS+JS] clip hover effect
+
+    ul.items
+      each item in items
+        li.item
+          figure.figure
+            img.figure__img(src=item.src, title=item.title)
+            .figure__mask
+            figcaption.figure__figcaption= item.title
+
+    blockquote.info
+      | inspired from #[a(href="http://codepen.io/noeldelgado/") Noel Delgado]'s Pen #[a(href="http://codepen.io/noeldelgado/pen/PZJGLx/") SVG clip-path Hover Effect].
+
+    script(src="script.js")
