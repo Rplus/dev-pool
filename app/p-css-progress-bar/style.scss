@@ -1,0 +1,140 @@
+$text-color: #000;
+$bar-color: #29d;
+$bar-h: 2px;
+$meteor-h: $bar-h * 10;
+$meteor-tail: 100px;
+
+.progress-bar {
+  position: fixed;
+  z-index: 9000;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $bar-h;
+  color: $bar-color;
+  opacity: 0;
+  visibility: hidden;
+  background-color: currentcolor;
+  pointer-events: none;
+  transform: translateX(-100%);
+  transition: opacity .2s, transform .3s, visibility .3s;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: $meteor-h * -.5;
+    z-index: -1;
+    transform: translateY(-50%);
+    width: $meteor-tail;
+    height: 300%;
+    color: darken($bar-color, 5%);
+    // opacity: .75;
+    background-image:
+      radial-gradient(circle closest-corner at left, currentColor, transparent),
+      radial-gradient(farthest-side at right, currentColor, transparent);
+    background-size: $meteor-h*.5 100%, ($meteor-tail - $meteor-h*.5) 100%;
+    background-repeat: no-repeat;
+    background-position: 100% 50%, 0% 50%;
+  }
+
+  @each $i in 0, 20, 60, 100 {
+    &.is-loading,
+    #p-#{$i}:checked ~ & {// for demo
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #p-#{$i}:checked ~ & {// for demo
+      transform: translateX(#{($i - 100) * 1%});
+    }
+  }
+
+  &.is-loaded {
+    opacity: 0;
+    transform: translateX(0);
+  }
+
+  #p-done:checked ~ & {// for demo
+    transform: translateX(0);
+  }
+}
+
+.box {
+
+  label {
+    display: inline-block;
+    padding: 3px 10px;
+    background-color: #ddd;
+    cursor: pointer;
+    margin-right: .5em;
+    margin-bottom: .25em;
+
+    @each $j in 'p-init', 'p-0', 'p-20', 'p-60', 'p-100', 'p-done' {
+      ##{$j}:checked ~ &[for="#{$j}"] {
+        background-color: #999;
+        color: #fff;
+      }
+    }
+  }
+}
+
+// reset style
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  padding-top: 1px;
+  padding-bottom: 5rem;
+  text-align: center;
+}
+
+.intro {
+  width: 80%;
+  max-width: 30rem;
+  padding-bottom: 1rem;
+  margin: .5em auto 1em;
+  text-transform: capitalize;
+  border-bottom: 1px dashed rgba($text-color, .3);
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .5;
+
+  a {
+    color: inherit;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}

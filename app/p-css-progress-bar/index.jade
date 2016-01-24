@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title [CSS] progress bar
+    meta(name="viewport", content="width=device-width")
+    link(rel="stylesheet", href="style.css")
+
+  body
+    input.sr-only#p-init(type="radio", name="progress")
+    input.sr-only#p-0(type="radio", name="progress")
+    input.sr-only#p-20(type="radio", name="progress", checked)
+    input.sr-only#p-60(type="radio", name="progress")
+    input.sr-only#p-100(type="radio", name="progress")
+    input.sr-only#p-done(type="radio", name="progress")
+
+    h1.intro [CSS] progress bar
+
+    .box
+      label(for="p-init") init
+      label(for="p-0") 0%
+      label(for="p-20") 20%
+      label(for="p-60") 60%
+      label(for="p-100") 100%
+      label(for="p-done") done
+
+    .progress-bar
+
+    blockquote.info
+      | inspired from YouTube progress bar & #[a(href="http://ricostacruz.com/nprogress/") NProgress.js].
