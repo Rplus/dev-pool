@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title Let's Make A Performance Budget!
+    meta(name="viewport", content="width=device-width")
+    link(rel="stylesheet", href="style.css")
+  body
+    -
+      var data = [
+        {name: 'HTML', value: 50 },
+        {name: 'CSS', value: 100 },
+        {name: 'JS', value: 200 },
+        {name: 'Images', value: 200 },
+        {name: 'Fonts', value: 100 },
+        {name: 'Ads', value: 50 }
+      ];
+
+    h1 Let's Make A Performance Budget!
+
+    .b
+      .b-header
+        h2.b-title(contenteditable='true') Template Name
+        em.b-size Budget: #[span(contenteditable="true") 800] KB
+
+      .b-budget
+        .b-cat-container
+          em.actual-size Actual: #[span 60] KB
+          ul.b-cat-list: each item in data
+            li.b-cat(class="b-cat-#{item.name.toLowerCase()}")
+              label(for="#{item.name.toLowerCase()}") #{item.name}
+              input(type="number", min="0", value=item.value, id="#{item.name.toLowerCase()}")
+
+    button.btn Add new template
+
+    footer(role='contentinfo')
+      | Fork from #[a(href='https://twitter.com/brad_frost') @brad_frost]' pen: #[a(href="http://codepen.io/bradfrost/pen/EPQVBp") Performance Budget Builder]
+      br
+      | #[a(href='http://bradfrost.com/blog/post/performance-budget-builder/', target='_blank') More info on the project].
+
+    script(src="script.js")
