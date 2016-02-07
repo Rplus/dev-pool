@@ -1,0 +1,107 @@
+$w-dot: 1.5rem;
+$w-dot: 4vmin;
+$n-count: 9;
+$t-ani: 1s;
+
+.dot {
+  position: relative;
+  width: $w-dot;
+  height: $w-dot;
+  float: left;
+  border-radius: 50%;
+  background-color: #000;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(.9);
+    animation: wave-scale $t-ani linear infinite alternate;
+    color: #f00;
+  }
+
+  @for $i from 1 through ($n-count*$n-count) {
+    $_1: ($i - 1) % $n-count + 1;
+    $_2: floor(($i - 1) / $n-count) + 1;
+    &:nth-of-type(#{$i})::before {
+      animation-delay: ($_2 - $_1) * (-1 * $t-ani / $n-count);
+    }
+  }
+}
+
+@keyframes wave-scale {
+  0%   {transform: translate(-50%, -50%) scale(.9); }
+  100% {transform: translate(-50%, -50%) scale(.1); }
+}
+
+.box {
+  display: inline-block;
+  width: $w-dot * $n-count;
+  // height: $w-dot * $n-count;
+  margin: auto;
+
+  &:hover .dot::before {
+    animation-play-state: paused;
+  }
+  &:active .dot::before {
+    animation-play-state: running;
+  }
+}
+
+/// reset
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  background-color: #fff;
+  color: #222;
+  text-align: center;
+}
+
+.intro {
+  width: 80%;
+  max-width: 30rem;
+  padding-bottom: 1rem;
+  margin: 0 auto 1em;
+  padding-top: .5em;
+  text-transform: capitalize;
+  border-bottom: 1px dashed rgba(#000, .3);
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0;
+  padding: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .5;
+
+  a {
+    color: inherit;
+  }
+}
