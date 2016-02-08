@@ -1,0 +1,115 @@
+$w-dot: 1.25rem;
+// $w-dot: 3vmin;
+$w-dot-gap: $w-dot / 5;
+$n-count: 12;
+$t-ani: 1s;
+$n-offset: -2;
+
+.dot {
+  position: relative;
+  width: $w-dot;
+  height: $w-dot;
+  margin: $w-dot-gap;
+  float: left;
+  border-radius: 50%;
+  background-color: #000;
+  animation: wave-rotate $t-ani linear infinite;
+
+  @keyframes wave-rotate {
+    from { transform: rotate(0turn);}
+    to   { transform: rotate(1turn);}
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 50%;
+    transform: translate(-50%, -70%) scale(.5);
+    color: #f00;
+  }
+
+  @for $i from 1 through ($n-count*$n-count) {
+    &:nth-of-type(#{$i}) {
+      animation-delay: $i * (-1 * $t-ani / ($n-count  + $n-offset));
+    }
+  }
+}
+
+@keyframes wave-scale {
+  0%   {transform: translate(-50%, -50%) scale(.9); }
+  100% {transform: translate(-50%, -50%) scale(.1); }
+}
+
+.box {
+  display: inline-block;
+  width: $w-dot * $n-count + $n-count * 2 * $w-dot-gap;
+  // height: $w-dot * $n-count;
+  margin: auto;
+  // transform: rotate(.5turn) rotateY(.5turn);
+
+  &:hover .dot {
+    animation-play-state: paused;
+  }
+  &:active .dot {
+    animation-play-state: running;
+  }
+}
+
+/// reset
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  background-color: #fff;
+  color: #222;
+  text-align: center;
+}
+
+.intro {
+  width: 80%;
+  max-width: 30rem;
+  padding-bottom: 1rem;
+  margin: 0 auto 1em;
+  padding-top: .5em;
+  text-transform: capitalize;
+  border-bottom: 1px dashed rgba(#000, .3);
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0;
+  padding: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .5;
+
+  a {
+    color: inherit;
+  }
+}
