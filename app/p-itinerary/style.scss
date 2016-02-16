@@ -1,9 +1,5 @@
 // #d4ffe4
-// #6dcff6
-// #8882ee
-// #dee170
-// #71b8ca
-// #e77fa0
+$colors: #6dcff6, #8882ee, #dee170, #71b8ca, #e77fa0;
 $card-count: 5;
 $bgc: #d4ffe4;
 $radius: 1.5rem;
@@ -66,15 +62,12 @@ $card-height: 600px;
   @for $i from 1 through $card-count {
     &:nth-of-type(#{$i}) {
       top: calc(#{($i - 1)/$card-count} * (100% - #{$radius}));
+
+    &:nth-of-type(#{length($colors)}n + #{$i}) {
+      background-color: nth($colors, $i);
     }
   }
 }
-
-.card--1 { background-color: #6dcff6; }
-.card--2 { background-color: #8882ee; }
-.card--3 { background-color: #dee170; }
-.card--4 { background-color: #71b8ca; }
-.card--5 { background-color: #e77fa0; }
 
 .cards.is-active {
   .card {
