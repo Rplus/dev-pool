@@ -85,7 +85,7 @@ $card-height: 600px;
       top: 7.5%;
       padding-top: 1rem;
 
-      .card_title {
+      .card__title {
         font-size: $title-size;
       }
 
@@ -107,12 +107,12 @@ $card-height: 600px;
     }
   }
 
-  .card_title {
+  .card__title {
     font-size: $title-size*.6;
   }
 }
 
-.card_title {
+.card__title {
   position: relative;
   margin: 0 1.5rem .25em $line-way-width;
   background-color: inherit;

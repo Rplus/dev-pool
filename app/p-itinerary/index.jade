@@ -25,7 +25,7 @@ html(lang="en")
       .cards
         each card, i in cards
           .card(class="card--#{i+1}")
-            h2.card_title day #{i+1}
+            h2.card__title day #{i+1}
             dl.schedules
               each schedule in card
                 dt.schedules__time= schedule.time.replace(/(\d{2})(\d{2})/, '$1:$2')
