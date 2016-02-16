@@ -8,6 +8,36 @@ html(lang="en")
   body
 
     h1.intro itinerary
+    -
+      var cards = [
+        [
+          {time: '0600', items: ['Lorem ipsum dolor sit amet amet amet amet.']},
+          {time: '0800', items: [{map: '墾丁'}, 'Lorem ipsum dolor sit amet.']},
+          {time: '1200', items: ['Lorem ipsum dolor sit amet.', 'Lorem ipsum dolor sit amet.', 'Lorem ipsum dolor sit amet.', 'Lorem ipsum dolor sit amet.']},
+          {time: '1500', items: [{map: '墾丁'}, 'Lorem ipsum dolor sit amet.']},
+          {time: '1800', items: [{map: '墾丁'}, 'Lorem ipsum dolor sit amet.']},
+        ]
+      ];
+
+      cards[4] = cards[3] = cards[2] = cards[1] = cards[0];
+
+    .box
+      .cards
+        each card, i in cards
+          .card(class="card--#{i+1}")
+            h2.card_title day #{i+1}
+            dl.schedules
+              each schedule in card
+                dt.schedules__time= schedule.time.replace(/(\d{2})(\d{2})/, '$1:$2')
+                dd.schedules__info
+                  each item in schedule.items
+                    if item.map
+                      p
+                        img(src="http://maps.googleapis.com/maps/api/staticmap?center=#{item.map}&zoom=16&scale=false&size=400x120&maptype=roadmap&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff0000%7C#{item.map}", width=400, height=120, alt="Google Map of #{item.map}")
+                    else
+                      p
+                        span= item
+      button.new-card new day
 
     blockquote.info
       | inspired from #[a(href="https://www.facebook.com/groups/895693593842577/permalink/944042455674357/?comment_id=953450544733548") ‪‎day079‬ ‪‎Itinerary‬‬] by #[a(href="https://fb.me/wesleyweazin") Wesley Hwang]
