@@ -44,6 +44,7 @@ $card-height: 600px;
     #fff calc(1.5rem + 3px),
     transparent calc(1.5rem + 3px)
     );
+  counter-increment: card;
 
   &:nth-of-type(1) {
     &::before {
@@ -114,6 +115,10 @@ $card-height: 600px;
   font-weight: 900;
   transition: font-size .3s;
   cursor: pointer;
+
+  &::after {
+    content: ' ' counter(card);
+  }
 
   &::before {
     @extend %dot;
