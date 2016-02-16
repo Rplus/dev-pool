@@ -212,6 +212,12 @@ $card-height: 600px;
   text-transform: uppercase;
   color: #999;
   background: #fff;
+  cursor: pointer;
+
+  &:active {
+    top: 1px;
+    background-color: #eee;
+  }
 
   &::before {
     content: '';
