@@ -22,6 +22,7 @@ card.new.addEventListener('click', () => {
   let lastNumber = +lastCard.className.match(/\d+/);
   let newCard = lastCard.cloneNode(true);
   newCard.className = newCard.className.replace(/\d+/, lastNumber + 1);
+  newCard.classList.remove('is-active');
 
   lastCard.parentElement.insertBefore(newCard, lastCard.nextSibling);
 
