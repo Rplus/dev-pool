@@ -74,14 +74,16 @@ $card-height: 600px;
 .cards.is-active {
   .card {
     transform: translateY(0) !important;
-    padding-top: .5rem;
 
     &.is-active {
       transform: translateY(7.5%) !important;
-      padding-top: 1rem;
 
       .card__title {
-        font-size: $title-size;
+        transform: translateY(0);
+
+        &::after {
+          transform: scale(1);
+        }
       }
 
       .schedules {
@@ -103,7 +105,11 @@ $card-height: 600px;
   }
 
   .card__title {
-    font-size: $title-size*.6;
+    transform: translateY(-30%);
+
+    &::after {
+      transform: scale(.6);
+    }
   }
 }
 
@@ -111,14 +117,17 @@ $card-height: 600px;
   position: relative;
   margin: 0 1.5rem .25em $line-way-width;
   background-color: inherit;
-  text-transform: capitalize;
   font-size: $title-size;
   font-weight: 900;
-  transition: font-size .3s;
+  text-transform: capitalize;
   cursor: pointer;
+  transition: transform .3s;
 
   &::after {
-    content: ' ' counter(card);
+    content: 'day ' counter(card);
+    display: block;
+    transition: transform .3s;
+    transform-origin: 0% 50%;
   }
 
   &::before {
