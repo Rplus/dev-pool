@@ -1,4 +1,3 @@
-// #d4ffe4
 $colors: #6dcff6, #8882ee, #dee170, #71b8ca, #e77fa0;
 $card-count: 5;
 $bgc: #d4ffe4;
@@ -34,7 +33,7 @@ $card-height: 600px;
   position: absolute;
   z-index: 1;
   height: 100%;
-  padding-top: 1em;
+  overflow: hidden;
   border-radius: $radius;
   color: #fff;
   transition: all .5s;
@@ -105,7 +104,7 @@ $card-height: 600px;
   }
 
   .card__title {
-    transform: translateY(-30%);
+    transform: translateY(-25%);
 
     &::after {
       transform: scale(.6);
@@ -116,6 +115,7 @@ $card-height: 600px;
 .card__title {
   position: relative;
   margin: 0 1.5rem .25em $line-way-width;
+  padding-top: 1rem;
   background-color: inherit;
   font-size: $title-size;
   font-weight: 900;
@@ -132,6 +132,7 @@ $card-height: 600px;
 
   &::before {
     @extend %dot;
+    top: calc(50% + .5rem);
     box-shadow: inset 0 0 0 $dot-size/3.5;
   }
 
