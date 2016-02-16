@@ -62,7 +62,8 @@ $card-height: 600px;
 
   @for $i from 1 through $card-count {
     &:nth-of-type(#{$i}) {
-      top: calc(#{($i - 1)/$card-count} * (100% - #{$radius}));
+      transform: translateY(calc(#{($i - 1)/$card-count} * (100% - #{$radius})));
+    }
 
     &:nth-of-type(#{length($colors)}n + #{$i}) {
       background-color: nth($colors, $i);
@@ -72,11 +73,11 @@ $card-height: 600px;
 
 .cards.is-active {
   .card {
-    top: 0;
+    transform: translateY(0) !important;
     padding-top: .5rem;
 
     &.is-active {
-      top: 7.5%;
+      transform: translateY(7.5%) !important;
       padding-top: 1rem;
 
       .card__title {
@@ -89,15 +90,15 @@ $card-height: 600px;
     }
 
     &:nth-of-type(1).is-active {
-      top: 0%;
+      transform: translateY(0%) !important;
     }
 
     &.is-active ~ .card {
-      top: 100%;
+      transform: translateY(100%) !important;
     }
 
     &.is-active + .card {
-      top: calc(92.5% - #{$radius});
+      transform: translateY(calc(92.5% - #{$radius})) !important;
     }
   }
 

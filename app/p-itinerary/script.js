@@ -33,6 +33,6 @@ let reCalcPos = () => {
   let count = cards.length;
 
   cards.forEach((card, i) => {
-    card.style.top = `calc(${i / count} * (100% - 1.5rem))`;
+    card.style.transform = `translateY(calc(${i / count} * (100% - 1.5rem)))`;
   });
 };
