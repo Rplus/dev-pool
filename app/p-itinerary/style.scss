@@ -136,7 +136,7 @@ $card-height: 600px;
     box-shadow: inset 0 0 0 $dot-size/3.5;
   }
 
-  .card.is-acitve &::before {
+  .card.is-active &::before {
     box-shadow: inset 0 0 0 $dot-size;
   }
 }
@@ -176,7 +176,7 @@ $card-height: 600px;
     transition-delay: .5s;
   }
 
-  .card.is-acitve & {
+  .card.is-active & {
     &::before,
     &::after  {
       transform: translate(-50%, -50%) scale(1);
