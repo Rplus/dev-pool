@@ -1,0 +1,186 @@
+$c-blue: #5890ff;
+$c-red: #f25268;
+$c-yellow: #ffd972;
+$c-black: #000;
+$c-white: #fff;
+
+$emoji-size: 3rem;
+
+$debug: true;
+$debug: false;
+
+.box {
+}
+
+.Like {
+  position: relative;
+  display: inline-block;
+  top: 5rem;
+}
+
+.Like__link {
+  cursor: pointer;
+}
+
+.Emojis {
+  position: absolute;
+  left: 0;
+  bottom: 120%;
+  transform: translate3d(-10%, 0, 0);
+  display: flex;
+  padding: .125rem;
+  border-radius: 100rem;
+  transition:  .3s .3s;
+  box-shadow:
+    0 0 0 1px rgba($c-black, .08),
+    0 2px 2px rgba($c-black, .15);
+
+  @if $debug != true {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  &:hover,
+  .Like__link.js-hover ~ &,
+  .Like__link:hover ~ & {
+    transition-delay: 0s;
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.Emoji {
+  position: relative;
+  width: $emoji-size;
+  height: $emoji-size;
+  color: $c-yellow;
+  cursor: pointer;
+  transition-delay: .6s, .3s;
+  transition-duration: 0s, .3s;
+  transition-property: transform, opacity;
+
+  @if $debug != true {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0) scale(.3);
+  }
+
+  .Emojis:hover &,
+  .Like__link.js-hover + .Emojis &,
+  .Like__link:hover + .Emojis & {
+    transform: none;
+    opacity: 1;
+  }
+
+  .icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    // border-radius: 50%;
+    // background-color: currentColor;
+    transform: scale(.8);
+    transition: transform .2s ease;
+  }
+
+  &:hover .icon {
+    transform: scale(1) translate3d( 0, -10%, 0);
+  }
+
+  @for $i from 1 through 6 {
+    .Emojis:hover &:nth-of-type(#{$i}),
+    .Like__link:hover + .Emojis &:nth-of-type(#{$i}) {
+      transition-duration: $i*.1s + .1s;
+      transition-delay: ($i - 1)*.02s ;
+      transition-timing-function: cubic-bezier(.6, .6, .5, #{$i*.2 +.8});
+    }
+  }
+
+}
+
+.Emoji--like {/* color: $c-blue; */ }
+.Emoji--love {/* color: $c-red; */ }
+.Emoji--haha {}
+.Emoji--wow {}
+.Emoji--sad {}
+.Emoji--angry {}
+
+/// ICONS
+
+.icon {
+  background-image: url('https://goo.gl/oXeeU8');
+  background-repeat: no-repeat;
+  background-blend-mode: exclusion;
+}
+
+.icon--like   { background-position: -6px -6px; }
+.icon--heart  { background-position: -68px -4px; }
+.icon--haha   { background-position: -129px -6px; }
+.icon--wow    { background-position: -191px -6px; }
+.icon--sad    { background-position: -252px -5px; }
+.icon--angry  { background-position: -314px -6px; }
+
+
+/// reset
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  background-color: #fff;
+  color: #222;
+  text-align: center;
+}
+
+.intro {
+  width: 80%;
+  max-width: 30rem;
+  padding-bottom: 1rem;
+  margin: 0 auto 1em;
+  padding-top: .5em;
+  text-transform: capitalize;
+  border-bottom: 1px dashed rgba(#000, .3);
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0;
+  padding: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .5;
+
+  a {
+    color: inherit;
+  }
+}
+
+kbd {
+  display: inline-block;
+  background-color: rgba(#000, .05);
+  color: #666;
+  text-shadow: 1px 1px #fff;
+  padding: 1px 4px;
+  border-radius: 2px;
+  box-shadow: inset 1px 1px 3px -1px rgba(#000, .5);
+}
