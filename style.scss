@@ -1,3 +1,58 @@
+$c-blue: #0b3b63;
+$c-gray: #48c1bc;
+$c-white: #fff;
+$cos45: 1 / 1.41421;
+
+.flag {
+  position: relative;
+  padding-bottom: 100% * 2 / 3;
+  overflow: hidden;
+  background-color: $c-blue;
+
+  &::before { // bg
+    content: '';
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    width: 100% * $cos45;
+    padding-bottom: 100% * $cos45;
+    transform-origin: 0% 0%;
+    transform: rotate(.125turn);
+    background-color: $c-white;
+    background-image: linear-gradient($c-gray, $c-gray);
+    background-size: (100% / 3) (100% / 3);
+    background-position: 50%;
+    background-repeat: no-repeat;
+  }
+
+  &::after { // tai
+    content: '';
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    width: 100% * $cos45 / 3;
+    height: 100% * 1.5 * $cos45 / 3;
+    padding: 2.5%;
+    transform-origin: 0% 0%;
+    transform: rotate(.125turn);
+    background-color: $c-blue;
+    background-clip: content-box;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-image:
+      linear-gradient(135deg, $c-white 25%, transparent 25%, transparent 75%, $c-white 75%),
+      linear-gradient(135deg, transparent 47.5%, $c-white 47.5%, $c-white 52.5%, transparent 52.5%);
+
+    background-size:
+      50% 50%,
+      100% 100%;
+  }
+}
+
+.box {
+  max-width: 40rem;
+  margin: 0 auto;
+}
 
 /// reset
 
@@ -14,7 +69,7 @@ html {
 body {
   min-height: 100%;
   margin: 0;
-  background-color: #fff;
+  background-image: linear-gradient(#ccf, #fff 90%);
   color: #222;
   text-align: center;
 }
@@ -51,14 +106,4 @@ body {
   a {
     color: inherit;
   }
-}
-
-kbd {
-  display: inline-block;
-  background-color: rgba(#000, .05);
-  color: #666;
-  text-shadow: 1px 1px #fff;
-  padding: 1px 4px;
-  border-radius: 2px;
-  box-shadow: inset 1px 1px 3px -1px rgba(#000, .5);
 }
