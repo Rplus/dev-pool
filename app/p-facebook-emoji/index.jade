@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title facebook emoji
+    meta(name="viewport", content="width=device-width")
+    link(rel="stylesheet", href="style.css")
+  body
+
+    h1.intro facebook emoji
+      small plz hover the `Like` link
+
+    .box
+
+      .Like
+        a.Like__link.js-hover Like 
+          kbd hover me!!
+
+        .Emojis
+          .Emoji.Emoji--like
+            .icon.icon--like
+          .Emoji.Emoji--love
+            .icon.icon--heart
+          .Emoji.Emoji--haha
+            .icon.icon--haha
+              .mouth
+                .mouth--inner
+          .Emoji.Emoji--wow
+            .icon.icon--wow
+          .Emoji.Emoji--sad
+            .icon.icon--sad
+          .Emoji.Emoji--angry
+            .icon.icon--angry
+
+    blockquote.info
+      | forked from #[a(href="https://fb.com") Facebook]
+      br
+      | emoji gif source: 
+      a(href="https://medium.com/facebook-design/reactions-not-everything-in-life-is-likable-5c403de72a3f") Reactions: Not everything in life is Likable
+      |  @ 
+      a(href="https://medium.com/facebook-design") Facebook Design
+
+    script.
+      (function () {
+        var likeLink = document.querySelector('.Like__link');
+        likeLink.addEventListener('mouseenter', function() {
+          likeLink.classList.remove('js-hover');
+        });
+        setTimeout(function() {
+          likeLink.classList.remove('js-hover');
+        }, 5000);
+      })();
