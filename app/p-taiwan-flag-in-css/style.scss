@@ -1,0 +1,108 @@
+$c-blue: #0b3b63;
+$c-gray: #48c1bc;
+$c-white: #fff;
+$cos45: 1 / 1.41421;
+
+.flag {
+  position: relative;
+  padding-bottom: 100% * 2 / 3;
+  overflow: hidden;
+  background-color: $c-blue;
+
+  @mixin flag-item($size: 100%) {
+    content: '';
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    width: $size;
+    height: $size * 1.5;
+    transform-origin: 0% 0%;
+    transform: rotate(.125turn);
+  }
+
+  &::before { // bg
+    @include flag-item(100% * $cos45);
+    background-color: $c-white;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-image: linear-gradient($c-gray, $c-gray);
+    background-size: (100% / 3) (100% / 3);
+  }
+
+  &::after { // tai
+    @include flag-item(100% * $cos45 / 3);
+    padding: 2.5%;
+    background-color: $c-blue;
+    background-clip: content-box;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-image:
+      linear-gradient(135deg, $c-white 25%, transparent 25%, transparent 75%, $c-white 75%),
+      linear-gradient(135deg, transparent 47.5%, $c-white 47.5%, $c-white 52.5%, transparent 52.5%);
+
+    background-size:
+      50% 50%,
+      100% 100%;
+  }
+}
+
+.box {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+/// reset
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  background-image: linear-gradient(#ccf, #fff 90%);
+  color: #222;
+  text-align: center;
+}
+
+.intro {
+  width: 80%;
+  max-width: 30rem;
+  padding-bottom: 1rem;
+  margin: 0 auto 1em;
+  padding-top: .5em;
+  text-transform: capitalize;
+  border-bottom: 1px dashed rgba(#000, .3);
+  color: $c-blue;
+  text-shadow: 2px 2px 1px rgba(#fff, 1);
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0;
+  padding: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .5;
+
+  a {
+    color: inherit;
+  }
+}
