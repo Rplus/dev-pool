@@ -82,6 +82,8 @@ body {
   padding-top: .5em;
   text-transform: capitalize;
   border-bottom: 1px dashed rgba(#000, .3);
+  color: $c-blue;
+  text-shadow: 2px 2px 1px rgba(#fff, 1);
 
   small {
     display: block;
