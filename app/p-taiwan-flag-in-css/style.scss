@@ -77,11 +77,12 @@ body {
 }
 
 .intro {
-  width: 80%;
+  width: 90%;
   max-width: 30rem;
   padding-bottom: 1rem;
   margin: 0 auto 1em;
   padding-top: .5em;
+  font-size: calc(1rem + 2vmin);
   text-transform: capitalize;
   border-bottom: 1px dashed rgba(#000, .3);
   color: $c-blue;
