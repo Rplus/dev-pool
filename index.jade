@@ -23,13 +23,12 @@ html(lang="en")
               figcaption Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, rerum.
           section.section.reaction-bar
             input#ip-heart(type="checkbox").ip-heart.sr-only
-            label.heart-count(for="ip-heart")
+            label.heart-count(for="ip-heart", style="counter-reset: heart-counter 120;")
               .heart-icon
                 +icon('heart')
                 +icon('heart')
                 +icon('heart')
                 +icon('heart')
-              | 120
 
             ul.avatars
               - var i = 7;

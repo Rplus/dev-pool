@@ -74,6 +74,16 @@ $avatar-overlay-ratio: 2 / 3;
   }
 }
 
+.heart-count {
+  &::after {
+    content: counter(heart-counter);
+  }
+
+  .ip-heart:checked ~ & {
+    counter-increment: heart-counter 1;
+  }
+}
+
 .heart-icon {
   position: relative;
 
@@ -165,7 +175,6 @@ $avatar-overlay-ratio: 2 / 3;
     opacity: .5;
     visibility: hidden;
   }
-
 
   .ip-heart:checked ~ .avatars & {
     &:nth-of-type(1) {
