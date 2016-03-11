@@ -68,6 +68,7 @@ $avatar-overlay-ratio: 2 / 3;
   border-radius: 10em;
   cursor: pointer;
   transition: background-color .3s;
+  -webkit-tap-highlight-color: rgba($c-white, 0);
 
   &:active {
     background-color: rgba($c-count-bgc, .5);
