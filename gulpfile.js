@@ -7,6 +7,9 @@ var gulp = require('gulp');
 var browserSync = require('browser-sync');
 var $ = require('gulp-load-plugins')();
 var del = require('del');
+var stylelint = require('stylelint');
+var postcssScss = require('postcss-scss');
+var reporter = require('postcss-reporter');
 var reload = browserSync.reload;
 
 var appPath = {
@@ -20,6 +23,8 @@ var appPath = {
 var projectName = '**/';
 
 gulp.task('css', function () {
+  projectName = $.util.env.p ? $.util.env.p + '/' : projectName;
+
   return gulp.src(appPath.srcDir + projectName + '*.{css,styl,scss}', {base: appPath.srcDir})
     .pipe($.plumber({
       errorHandler: function (err) {
@@ -29,6 +34,8 @@ gulp.task('css', function () {
     }))
     .pipe($.sourcemaps.init())
     .pipe($.if('*.css', $.postcss([
+      stylelint(),
+      reporter({ clearMessages: true }),
       require('postcss-use')({
         modules: [
           'cssnext',
@@ -46,6 +53,14 @@ gulp.task('css', function () {
       })
     ])))
     .pipe($.if('*.styl', $.stylus()))
+    .pipe($.if('*.scss',
+      $.postcss([
+        stylelint(),
+        reporter({ clearMessages: true })
+      ], {
+        syntax: postcssScss
+      })
+    ))
     .pipe($.if('*.scss', $.sass({
       outputStyle: 'expanded'
     })))
