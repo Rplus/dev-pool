@@ -10,6 +10,15 @@ html(lang="en")
     h1.intro Minion Language Translator
 
     .box
+      form.form
+        .grid
+          input.block(type="text", value="Hello you", placeholder="en", autofocus)
+        .grid.translator
+          button.block ▶
+        .grid
+          input.block(type="text", placeholder="minion")
+
+    script(src="script.js")
 
     blockquote.info
       | inspired from: #[a(href="http://minionstranslator.com/") The Minions Language Translator Game]

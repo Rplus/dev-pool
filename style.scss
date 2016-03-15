@@ -5,6 +5,41 @@
   margin: 0 auto;
 }
 
+.form {
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 30em) {
+    flex-direction: column;
+  }
+}
+
+.grid {
+  display: inline-block;
+  flex: 1;
+  margin: 0 .5rem .5rem;
+}
+
+.translator {
+  flex-grow: .5;
+
+  @media (max-width: 30em) {
+    transform: rotate(90deg);
+  }
+}
+
+.block {
+  display: block;
+  width: 100%;
+}
+
+input {
+  font-size: 1.5rem;
+  line-height: 1.5;
+  padding-left: .25em;
+  padding-right: .25em;
+}
+
 /// reset
 
 *,
