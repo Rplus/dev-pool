@@ -21,6 +21,7 @@ html(lang="en")
       .Pen
         a.Pen__thumbnail(href="{{ link }}")
           img(src="{{ images.small }}")
+          img.shadow(src="{{ images.small }}")
         .Pen__info
           a.title(href="{{ link }}") {{ title }}
           a.Author(href="http://codepen.io/{{ user.username }}")
