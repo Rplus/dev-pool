@@ -5,6 +5,8 @@ html(lang="en")
     title Codepen collection lookup
     meta(name="viewport", content="width=device-width")
     link(rel="stylesheet", href="style.css")
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css")
+
   body
 
     h1.intro Codepen collection lookup
@@ -38,9 +40,8 @@ html(lang="en")
               .fa.fa-comment
               | {{ comments }}
 
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js")
-    script(src="script.js")
-    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css")
-
     blockquote.info
       | codepen API source: #[a(href="http://cpv2api.com/") CodePen v2 API]
+
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js")
+    script(src="script.js", defer)
