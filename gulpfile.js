@@ -72,6 +72,8 @@ gulp.task('css', function () {
 });
 
 gulp.task('js', function () {
+  projectName = $.util.env.p ? $.util.env.p + '/' : projectName;
+
   return gulp.src(appPath.srcDir + projectName + '*.js', {base: appPath.srcDir})
     .pipe($.plumber())
     .pipe($.jshint())
