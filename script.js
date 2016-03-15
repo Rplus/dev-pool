@@ -65,4 +65,4 @@ Pen.render = (order) => {
   Pen.wrap.insertAdjacentHTML('beforebegin', _html);
 };
 
-// Pen.getInfo();
+Pen.getInfo();
