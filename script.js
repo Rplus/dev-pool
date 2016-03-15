@@ -17,23 +17,24 @@ Form.form.addEventListener('submit', (e) => {
   let newId = Form.input.value.trim();
 
   if (Pen.collectionId !== Form.input.value.trim() || Pen.pens.length === 1) {
-    Pen.collectionId = newId;
+    Pen.init();
     Pen.getInfo();
   }
 });
 
 let Pen = {};
 
-Pen.wrap = document.querySelector('.wrap');
-Pen.collectionId = Form.input.value.trim();
-Pen.url = `http://cpv2api.com/collection/${Pen.collectionId}/?page=`;
-Pen.page = 1;
+Pen.wrap = document.querySelector('.box');
 Pen.tpl = document.getElementById('pen-tpl').innerHTML;
-Pen.pens = [0];
+Pen.init = () => {
+  Pen.wrap.innerHTML = '';
+  Pen.pens = [0];
+  Pen.page = 1;
+  Pen.collectionId = Form.input.value.trim();
+};
 
 Pen.getInfo = () => {
-  let url = `${Pen.url}${Pen.page}`;
-
+  let url = `http://cpv2api.com/collection/${Pen.collectionId}/?page=${Pen.page}`;
   console.log(url);
 
   fetch(url)
@@ -62,7 +63,8 @@ Pen.render = (order) => {
     _html += Mustache.render(Pen.tpl, penData);
   });
 
-  Pen.wrap.insertAdjacentHTML('beforebegin', _html);
+  Pen.wrap.insertAdjacentHTML('beforeend', _html);
 };
 
+Pen.init();
 Pen.getInfo();
