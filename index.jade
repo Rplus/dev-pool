@@ -21,12 +21,12 @@ html(lang="en")
 
     script#pen-tpl(type="x-tmpl-mustache")
       .Pen
-        a.Pen__thumbnail(href="{{ link }}")
+        a.Pen__thumbnail(href="{{ link }}" target="_blank" ref="noopener")
           img(src="{{ images.small }}")
           img.shadow(src="{{ images.small }}")
         .Pen__info
-          a.title(href="{{ link }}") {{ title }}
-          a.Author(href="http://codepen.io/{{ user.username }}")
+          a.title(href="{{ link }}" target="_blank" ref="noopener") {{ title }}
+          a.Author(href="http://codepen.io/{{ user.username }}" target="_blank" ref="noopener")
             img.Author__avatar(src="{{ user.avatar }}")
             .Author__name {{ user.nicename }}
           .Pen__stats
