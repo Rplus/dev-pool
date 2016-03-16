@@ -1,18 +1,62 @@
-$counter: 10;
-$ring-r: 10rem;
-$num-h: 4rem;
-$num-w: 3rem;
+$counter = 10;
+$ring-r = 7rem;
+$num-w = 3rem;
+$num-h = $ring-r * 2.01 * tan(180deg / $counter);
+
+.ring-wrap {
+  position: relative;
+  flex: 1;
+  margin: auto;
+  transform-style: preserve-3d;
+  transition: .3s;
+
+  &.is-active ~ .ring-wrap {
+    flex: 0;
+    width: 0;
+    opacity: 0;
+    transform: translateZ(-20em);
+
+    .ring {
+      transform: rotateX(360deg) !important;
+    }
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 'calc(50% - %s)' % ($num-w / 2);
+    left: @top;
+    z-index: -1;
+    width: $num-w;
+    height: @width;
+    border-radius: 50%;
+    transform-style: preserve-3d;
+    transform: rotateX(-90deg) translateZ($ring-r * 1.15 + 1rem);
+    background-color: currentColor;
+    opacity: .5;
+    box-shadow: 0 0 1.5em 1em, 0 0 7em 1em;
+  }
+}
 
 .ring {
   position: relative;
   width: $num-w;
   height: $num-h;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
   transform-style: preserve-3d;
-  list-style-type: none;
+  counter-reset: ring-num -1;
   text-align: center;
-  counter-reset: ring-num;
+  list-style-type: none;
+  transition: transform 1s;
+
+  &:nth-of-type(1) {
+    font-weight: 900;
+  }
+
+  &:hover {
+    transform: rotateX(360deg) !important;
+  }
 }
 
 .ring__num {
@@ -22,25 +66,44 @@ $num-w: 3rem;
   right: 0;
   bottom: 0;
   line-height: $num-h;
-  background-image: linear-gradient(#ccc 80%, #bbb);
+  background-color: #ccc;
+  box-shadow: inset 0 0 30px 5px rgba(#000, .2);
 
   &::before {
     content: counter(ring-num);
     counter-increment: ring-num;
   }
 
-  @for $i from 1 through $counter {
-    &:nth-of-type(#{$i}) {
-      transform: rotateX(360deg * $i / $counter) translateZ($ring-r);
+  for $i in (1..$counter) {
+    &:nth-of-type({$i}) {
+      transform: rotateX(360deg * ($i - 1) / $counter) translateZ($ring-r);
     }
   }
 }
 
+.precision {
+  &::before {
+    content: 'precision: ' attr(data-precision);
+    display: block;
+  }
+}
+
+.ring-box {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  perspective: 40em;
+}
+
 .box {
+  display: flex;
+  flex-direction: column;
   flex: 1;
   width: 100%;
   max-width: 40rem;
   margin: 0 auto;
+  text-align: center;
 }
 
 /// reset
@@ -61,7 +124,7 @@ body {
   flex-direction: column;
   min-height: 100%;
   margin: 0;
-  background: linear-gradient(#ffe, #fff 90%) no-repeat fixed;
+  background: linear-gradient(#ccc 30%, #fff) no-repeat fixed;
   color: #333;
 }
 
