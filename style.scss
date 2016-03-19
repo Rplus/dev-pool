@@ -7,11 +7,11 @@
 .cards {
   display: flex;
   flex-wrap: wrap;
+  align-content: flex-start;
 }
 
 .card {
   flex: 1 .1 10em;
-  align-content: flex-start;
   margin: 0 .5em 1em;
   background-color: rgba(#ccc, .3);
 
