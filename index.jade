@@ -13,14 +13,21 @@ html(lang="en")
 
     - var i = 20;
     - var str = 'lorem ipsum dolor sit amet';
+    -
+      var randStr = function($min, $max, $delta) {
+        $min = $min || 0;
+        $max = $max || str.length;
+        $delta = $delta || 0;
+        return str.slice(~~(Math.random() * $min), ~~(Math.random() * $max) + $delta);
+      };
 
     .box.cards
         - while (i--)
           .card
             img.avatar(src="http://placebeard.it/g/70/notag", width="70", height="70")
             .title
-              .t1= str.slice(~~(Math.random() * 5), ~~(Math.random() * 20) + 6)
-              .t2= str.slice(~~(Math.random() * 5), ~~(Math.random() * 10) + 6).split('').reverse().join('')
+              .t1= randStr(5, 20, 6)
+              .t2= randStr(5, 10, 6).split('').reverse().join('')
         .card
         .card
 
