@@ -12,3 +12,6 @@ image:
 命名由來：  
 https://en.wikipedia.org/wiki/Penrose_triangle  
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Penrose-dreieck.svg/1024px-Penrose-dreieck.svg.png)
+
+TODO:  
+用數學算出真正的角度...
