@@ -11,13 +11,26 @@ $s-angle: 45deg;
 // $cos45deg: cos(45deg); // O_Q
 $cos45deg: 1 / 1.41421;
 
+.Penrose-box {
+  position: relative;
+  width: $s-w;
+  height: $s-w;
+}
+
 .di {
   position: relative;
+  position: absolute;
+  bottom: 0;
+  left: $s-h;
   width: $s-h;
   height: $s-h;
   transform-style: preserve-3d;
-  // transform: rotateY(40deg) rotateX(-20deg) rotateZ(-20deg);
   transform: rotateY(51deg) rotateX(-24deg) rotateZ(-27deg);
+  transition: transform 2s;
+
+  .Penrose-box:hover & {
+    transform: rotateY(36deg) rotateX(-30deg) rotateZ(-20deg);
+  }
 }
 
 .s {
@@ -33,55 +46,59 @@ $cos45deg: 1 / 1.41421;
   &::before {
     content: "";
     position: absolute;
-    top: 0;
+    top:z 0;
     left: 0;
     right: 0;
     bottom: 0;
     transform-origin: 50% 0%;
     transform: rotateX(-90deg);
-    background-color: inherit;
-  }
-
-  &::after {
-    // background-color: currentColor;
-    // transform: translate3d(0, $s-h / -2, 0) rotateX(90deg);
+    background-color: currentColor;
   }
 }
 
 .s-x {
-  color: rgba(#000, .2);
+  color: $c-d1;
+  background-image: linear-gradient(to right, transparent $s-h, $c-d2);
+
+  &::before {
+    color: $c-d4;
+    background-image: linear-gradient(to left, transparent $s-h, $c-d3);
+  }
 }
 
 .s-z {
   transform: rotateZ(-90deg) translate3d($s-h / -2, $s-h / 2, 0);
-  color: rgba(#00f, .5);
+  color: $c-d1;
+  background-image: linear-gradient(-135deg, $c-d0 $s-h*1.5, transparent $s-h*2);
+
+  &::before {
+    color: $c-d3;
+    background-image: linear-gradient(to right, transparent, $c-d2 #{$s-w - $s-h});
+  }
 }
 
 .s-y {
   $d: calc(100% - #{$s-h * $cos45deg});
   width: $s-w - $s-h;
-  color: rgba(#f00, .75);
+  color: $c-d2;
   transform: rotateY(-90deg) translate3d(- $s-h, #{$s-h - $s-w}, 0);
-  background: linear-gradient(135deg, $c-d2 $d, transparent $d);
-
-  // transform-origin: 0% 0%;
-  // transform: rotateY(-90deg) rotateX(-90deg) translate3d(-$s-h, 0, #{$s-h - $s-w});
+  background: linear-gradient(135deg, currentColor $d, transparent $d);
 
   &::before {
-    // transform: rotateX(90deg);
-    // background: linear-gradient(135deg, $c-d2 $d, transparent $d);
+    color: $c-d4;
+    background-image: linear-gradient(to left, transparent $s-h, $c-d3);
   }
 
   &::after {
-    // content: "";
+    content: "";
     position: absolute;
     top: 0;
     right: 0;
-    width: $s-h / $cos45deg;
-    height: $s-h;
-    background-color: #000;
-    transform-origin: 100% 50%;
-    transform: rotateY($s-angle);
+    width: $s-h;
+    height: $s-h / $cos45deg;
+    transform-origin: 100% 0%;
+    transform: rotateY(-90deg) rotateX(45deg);
+    background-color: $c-d0;
   }
 }
 
