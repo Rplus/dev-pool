@@ -1,5 +1,78 @@
+$c-bgc: #e7e5d8;
+$c-d0: #882941;
+$c-d1: #9c4057;
+$c-d2: #b76979;
+$c-d3: #dab2b0;
+$c-d4: #f1efe2;
+
+$s-w: 15rem;
+$s-h: $s-w / 5;
+
+.di {
+  position: relative;
+  width: $s-h;
+  height: $s-h;
+  transform-style: preserve-3d;
+  // transform: rotateY(40deg) rotateX(-20deg) rotateZ(-20deg);
+  transform: rotateY(51deg) rotateX(-24deg) rotateZ(-27deg);
+  // background-color: #f00;
+  // 哭惹... 數學好差... 不知道該怎麼算了...
+  // .............
+}
+
+.s {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: $s-w;
+  height: $s-h;
+  transform-style: preserve-3d;
+  transform-origin: calc(0% + #{$s-h / 2}) 50%;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  &::before {
+    background-color: currentColor;
+    transform: translate3d(0, 0, $s-h / 2);
+  }
+
+  &::after {
+    background-color: currentColor;
+    transform: translate3d(0, $s-h / -2, 0) rotateX(90deg);
+  }
+}
+
+.s-x {
+  color: rgba(#000, .3);
+}
+
+.s-z {
+  transform: rotateZ(-90deg);
+  color: rgba(#00f, .5);
+}
+
+.s-y {
+  width: $s-w - $s-h;
+  color: rgba(#f00, .5);
+  transform: rotateY(-90deg) translateY(#{$s-h - $s-w});
+
+  &::before {
+    // opacity: .1;
+  }
+}
 
 .box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex: 1;
   width: 100%;
   max-width: 40rem;
@@ -24,8 +97,8 @@ body {
   flex-direction: column;
   min-height: 100%;
   margin: 0;
-  background: #333;
-  color: #fff;
+  background: $c-bgc;
+  color: #333;
 }
 
 a {
