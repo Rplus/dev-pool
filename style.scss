@@ -10,6 +10,8 @@ $s-h: $s-w / 5;
 $s-angle: 45deg;
 // $cos45deg: cos(45deg); // O_Q
 $cos45deg: 1 / 1.41421;
+// $cos30deg: cos(30deg); // O_Q
+$cos30deg: 1.73 / 2;
 
 .Penrose-box {
   position: relative;
@@ -25,11 +27,11 @@ $cos45deg: 1 / 1.41421;
   width: $s-h;
   height: $s-h;
   transform-style: preserve-3d;
-  transform: rotateY(51deg) rotateX(-24deg) rotateZ(-27deg);
+  transform: rotateY(50.9deg) rotateX(-24deg) rotateZ(-26.7deg);
   transition: transform 2s;
 
   .Penrose-box:hover & {
-    transform: rotateY(36deg) rotateX(-30deg) rotateZ(-20deg);
+    transform: rotateY(36.5deg) rotateX(-30deg) rotateZ(-20.3deg);
   }
 }
 
@@ -40,8 +42,8 @@ $cos45deg: 1 / 1.41421;
   width: $s-w;
   height: $s-h;
   transform-style: preserve-3d;
-  transform-origin: 0% 50%;
-  background-color: currentColor;
+  transform-origin: 0% 100%;
+  background-image: linear-gradient(to left, transparent $s-h, currentColor);
 
   &::before {
     content: "";
@@ -52,52 +54,52 @@ $cos45deg: 1 / 1.41421;
     bottom: 0;
     transform-origin: 50% 0%;
     transform: rotateX(-90deg);
-    background-color: currentColor;
+    background-image: linear-gradient(to left, transparent $s-h, currentColor);
   }
 }
 
 .s-x {
   color: $c-d1;
-  background-image: linear-gradient(to right, transparent $s-h, $c-d2);
+  background-color: $c-d2;
 
   &::before {
-    color: $c-d4;
-    background-image: linear-gradient(to left, transparent $s-h, $c-d3);
+    color: $c-d3;
+    background-color: $c-d4;
   }
 }
 
 .s-y {
-  transform: rotateZ(-90deg) translate3d($s-h / -2, $s-h / 2, 0);
-  color: $c-d1;
-  background-image: linear-gradient(-135deg, $c-d0 $s-h*1.5, transparent $s-h*2);
+  left: 1px; // hack for transform render gap
+  transform: rotateZ(-90deg);
+  color: $c-d0;
+  background-color: $c-d1;
+  background-image: linear-gradient(-150deg, currentColor $s-h*$cos30deg, transparent $s-h*$cos30deg*1.25);
 
   &::before {
-    color: $c-d3;
-    background-image: linear-gradient(to right, transparent, $c-d2 #{$s-w - $s-h});
+    color: rgba($c-d3, .75);
+    background-color: $c-d2;
   }
 }
 
 .s-z {
-  $d: calc(100% - #{$s-h * $cos45deg});
-  width: $s-w - $s-h;
-  color: $c-d2;
-  transform: rotateY(-90deg) translate3d(- $s-h, #{$s-h - $s-w}, 0);
-  background: linear-gradient(135deg, currentColor $d, transparent $d);
+  left: -1px; // hack for transform render gap
+  transform-origin: 100% 0%;
+  transform: rotateY(90deg) translate3d($s-h, 0, $s-h);
+  color: $c-d4;
+  background-color: $c-d3;
 
   &::before {
-    color: $c-d4;
-    background-image: linear-gradient(to left, transparent $s-h, $c-d3);
+    color: $c-d2;
+    background: linear-gradient(45deg, transparent $s-h*$cos45deg, currentColor $s-h*$cos45deg);
   }
 
   &::after {
     content: "";
     position: absolute;
-    top: 0;
-    right: 0;
-    width: $s-h;
-    height: $s-h / $cos45deg;
-    transform-origin: 100% 0%;
-    transform: rotateY(-90deg) rotateX(45deg);
+    width: $s-h / $cos45deg;
+    height: $s-h;
+    transform-origin: 0% 50%;
+    transform: rotateY(45deg);
     background-color: $c-d0;
   }
 }
