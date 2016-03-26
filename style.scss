@@ -66,7 +66,7 @@ $cos45deg: 1 / 1.41421;
   }
 }
 
-.s-z {
+.s-y {
   transform: rotateZ(-90deg) translate3d($s-h / -2, $s-h / 2, 0);
   color: $c-d1;
   background-image: linear-gradient(-135deg, $c-d0 $s-h*1.5, transparent $s-h*2);
@@ -77,7 +77,7 @@ $cos45deg: 1 / 1.41421;
   }
 }
 
-.s-y {
+.s-z {
   $d: calc(100% - #{$s-h * $cos45deg});
   width: $s-w - $s-h;
   color: $c-d2;
