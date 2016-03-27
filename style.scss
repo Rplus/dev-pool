@@ -27,11 +27,11 @@ $cos30deg: 1.73 / 2;
   width: $s-h;
   height: $s-h;
   transform-style: preserve-3d;
-  transform: rotateY(50.9deg) rotateX(-24deg) rotateZ(-26.7deg);
+  transform: rotateX(-35.25deg) rotateY(44.95deg);
   transition: transform 2s;
 
   .Penrose-box:hover & {
-    transform: rotateY(36.5deg) rotateX(-30deg) rotateZ(-20.3deg);
+    transform: rotateX(-35.25deg) rotateY(22.5deg);
   }
 }
 
