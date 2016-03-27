@@ -99,7 +99,7 @@ $cos30deg: 1.73 / 2;
     width: $s-h / $cos45deg;
     height: $s-h;
     transform-origin: 0% 50%;
-    transform: rotateY(45deg);
+    transform: translate3d(0, 0, .1px) rotateY(45deg); // hack
     background-color: $c-d0;
   }
 }
