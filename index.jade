@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title Document
+    style.
+      .component {
+        background-color: #efefef;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        margin: 10px;
+        padding: 10px;
+      }
+
+      .component::before {
+        content: "600px +";
+      }
+
+      .component span {
+        color: deeppink;
+      }
+
+      @media (max-width: 600px) {
+        .component::before {
+          content: "600px-";
+        }
+      }
+
+      @media (max-width: 400px) {
+        .component::before {
+          content: "400px-";
+        }
+      }
+
+  body
+    mixin component($width)
+      - $width = $width || '600+'
+      .component
+        p
+          | This is a #[span component]. Under 400px, this component will prefix by #{$width}.
+
+    +component()
+
+    .iframify(data-width='600px')
+      +component(600)
+
+    .iframify(data-width='400px')
+      +component(400)
+
+    script(src="js.js")
