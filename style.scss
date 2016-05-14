@@ -108,7 +108,7 @@ $svg-base: "https://rawgit.com/rplus/d36646d8b5788d6df704/raw/";
   background: no-repeat 50% / contain;
   background-clip: content-box;
   opacity: .8;
-  transition: all .3s;
+  transition: opacity .3s, transform .3s;
 
   &:hover {
     opacity: 1;
