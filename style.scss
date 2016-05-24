@@ -23,7 +23,8 @@ $strip-width: 1vmin;
     animation: rotation 10s linear infinite paused;
 
     #rotation:checked ~ .box & {
-      animation-play-state: running;
+      // animation-play-state: running;
+      animation: rotation 10s linear infinite;
     }
   }
 
@@ -46,7 +47,8 @@ $strip-width: 1vmin;
   animation: revolution 10s linear infinite paused;
 
   #revolution:checked ~ & {
-    animation-play-state: running;
+    // animation-play-state: running;
+    animation: revolution 10s linear infinite;
   }
 }
 
