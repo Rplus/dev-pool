@@ -1,13 +1,71 @@
 $c-bgc: #e7e5d8;
+$count: 100;
+$strip-ratio: 20;
+$strip-width: 1vmin;
+
+.s {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: $strip-width;
+  height: $strip-width * $strip-ratio;
+  transform-style: preserve-3d;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: inset 0 0 0 2px #666;
+    background-color: #999;
+    animation: rotation 10s linear infinite paused;
+
+    #rotation:checked ~ .box & {
+      animation-play-state: running;
+    }
+  }
+
+  @for $i from 1 through $count {
+    &:nth-of-type(#{$i}) {
+      transform:
+        rotateY(#{$i * 360deg / $count})
+        translateZ($strip-width * 20)
+        rotateX(#{$i * 180deg / $count});
+    }
+  }
+}
 
 .box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  width: 100%;
-  max-width: 40rem;
-  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-style: preserve-3d;
+  transform: rotateX(-30deg);
+  animation: revolution 10s linear infinite paused;
+
+  #revolution:checked ~ & {
+    animation-play-state: running;
+  }
+}
+
+@keyframes rotation {
+  from {
+    transform: rotateX(0deg);
+  }
+  to {
+    transform: rotateX(360deg);
+  }
+}
+
+@keyframes revolution {
+  from {
+    transform: rotateX(-30deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(-30deg) rotateY(360deg);
+  }
 }
 
 /// reset
@@ -30,6 +88,7 @@ body {
   margin: 0;
   background: $c-bgc;
   color: #333;
+  text-align: center;
 }
 
 a {
@@ -45,7 +104,6 @@ a {
   font-size: calc(1rem + 2vmin);
   text-transform: capitalize;
   border-bottom: 1px dashed rgba(#000, .3);
-  text-align: center;
 
   small {
     display: block;
@@ -56,11 +114,47 @@ a {
 }
 
 .info {
-  margin: 0;
+  margin-top: auto;
   padding: 1em;
   font-size: .9em;
   font-style: italic;
   font-family: serif;
   text-align: right;
   opacity: .5;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.control-label {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+
+  &::before {
+    content: "";
+    width: 1.2em;
+    height: 1.2em;
+    margin-left: 1em;
+    margin-right: .25em;
+    border: 2px solid;
+    vertical-align: middle;
+  }
+}
+
+#revolution:checked ~ .controls > [for="revolution"],
+#rotation:checked ~ .controls > [for="rotation"] {
+  &::before {
+    box-shadow:
+      inset 0 0 0 .2em $c-bgc,
+      inset 0 0 0 1em;
+  }
 }

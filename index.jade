@@ -2,20 +2,27 @@
 html(lang="en")
   head
     meta(charset="UTF-8")
-    title Möbiusband in 3D CSS
+    title Rotating Möbiusband in 3D CSS
     meta(name="viewport", content="width=device-width")
     link(rel="stylesheet", href="style.css")
 
   body
 
-    h1.intro Möbiusband in 3D CSS
+    h1.intro Rotating Möbiusband
+      small in 3D CSS
 
-    - var i = 9;
+    input.sr-only#revolution(type="checkbox", checked)
+    input.sr-only#rotation(type="checkbox")
+
+    div.controls
+      label.control-label(for="revolution") Revolution
+      label.control-label(for="rotation") Rotation
+
+    - var i = 100;
 
     .box
       - while(i--)
         .s
 
-
-    //- blockquote.info
-      | inspired from #[a(href="https://dribbble.com/shots/2105831-Penrose-hug") Penrose hug] by #[a(href="https://dribbble.com/fabiandenter") Fabian Denter]
+    blockquote.info
+      | ref: #[a(href="https://en.wikipedia.org/wiki/M%C3%B6bius_strip") Möbius strip]
