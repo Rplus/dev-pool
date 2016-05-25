@@ -25,13 +25,21 @@ $strip-width: 1vmin;
       // animation-play-state: running;
       animation: rotation 10s linear infinite;
     }
+
+    // safari mobile doesn't support
+    // via: https://developer.mozilla.org/en-US/docs/Web/CSS/animation-direction#Browser_compatibility
+    @supports (animation-direction: reverse) {
+      #rotation:checked ~ #rotation-dir--anticlockwise:checked ~ .box & {
+        animation-direction: reverse;
+      }
+    }
   }
 
   @for $i from 1 through $count {
     &:nth-of-type(#{$i}) {
       transform:
         rotateY(#{$i * 360deg / $count})
-        translateZ($strip-width * 20)
+        translateZ(20vmin)
         rotateX(#{$i * 180deg / $count});
     }
   }
@@ -49,6 +57,12 @@ $strip-width: 1vmin;
     // animation-play-state: running;
     animation: revolution 10s linear infinite;
   }
+
+  @supports (animation-direction: reverse) {
+    #revolution:checked ~ #revolution-dir--anticlockwise:checked ~ & {
+      animation-direction: reverse;
+    }
+  }
 }
 
 @keyframes rotation {
@@ -65,7 +79,7 @@ $strip-width: 1vmin;
     transform: rotateX(-30deg) rotateY(0deg);
   }
   to {
-    transform: rotateX(-30deg) rotateY(360deg);
+    transform: rotateX(-30deg) rotateY(-360deg);
   }
 }
 
@@ -135,6 +149,29 @@ a {
   border: 0;
 }
 
+.controls {
+  display: flex;
+  justify-content: center;
+  text-align: left;
+  line-height: 1.7;
+
+  dl {
+    margin-left: 1em;
+    margin-right: 1em;
+  }
+}
+
+.pri-controls {
+  margin-bottom: .5em;
+}
+
+.sub-controls {
+  margin-left: 1em;
+  font-size: .9em;
+  opacity: 0;
+  transition: opacity .2s;
+}
+
 .control-label {
   cursor: pointer;
   display: inline-flex;
@@ -144,18 +181,32 @@ a {
     content: "";
     width: 1.2em;
     height: 1.2em;
-    margin-left: 1em;
     margin-right: .25em;
     border: 2px solid;
     vertical-align: middle;
   }
+
+  &.control-label--radio::before {
+    border-radius: 50%;
+  }
 }
 
-#revolution:checked ~ .controls > [for="revolution"],
-#rotation:checked ~ .controls > [for="rotation"] {
+#revolution:checked ~ .controls [for="revolution"],
+#revolution-dir--clockwise:checked ~ .controls [for="revolution-dir--clockwise"],
+#revolution-dir--anticlockwise:checked ~ .controls [for="revolution-dir--anticlockwise"],
+#rotation:checked ~ .controls [for="rotation"],
+#rotation-dir--clockwise:checked ~ .controls [for="rotation-dir--clockwise"],
+#rotation-dir--anticlockwise:checked ~ .controls [for="rotation-dir--anticlockwise"] {
   &::before {
     box-shadow:
       inset 0 0 0 .2em $c-bgc,
       inset 0 0 0 1em;
+  }
+}
+
+#revolution:checked ~ .controls .controls__revolution,
+#rotation:checked ~ .controls .controls__rotation {
+  .sub-controls {
+    opacity: .8;
   }
 }
