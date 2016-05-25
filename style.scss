@@ -151,9 +151,18 @@ a {
 
 .controls {
   display: flex;
-  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
   text-align: left;
   line-height: 1.7;
+
+  @media (max-height: 30em) and (orientation: landscape) {
+    margin-right: 45%;
+
+    & ~ .box {
+      left: calc(50% + 40vmin);
+    }
+  }
 
   dl {
     margin-left: 1em;
