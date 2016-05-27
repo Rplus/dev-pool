@@ -29,7 +29,7 @@ $strip-width: 1vmin;
     // safari mobile doesn't support
     // via: https://developer.mozilla.org/en-US/docs/Web/CSS/animation-direction#Browser_compatibility
     @supports (animation-direction: reverse) {
-      #rotation:checked ~ #rotation-dir--anticlockwise:checked ~ .box & {
+      #rotation-dir--anticlockwise:checked ~ .box & {
         animation-direction: reverse;
       }
     }
@@ -59,7 +59,7 @@ $strip-width: 1vmin;
   }
 
   @supports (animation-direction: reverse) {
-    #revolution:checked ~ #revolution-dir--anticlockwise:checked ~ & {
+    #revolution-dir--anticlockwise:checked ~ & {
       animation-direction: reverse;
     }
   }
