@@ -4,6 +4,27 @@ $rocket-radius: 10vmin;
 
 @import "trig";
 
+// via: https://css-tricks.com/snippets/sass/power-function/
+@function pow($number, $exponent) {
+  $value: 1;
+
+  @if $exponent > 0 {
+    @for $i from 1 through $exponent {
+      $value: $value * $number;
+    }
+  }
+
+  @return $value;
+}
+
+@function last($list) {
+  @return nth($list, length($list));
+}
+
+body {
+  margin: 0;
+}
+
 .space {
   position: relative;
   min-height: 100vh;
@@ -84,78 +105,76 @@ $rocket-radius: 10vmin;
   }
 
   &::after {
-    $max: 50px;
-    $min: 10px;
+    $pops: ();
+    $pops-count: 1;
+    $pops-steps: 8;
+    $pops-max: 50;
+    $pops-min: 10;
+    $pops-size-reduce-ratio: .9;
+    $pops-opacity-reduce-ratio: .7;
+    $init-pops: ();
 
     content: "";
     position: absolute;
-    top: $max - $min;
-    left: 0;
-    width: $min;
-    height: $min;
+    top: ($pops-max - $pops-min)*1px;
+    left: $pops-max*1px;
+    width: $pops-min*1px;
+    height: $pops-min*1px;
     border-radius: 50%;
     // box-shadow: $pops;
     background-color: transparent;
     animation: rocket-pops 5s linear infinite;
 
-    $pops: ();
-    $pops-count: 10;
-    $pops-steps: 8;
-    $pops-max: 50;
-    $pops-min: 10;
-    $pops-reduce-ratio: .9;
-    $pops-1: ();
-
     @for $i from 1 through $pops-count {
-      $pops-1: append($pops-1,
+      $init-pops: append($init-pops,
         (
           size: random($pops-max - $pops-min) + $pops-min,
-          x: - random($pops-max * 6) - $pops-max,
+          x: - random($pops-min) - $pops-max * .8,
           y: random($pops-max),
           opacity: (random(5) + 3) * .1
         )
       );
     }
 
-    $pops: append($pops, $pops-1);
-    // __s1__: inspect($pops-1);
+    // $pops: append($pops, $init-pops);
+    __s0__: inspect($init-pops);
 
-    @for $i from 2 through $pops-steps {
-      $_n: nth($pops, $i - 1);
-      $pops-update: ();
+    @for $i from 1 through $pops-steps {
+      $p1: ();
 
       @for $j from 1 through $pops-count {
-        $_m: nth($_n, $j);
-        $pops-update: append($pops-update,
+        // _c_#{$i}-#{$j}: inspect(nth($init-pops, $j));
+        $_step: ($i - $j + $pops-count * $pops-steps) % $pops-steps + 1;
+        // cc: $_step;
+        $p1: append($p1,
           (
-            size: map-get($_m, size) * $pops-reduce-ratio,
-            x: map-get($_m, x) - (random($pops-max * .8) + $pops-max * .2) * .5,
-            y: map-get($_m, y) + (random($pops-max) - $pops-max * 0.5),
-            opacity: map-get($_m, opacity) * $pops-reduce-ratio
+            size: map-get(nth($init-pops, $j), size) * pow($pops-size-reduce-ratio, $_step),
+            x: map-get(nth($init-pops, $j), x) - ($pops-max * .8) * $_step,
+            y: map-get(nth($init-pops, $j), y) + random($pops-min * .5) * $_step,
+            opacity: map-get(nth($init-pops, $j), opacity) * pow($pops-size-reduce-ratio, $_step)
           )
         );
+        _c_#{$i}-#{$j}_p1: inspect(last($p1));
       }
 
-      // __s#{$i}__: inspect($pops-update);
-      $pops: append($pops, $pops-update);
+      $pops: append($pops, $p1);
     }
 
-    __ss__: inspect($pops);
+    __pops__: inspect($pops);
 
     $shadows: ();
 
     @for $i from 1 through length($pops) {
-      loop: $i;
+      // loop: $i;
       $ss: ();
-
       @for $j from 1 through length(nth($pops, $i)) {
         $_vals: nth(nth($pops, $i), $j);
         // _loo2: $j;
-        $_ss: map-get($_vals, x) * 1px map-get($_vals, y) * 1px 0 map-get($_vals, size) * 1px rgba(#ccc, map-get($_vals, opacity));
+        $_ss: map-get($_vals, x)*1px map-get($_vals, y)*1px 0 map-get($_vals, size)*1px rgba(#ccc, map-get($_vals, opacity));
         $ss: append($ss, $_ss, comma);
       }
 
-      __s#{$i}__: inspect($ss);
+      // __s#{$i}__: inspect($ss);
       $shadows: append($shadows, inspect($ss));
     }
     __shadows__: inspect($shadows);
@@ -166,7 +185,6 @@ $rocket-radius: 10vmin;
           box-shadow: nth($shadows, $i + 1);
         }
       }
-      100% { visibility: hidden; }
     }
   }
 }
