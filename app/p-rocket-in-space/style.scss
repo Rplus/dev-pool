@@ -31,7 +31,7 @@ body {
   &::before,
   &::after {
     $stars: ();
-    $max: 3;
+    $max: 4;
 
     @for $i from 0 to 150 {
       $stars: $stars, random(100) * 1vw random(100) * 1vh 1px (random($max) - 1) * -.5px;
@@ -72,11 +72,19 @@ body {
 .rocket {
   position: absolute;
   top: 20%;
-  left: 20%;
+  left: 15%;
   width: 304px;
-  height: 177px;
+  max-width: 30vmin;
+  background-repeat: no-repeat;
+  background-size: contain;
   background-image: url("https://cloud.githubusercontent.com/assets/1808835/16202852/1d427da0-374a-11e6-9175-11a0933797df.png");
   animation: rocket-swing ($rocket-point * 2s) linear infinite alternate;
+
+  &::after {
+    content: "";
+    display: block;
+    padding-bottom: 58%;
+  }
 
   @keyframes rocket-swing {
     @for $i from 0 through $rocket-point {
@@ -107,7 +115,7 @@ body {
 
     &:nth-of-type(#{$i}) {
       opacity: (random(40) + 30) / 100;
-      font-size: (random(60) + 20) * 1px;
+      font-size: (random(60) + 20) * .1vmin;
       top: (random(30) + 20) * 1%;
       left: $left;
       animation-delay: random($rocket-pop-count) * $rocket-pop-duration / $rocket-pop-count * -1;
@@ -144,7 +152,6 @@ body {
   text-align: right;
   opacity: .7;
 }
-
 
 .intro {
   position: absolute;
