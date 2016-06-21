@@ -1,0 +1,212 @@
+$bgc: #415265;
+$rocket-point: 10;
+$rocket-radius: 10vmin;
+
+@import "trig";
+
+.space {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: $bgc url("http://modernweb.tw/img/earth-bg.png") no-repeat 100% 100%;
+  background-size: auto 60%;
+
+  // ref: http://codepen.io/Rplus/pen/GopaVZ
+  &::before,
+  &::after {
+    $stars: ();
+    $max: 3;
+
+    @for $i from 0 to 150 {
+      $stars: $stars, random(100) * 1vw random(100) * 1vh 1px (random($max) - 1) * -.5px;
+    }
+
+    content: "";
+    position: absolute;
+    width: $max * 1px;
+    height: $max * 1px;
+    box-shadow: $stars;
+    border-radius: 1px;
+    color: #fff;
+    will-change: opacity, transform;
+
+    transform: translateX(100vw);
+
+    // be carefull performance
+    animation:
+      twinkling infinite 10s,
+      rolling infinite 15s linear;
+
+    @keyframes twinkling {
+      0%,
+      100% { opacity: 1; }
+      50% { opacity: .3; }
+    }
+
+    @keyframes rolling {
+      to { transform: none; }
+    }
+  }
+
+  &::before {
+    left: -100vw;
+  }
+}
+
+.rocket {
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  width: 304px;
+  height: 177px;
+  background-image: url("http://modernweb.tw/img/rr.png");
+  animation: rocket-swing ($rocket-point * 2s) linear infinite alternate;
+
+  @keyframes rocket-swing {
+    @for $i from 0 through $rocket-point {
+      #{$i * 100 / $rocket-point}% {
+        // round-move
+        // transform: translate3d($rocket-radius * sin($i * 360deg / $rocket-point), $rocket-radius * cos($i * 360deg / $rocket-point), 0);
+
+        transform: translate3d($rocket-radius * sin(random($rocket-point) * 360deg / $rocket-point), $rocket-radius * cos(random($rocket-point) * 360deg / $rocket-point), 0);
+      }
+    }
+  }
+
+  &::after {
+    $max: 50px;
+    $min: 10px;
+
+    content: "";
+    position: absolute;
+    top: $max - $min;
+    left: 0;
+    width: $min;
+    height: $min;
+    border-radius: 50%;
+    // box-shadow: $pops;
+    background-color: transparent;
+    animation: rocket-pops 5s linear infinite;
+
+    $pops: ();
+    $pops-count: 10;
+    $pops-steps: 8;
+    $pops-max: 50;
+    $pops-min: 10;
+    $pops-reduce-ratio: .9;
+    $pops-1: ();
+
+    @for $i from 1 through $pops-count {
+      $pops-1: append($pops-1,
+        (
+          size: random($pops-max - $pops-min) + $pops-min,
+          x: - random($pops-max * 6) - $pops-max,
+          y: random($pops-max),
+          opacity: (random(5) + 3) * .1
+        )
+      );
+    }
+
+    $pops: append($pops, $pops-1);
+    // __s1__: inspect($pops-1);
+
+    @for $i from 2 through $pops-steps {
+      $_n: nth($pops, $i - 1);
+      $pops-update: ();
+
+      @for $j from 1 through $pops-count {
+        $_m: nth($_n, $j);
+        $pops-update: append($pops-update,
+          (
+            size: map-get($_m, size) * $pops-reduce-ratio,
+            x: map-get($_m, x) - (random($pops-max * .8) + $pops-max * .2) * .5,
+            y: map-get($_m, y) + (random($pops-max) - $pops-max * 0.5),
+            opacity: map-get($_m, opacity) * $pops-reduce-ratio
+          )
+        );
+      }
+
+      // __s#{$i}__: inspect($pops-update);
+      $pops: append($pops, $pops-update);
+    }
+
+    __ss__: inspect($pops);
+
+    $shadows: ();
+
+    @for $i from 1 through length($pops) {
+      loop: $i;
+      $ss: ();
+
+      @for $j from 1 through length(nth($pops, $i)) {
+        $_vals: nth(nth($pops, $i), $j);
+        // _loo2: $j;
+        $_ss: map-get($_vals, x) * 1px map-get($_vals, y) * 1px 0 map-get($_vals, size) * 1px rgba(#ccc, map-get($_vals, opacity));
+        $ss: append($ss, $_ss, comma);
+      }
+
+      __s#{$i}__: inspect($ss);
+      $shadows: append($shadows, inspect($ss));
+    }
+    __shadows__: inspect($shadows);
+
+    @keyframes rocket-pops {
+      @for $i from 0 through ($pops-steps - 1) {
+        #{$i * 100 / ($pops-steps - 1)}% {
+          box-shadow: nth($shadows, $i + 1);
+        }
+      }
+      100% { visibility: hidden; }
+    }
+  }
+}
+
+// reset
+
+body {
+  margin: 0;
+}
+
+.intro {
+  width: 90%;
+  max-width: 30rem;
+  padding-bottom: 1rem;
+  margin: 0 auto 1em;
+  padding-top: .5em;
+  font-size: calc(1rem + 2vmin);
+  text-transform: capitalize;
+  font-style: italic;
+  border-bottom: 1px dashed rgba(#fff, .3);
+  text-align: center;
+  color: #fff;
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 0;
+  padding: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .7;
+}
