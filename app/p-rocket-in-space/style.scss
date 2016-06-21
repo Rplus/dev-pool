@@ -168,5 +168,11 @@ body {
     0 0 .05em rgba(#fff, .5),
     .1em .1em .2em rgba(#000, .4),
     0 0 .05em rgba(#000, .3);
-  transform: translate(-65%, 15%) perspective(800px) rotateY(35deg) rotateX(20deg) rotateZ(10deg);
+  transform: translate(-70%, 30%) perspective(500px) rotateY(45deg) rotateX(10deg) rotateZ(-5deg);
+  transition: transform .3s;
+
+  @media (max-width: 40rem) {
+    font-size: 8vmin;
+    transform: translate(calc(-50vw + 50%), -50%);
+  }
 }
