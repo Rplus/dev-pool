@@ -165,3 +165,20 @@ body {
   text-align: right;
   opacity: .7;
 }
+
+
+.slogan {
+  position: absolute;
+  top: 70%;
+  right: 30%;
+  color: #fff;
+  font-family: sans-serif;
+  text-transform: capitalize;
+  font-weight: 900;
+  font-size: 5vw;
+  text-shadow:
+    0 0 .05em rgba(#fff, .5),
+    .1em .1em .2em rgba(#000, .4),
+    0 0 .05em rgba(#000, .3);
+  transform: perspective(500px) rotateY(45deg) rotateX(20deg) rotateZ(10deg);
+}
