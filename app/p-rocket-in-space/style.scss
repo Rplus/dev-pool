@@ -25,7 +25,7 @@ body {
   z-index: -1;
   overflow: hidden;
   background: $bgc url("https://cdn.rawgit.com/Rplus/77ff4ba84ef8dfd8feb22d5a2212c52a/raw/6e8cc006eee5035e51aa0d385846b59a2d9a995a/earth.svg") no-repeat 100% 100%;
-  background-size: auto 60%;
+  background-size: auto 50vmin;
 
   // ref: http://codepen.io/Rplus/pen/GopaVZ
   &::before,
