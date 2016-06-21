@@ -20,8 +20,7 @@ $rocket-pop-duration: 3s;
   bottom: 0;
   z-index: -1;
   overflow: hidden;
-  background: $bgc url("https://cdn.rawgit.com/Rplus/77ff4ba84ef8dfd8feb22d5a2212c52a/raw/6e8cc006eee5035e51aa0d385846b59a2d9a995a/earth.svg") no-repeat 100% 100%;
-  background-size: auto 50vmin;
+  background-color: $bgc;
 
   // ref: http://codepen.io/Rplus/pen/GopaVZ
   &::before,
@@ -149,30 +148,36 @@ body {
   opacity: .7;
 }
 
-.intro {
+.earth {
   position: absolute;
   right: 0;
   bottom: 0;
-  width: 50vmin;
-  min-width: min-content;
+  width: 60vmin;
   height: 50vmin;
-  margin: 0;
-  color: #fff;
-  white-space: nowrap;
-  font-family: sans-serif;
-  text-transform: capitalize;
-  font-weight: 900;
-  font-size: 4vw;
+  background: url("https://cdn.rawgit.com/Rplus/77ff4ba84ef8dfd8feb22d5a2212c52a/raw/6e8cc006eee5035e51aa0d385846b59a2d9a995a/earth.svg") no-repeat 100% 100%;
+  background-size: contain;
+}
+
+.slogan {
+  position: absolute;
+  right: 100%;
+  bottom: 0;
+  white-space: pre;
   text-align: center;
+  color: #fff;
+  font: 900 calc(4vw + (100vw - 40rem) / 100) sans-serif;
+  font-size: 5vw;
+  text-transform: capitalize;
   text-shadow:
     0 0 .05em rgba(#fff, .5),
     .1em .1em .2em rgba(#000, .4),
     0 0 .05em rgba(#000, .3);
-  transform: translate(-70%, 30%) perspective(500px) rotateY(45deg) rotateX(10deg) rotateZ(-5deg);
+  transform: translate(40%, calc(-20vmin + 50%)) perspective(600px) rotateY(45deg) rotateX(15deg);
   transition: transform .3s;
 
   @media (max-width: 40rem) {
+    right: 0;
     font-size: 8vmin;
-    transform: translate(calc(-50vw + 50%), -50%);
+    transform: translate(calc(-50vw + 50%), calc(50% - 40vh));
   }
 }
