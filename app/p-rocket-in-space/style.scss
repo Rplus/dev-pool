@@ -132,27 +132,6 @@ body {
   margin: 0;
 }
 
-.intro {
-  width: 90%;
-  max-width: 30rem;
-  padding-bottom: 1rem;
-  margin: 0 auto 1em;
-  padding-top: .5em;
-  font-size: calc(1rem + 2vmin);
-  text-transform: capitalize;
-  font-style: italic;
-  border-bottom: 1px dashed rgba(#fff, .3);
-  text-align: center;
-  color: #fff;
-
-  small {
-    display: block;
-    opacity: .5;
-    font-style: italic;
-    text-transform: none;
-  }
-}
-
 .info {
   position: fixed;
   bottom: 0;
@@ -167,18 +146,24 @@ body {
 }
 
 
-.slogan {
+.intro {
   position: absolute;
-  top: 70%;
-  right: 30%;
+  right: 0;
+  bottom: 0;
+  width: 50vmin;
+  min-width: min-content;
+  height: 50vmin;
+  margin: 0;
   color: #fff;
+  white-space: nowrap;
   font-family: sans-serif;
   text-transform: capitalize;
   font-weight: 900;
-  font-size: 5vw;
+  font-size: 4vw;
+  text-align: center;
   text-shadow:
     0 0 .05em rgba(#fff, .5),
     .1em .1em .2em rgba(#000, .4),
     0 0 .05em rgba(#000, .3);
-  transform: perspective(500px) rotateY(45deg) rotateX(20deg) rotateZ(10deg);
+  transform: translate(-65%, 15%) perspective(800px) rotateY(35deg) rotateX(20deg) rotateZ(10deg);
 }
