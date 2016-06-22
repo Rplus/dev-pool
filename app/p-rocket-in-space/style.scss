@@ -8,6 +8,18 @@ $speedup-duration: 2s;
 
 @import "trig";
 
+@mixin fill($dir: "full") {
+  position: absolute;
+
+  @if $dir != "top" { bottom: 0; }
+
+  @if $dir != "right" { left: 0; }
+
+  @if $dir != "bottom" { top: 0; }
+
+  @if $dir != "left" { right: 0; }
+}
+
 @mixin speedup {
   .space:active & {
     @content;
@@ -21,11 +33,7 @@ $speedup-duration: 2s;
 }
 
 .star {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  @include fill;
   z-index: -1;
   overflow: hidden;
   background-color: $bgc;
@@ -82,11 +90,7 @@ $speedup-duration: 2s;
 }
 
 .rocket-box {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  @include fill;
   z-index: -1;
   transition: transform $speedup-duration;
 
@@ -204,11 +208,7 @@ body {
 }
 
 .earth-inner {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  @include fill;
   background: url("https://cdn.rawgit.com/Rplus/77ff4ba84ef8dfd8feb22d5a2212c52a/raw/6e8cc006eee5035e51aa0d385846b59a2d9a995a/earth.svg") no-repeat 100% 100%;
   background-size: contain;
 
