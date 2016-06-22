@@ -4,7 +4,15 @@ $rocket-radius: 10vmin;
 $rocket-pop-count: 20;
 $rocket-pop-duration: 3s;
 
+$speedup-duration: 2s;
+
 @import "trig";
+
+@mixin speedup {
+  .space:active & {
+    @content;
+  }
+}
 
 .space {
   position: relative;
@@ -21,6 +29,11 @@ $rocket-pop-duration: 3s;
   z-index: -1;
   overflow: hidden;
   background-color: $bgc;
+  transition: background-color $speedup-duration ease;
+
+  @include speedup {
+    background-color: darken($bgc, 30%);
+  }
 
   // ref: http://codepen.io/Rplus/pen/GopaVZ
   &::before,
@@ -48,6 +61,10 @@ $rocket-pop-duration: 3s;
       twinkling infinite 10s,
       rolling infinite 15s linear;
 
+    @include speedup {
+      animation-duration: 10s, .5s;
+    }
+
     @keyframes twinkling {
       0%,
       100% { opacity: 1; }
@@ -64,6 +81,20 @@ $rocket-pop-duration: 3s;
   }
 }
 
+.rocket-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  transition: transform $speedup-duration;
+
+  @include speedup {
+    transform: translateX(50vw);
+  }
+}
+
 .rocket {
   position: absolute;
   top: 20%;
@@ -74,6 +105,12 @@ $rocket-pop-duration: 3s;
   background-size: contain;
   background-image: url("https://cloud.githubusercontent.com/assets/1808835/16202852/1d427da0-374a-11e6-9175-11a0933797df.png");
   animation: rocket-swing ($rocket-point * 2s) linear infinite alternate;
+  font-size: $rocket-radius;
+
+  @include speedup {
+    animation-duration: $rocket-point * .05s;
+    font-size: $rocket-radius / 8;
+  }
 
   &::after {
     content: "";
@@ -87,7 +124,7 @@ $rocket-pop-duration: 3s;
         // round-move
         // transform: translate3d($rocket-radius * sin($i * 360deg / $rocket-point), $rocket-radius * cos($i * 360deg / $rocket-point), 0);
 
-        transform: translate3d($rocket-radius * sin(random($rocket-point) * 360deg / $rocket-point), $rocket-radius * cos(random($rocket-point) * 360deg / $rocket-point), 0);
+        transform: translate3d(1em * sin(random($rocket-point) * 360deg / $rocket-point), 1em * cos(random($rocket-point) * 360deg / $rocket-point), 0);
       }
     }
   }
@@ -103,6 +140,10 @@ $rocket-pop-duration: 3s;
   animation: rocket-pops $rocket-pop-duration ease-out infinite;
   background-color: #ccc;
   border-radius: 50%;
+
+  @include speedup {
+    animation-duration: $rocket-pop-duration / 5;
+  }
 
   @for $i from 1 through $rocket-pop-count {
     $rotate: (random(20) - 10) * 1deg;
@@ -154,8 +195,35 @@ body {
   bottom: 0;
   width: 60vmin;
   height: 50vmin;
+  transform-origin: 100% 100%;
+  transition: transform $speedup-duration $speedup-duration / 10;
+
+  @include speedup {
+    transform: scale(.8, .7);
+  }
+}
+
+.earth-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: url("https://cdn.rawgit.com/Rplus/77ff4ba84ef8dfd8feb22d5a2212c52a/raw/6e8cc006eee5035e51aa0d385846b59a2d9a995a/earth.svg") no-repeat 100% 100%;
   background-size: contain;
+
+  @include speedup {
+    animation: earth-shake .1s linear infinite alternate;
+  }
+
+  @keyframes earth-shake {
+    from {
+      transform: translate(1vmin, 0);
+    }
+    to {
+      transform: translate(0, 1vmin);
+    }
+  }
 }
 
 .slogan {
@@ -179,5 +247,22 @@ body {
     right: 0;
     font-size: 8vmin;
     transform: translate(calc(-50vw + 50%), calc(50% - 40vh));
+  }
+}
+
+.slogan-inner {
+  transform-origin: 100% 50%;
+
+  @include speedup {
+    animation: shaking .1s linear infinite alternate;
+
+    @keyframes shaking {
+      from {
+        transform: rotateZ(2deg);
+      }
+      to {
+        transform: rotateZ(-2deg);
+      }
+    }
   }
 }
