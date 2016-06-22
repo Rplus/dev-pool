@@ -165,15 +165,15 @@ body {
   white-space: pre;
   text-align: center;
   color: #fff;
-  font: 900 calc(4vw + (100vw - 40rem) / 100) sans-serif;
-  font-size: 5vw;
+  font: 900 calc(4vw - (100vw - 60rem) / 50) sans-serif;
   text-transform: capitalize;
   text-shadow:
     0 0 .05em rgba(#fff, .5),
     .1em .1em .2em rgba(#000, .4),
     0 0 .05em rgba(#000, .3);
-  transform: translate(40%, calc(-20vmin + 50%)) perspective(600px) rotateY(45deg) rotateX(15deg);
-  transition: transform .3s;
+  transform-origin: 100% 50%;
+  transform: translate(40%, calc(-20vmin + 50%)) perspective(700px) rotateY(55deg) rotateX(15deg);
+  transition: transform .3s, font-size $speedup-duration;
 
   @media (max-width: 40rem) {
     right: 0;
