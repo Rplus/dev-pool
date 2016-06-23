@@ -15,7 +15,7 @@ $count: 30;
 
 .avatar {
   position: relative;
-  flex-basis: calc(5rem + 8vmin);
+  flex-basis: calc(5rem + 10vmin);
   overflow: hidden;
   background: no-repeat 50% / cover;
 
@@ -121,7 +121,7 @@ $count: 30;
   justify-content: center;
   align-content: flex-start;
   width: 90%;
-  max-width: 80rem;
+  max-width: 70rem;
   margin: 0 auto;
 }
 
