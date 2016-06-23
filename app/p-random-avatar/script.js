@@ -17,13 +17,13 @@ var Avatar = {
   resetClassName: function ($el, $className) {
     $el.className = $className;
   },
-  loadNewImg: function () {
+  loadNewImg: function ($newBgiUrl) {
+    this.imgLoader.src = $newBgiUrl;
   },
   run: function () {
     setTimeout(() => {
-      var newBgiUrl = `${this.img}?${++this.count}`;
-      this.imgLoader.src = newBgiUrl;
-    }, 2000);
+      this.loadNewImg(`${this.img}?${++this.count}`);
+    }, 1000);
   },
   updateState: function () {
     var idx = random(this.itemsNum - 1);
