@@ -54,44 +54,44 @@ $grid-size: calc(5rem + 10vmin);
   &.t-b {
     &::after {
       top: 100%;
-      transform: translate3d(0, -100%, 0);
+      transform: translate(0, -100%);
     }
 
     .avatar--new {
-      transform: translate3d(0, -100%, 0);
+      transform: translate(0, -100%);
     }
   }
 
   &.b-t {
     &::after {
       top: -100%;
-      transform: translate3d(0, 100%, 0);
+      transform: translate(0, 100%);
     }
 
     .avatar--new {
-      transform: translate3d(0, 100%, 0);
+      transform: translate(0, 100%);
     }
   }
 
   &.l-r {
     &::after {
       left: 100%;
-      transform: translate3d(-100%, 0, 0);
+      transform: translate(-100%, 0);
     }
 
     .avatar--new {
-      transform: translate3d(-100%, 0, 0);
+      transform: translate(-100%, 0);
     }
   }
 
   &.r-l {
     &::after {
       left: -100%;
-      transform: translate3d(100%, 0, 0);
+      transform: translate(100%, 0);
     }
 
     .avatar--new {
-      transform: translate3d(100%, 0, 0);
+      transform: translate(100%, 0);
     }
   }
 
