@@ -12,6 +12,21 @@ var random = (max, min = 0) => {
 class Avatar2 {
   constructor ($obj) {
     Object.assign(this, $obj);
+
+    this.items.forEach((item, index) => {
+      item.style.backgroundImage = `url(${this.getImgUrl(this.img, {'%s': index + 1})})`;
+    });
+
+    this.box.addEventListener('animationend', this.animationEnd.bind(this), false);
+
+    this.imgLoader = document.createElement('img');
+    this.imgLoader.onload = this.updateState.bind(this);
+
+    this.itemsNum = this.items.length;
+    this.count = this.itemsNum;
+    this.aniTypeNum = this.aniType.length;
+
+    this.run();
   }
 
   setBgi ($el, $url) {
@@ -68,20 +83,7 @@ class Avatar2 {
   }
 
   init () {
-    this.items.forEach((item, index) => {
-      item.style.backgroundImage = `url(${this.getImgUrl(this.img, {'%s': index + 1})})`;
-    });
-
-    this.box.addEventListener('animationend', this.animationEnd.bind(this), false);
-
-    this.imgLoader = document.createElement('img');
-    this.imgLoader.onload = this.updateState.bind(this);
-
-    this.itemsNum = this.items.length;
-    this.count = this.itemsNum;
-    this.aniTypeNum = this.aniType.length;
-
-    this.run();
+    console.log(123);
   }
 }
 
@@ -91,5 +93,3 @@ var avatar = new Avatar2({
   aniType: ['t-b', 'b-t', 'l-r', 'r-l', 'fade'],
   img: 'http://placeskull.com/100/100/%c/%s/0'
 });
-
-avatar.init();
