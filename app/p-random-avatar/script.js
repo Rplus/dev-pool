@@ -8,7 +8,6 @@ var $ = ($selector) => {
 var Avatar = {
   box: $('.box'),
   items: $$('.avatar'),
-  newItems: $$('.avatar--new'),
   aniType: ['t-b', 'b-t', 'l-r', 'r-l', 'fade'],
   img: 'http://beerhold.it/200/200/s',
   setBgi: function ($el, $url) {
