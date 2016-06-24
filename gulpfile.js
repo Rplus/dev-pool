@@ -76,10 +76,16 @@ gulp.task('js', function () {
 
   return gulp.src(appPath.srcDir + projectName + '*.js', {base: appPath.srcDir})
     .pipe($.plumber())
-    .pipe($.jshint())
-    .pipe($.jshint.reporter('jshint-stylish'))
+    .pipe($.eslint())
+    .pipe($.eslint.format())
+    .pipe($.eslint.failAfterError())
     .pipe($.sourcemaps.init())
-    .pipe($.babel())
+    .pipe($.babel({
+      'presets': [
+        'es2015',
+        'stage-2'
+      ]
+    }))
     .pipe($.uglify())
     .pipe($.rename(function (path) {
       path.basename = path.basename.replace('.src', '.min');
