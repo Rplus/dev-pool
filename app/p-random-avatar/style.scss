@@ -1,4 +1,5 @@
 $c-bgc: #e7e5d8;
+$grid-size: calc(5rem + 10vmin);
 
 @mixin fill($dir: "full") {
   position: absolute;
@@ -12,9 +13,13 @@ $c-bgc: #e7e5d8;
   @if $dir != "left" { right: 0; }
 }
 
+.avatar--placeholder {
+  flex-basis: $grid-size;
+}
+
 .avatar {
   position: relative;
-  flex-basis: calc(5rem + 10vmin);
+  flex-basis: $grid-size;
   overflow: hidden;
   background: no-repeat 50% / cover;
 
