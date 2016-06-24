@@ -78,7 +78,7 @@ gulp.task('js', function () {
     .pipe($.plumber())
     .pipe($.eslint())
     .pipe($.eslint.format())
-    .pipe($.eslint.failAfterError())
+    // .pipe($.eslint.failAfterError())
     .pipe($.sourcemaps.init())
     .pipe($.babel({
       'presets': [
