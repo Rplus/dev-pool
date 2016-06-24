@@ -28,7 +28,7 @@ class Avatar2 {
 
   run () {
     setTimeout(() => {
-      this.loadNewImg(`${this.img}?${++this.count}`);
+      this.loadNewImg(this.getImgUrl(this.img, {'%s': ++this.count}));
     }, 1000);
   }
 
@@ -51,9 +51,25 @@ class Avatar2 {
     this.run();
   }
 
+  randomColor () {
+    return (~~(Math.random() * (1 << 24))).toString(16);
+  }
+
+  getImgUrl ($str, $matchObj) {
+    Object.assign($matchObj, {'%c': this.randomColor()});
+
+    for (let _p in $matchObj) {
+      if ($matchObj.hasOwnProperty(_p)) {
+        $str = $str.replace(new RegExp(_p, 'g'), $matchObj[_p]);
+      }
+    }
+
+    return $str;
+  }
+
   init () {
     this.items.forEach((item, index) => {
-      item.style.backgroundImage = `url(${this.img}?${index})`;
+      item.style.backgroundImage = `url(${this.getImgUrl(this.img, {'%s': index + 1})})`;
     });
 
     this.box.addEventListener('animationend', this.animationEnd.bind(this), false);
@@ -73,7 +89,7 @@ var avatar = new Avatar2({
   box: $('.box'),
   items: $$('.avatar'),
   aniType: ['t-b', 'b-t', 'l-r', 'r-l', 'fade'],
-  img: 'http://beerhold.it/200/200/s'
+  img: 'http://placeskull.com/100/100/%c/%s/0'
 });
 
 avatar.init();
