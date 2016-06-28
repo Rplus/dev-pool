@@ -3,3 +3,4 @@ _dist
 .temp
 .publish
 bower_components
+gist
