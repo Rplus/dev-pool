@@ -1,0 +1,124 @@
+.box {
+  flex: 1;
+  max-width: 50rem;
+  margin: 0 auto;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+.card {
+  flex: 1 .1 10em;
+  margin: 0 .5em 1em;
+  background-color: rgba(#ccc, .3);
+
+  &:empty {
+    opacity: .1;
+    margin-bottom: 0;
+    height: 0;
+    overflow: hidden;
+  }
+}
+
+.avatar {
+  float: left;
+}
+
+.title {
+  display: flex;
+  padding: .25em;
+  overflow: hidden;
+  background-color: rgba(#ccc, .3);
+  text-transform: capitalize;
+}
+
+.t1,
+.t2 {
+  min-width: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: flex-shrink .3s;
+}
+
+.t1 {
+  flex-shrink: 100;
+  font-weight: 900;
+
+  &:hover {
+    flex-shrink: 0;
+
+    & + .t2 {
+      flex-shrink: 100;
+    }
+  }
+}
+
+.t2 {
+  flex-shrink: 0;
+
+  &::before {
+    content: "/";
+    padding-left: .25rem;
+    padding-right: .25rem;
+    font-size: 2.5em;
+  }
+}
+
+/// reset
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  margin: 0;
+  background: linear-gradient(#ffc 30%, #fff) no-repeat fixed;
+  color: #333;
+}
+
+a {
+  color: inherit;
+}
+
+.intro {
+  width: 90%;
+  max-width: 30rem;
+  padding-bottom: 1rem;
+  margin: 0 auto 1em;
+  padding-top: .5em;
+  font-size: calc(1rem + 2vmin);
+  text-transform: capitalize;
+  border-bottom: 1px dashed rgba(#000, .3);
+  text-align: center;
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  margin: 0;
+  padding: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .5;
+}

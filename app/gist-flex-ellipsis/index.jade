@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title Flex Ellipsis Tricks
+    meta(name="viewport", content="width=device-width")
+    link(rel="stylesheet", href="style.css")
+
+  body
+
+    h1.intro flex ellipsis tricks
+      small `:hover` ellipsis to see
+
+    - var i = 20;
+    - var str = 'lorem ipsum dolor sit amet';
+    -
+      var randStr = function($min, $max, $delta) {
+        $min = $min || 0;
+        $max = $max || str.length;
+        $delta = $delta || 0;
+        return str.slice(~~(Math.random() * $min), ~~(Math.random() * $max) + $delta);
+      };
+
+    .box.cards
+      - while (i--)
+        .card
+          img.avatar(src="http://placebeard.it/g/70/notag", width="70", height="70")
+          .title
+            .t1= randStr(5, 20, 6)
+            .t2= randStr(5, 10, 6).split('').reverse().join('')
+      .card
+      .card
+
+    blockquote.info
+      | inspired from: #[a(href="https://gitter.im/explore/") Explore Gitter ]
