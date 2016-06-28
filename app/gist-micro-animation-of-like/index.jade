@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title Micro Animation of Like
+    meta(name="viewport", content="width=device-width")
+    link(rel="stylesheet", href="style.css")
+  body
+
+    h1.intro Micro Animation of Like
+      small click ♥ to see animation
+
+    mixin icon($icon)
+      svg.icon
+        use(xlink:href="#icon-#{$icon}")
+
+    .box
+      .mobile
+        main.m-body
+          section.section.content
+            figure
+              img(src="http://p-hold.com/tree/480/200", width="480", height="200")
+              figcaption Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, rerum.
+          section.section.reaction-bar
+            input#ip-heart(type="checkbox").ip-heart.sr-only
+            label.heart-count(for="ip-heart", style="counter-reset: heart-counter 120;")
+              .heart-icon
+                +icon('heart')
+                +icon('heart')
+                +icon('heart')
+                +icon('heart')
+
+            ul.avatars
+              - var i = 7;
+              while (i--)
+                li.avatar(style="background-image: url('http://lorempixel.com/image_output/people-q-c-60-60-#{i + 4}.jpg')")
+            .comment-count
+              +icon('comment')
+              | 24
+
+          ul.section.comments
+            li
+              a(href="###") Elva White 
+              | hey, really stunning photos here!
+
+        footer.m-footer
+          a.footer-link friends
+          a.footer-link chats
+          a.footer-link.is-active feed
+          a.footer-link more
+
+    svg(xmlns="http://www.w3.org/2000/svg").sr-only
+      symbol#icon-heart(viewbox='0 0 24 32')
+        path(d='M12 27c12.469-9.813 12-13.281 12-16s-2.25-6-6-6-6 4-6 4-2.25-4-6-4-6 3.281-6 6-0.469 6.188 12 16z')
+      symbol#icon-comment(viewbox='0 0 28 32')
+        path(d='M24 4h-20c-1.938 0-4 2-4 4v12c0 4 4 4 4 4h2v8l8-8c0 0 8.063 0 10 0s4-2.125 4-4v-12c0-1.938-2-4-4-4z')
+
+    blockquote.info
+      | inspired from: #[a(href="https://dribbble.com/shots/2522985-Micro-Animation-of-Like-Principle-Freebie") Micro Animation of Like] by #[a(href="https://dribbble.com/privetwagner") Roman Wagner]
