@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title Rotating Möbiusband in 3D CSS
+    meta(name="viewport", content="width=device-width")
+    link(rel="stylesheet", href="style.css")
+
+  body
+
+    h1.intro Rotating Möbiusband
+      small in 3D CSS
+
+    input.sr-only#revolution(type="checkbox", checked)
+    input.sr-only#rotation(type="checkbox")
+    input.sr-only#revolution-dir--clockwise(type="radio", name="revolution-dir", checked)
+    input.sr-only#revolution-dir--anticlockwise(type="radio", name="revolution-dir")
+    input.sr-only#rotation-dir--clockwise(type="radio", name="rotation-dir", checked)
+    input.sr-only#rotation-dir--anticlockwise(type="radio", name="rotation-dir")
+
+
+    .controls
+      dl.controls__revolution
+        dt.pri-controls
+          label.control-label(for="revolution") Revolution
+        dd.sub-controls
+          label.control-label.control-label--radio(for="revolution-dir--clockwise") clockwise
+        dd.sub-controls
+          label.control-label.control-label--radio(for="revolution-dir--anticlockwise") anticlockwise
+
+      dl.controls__rotation
+        dt.pri-controls
+          label.control-label(for="rotation") Rotation
+        dd.sub-controls
+          label.control-label.control-label--radio(for="rotation-dir--clockwise") clockwise
+        dd.sub-controls
+          label.control-label.control-label--radio(for="rotation-dir--anticlockwise") anticlockwise
+
+
+
+    - var i = 100;
+
+    .box
+      - while(i--)
+        .s
+
+    blockquote.info
+      | ref: #[a(href="https://en.wikipedia.org/wiki/M%C3%B6bius_strip") Möbius strip]
