@@ -126,7 +126,7 @@ gulp.task('serve', function () {
     },
     scrollThrottle: 500,
     startPath: ($.util.env.p ? appPath.distDir + $.util.env.p : null),
-    server: ''
+    server: true
   });
 });
 
