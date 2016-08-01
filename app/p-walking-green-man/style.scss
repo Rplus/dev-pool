@@ -1,0 +1,128 @@
+$grid: 16;
+$gs: 1em;
+$frames: 18;
+
+@import "dots";
+
+@function render-point($points-arr) {
+  $str: ();
+
+  @for $i from 1 through $grid {
+    $a1: nth($points-arr, $i);
+
+    @for $j from 1 through $grid {
+      @if nth($a1, $j) == 1 {
+        $str: join($str, #{($i - 1) * $gs ($j -   1) * $gs}, comma);
+      }
+    }
+  }
+
+  @return $str;
+}
+
+.green-man {
+  position: relative;
+  width: $grid * 1em;
+  margin: 0 auto;
+  color: #008000;
+  font-size: 2rem;
+  background-color: #000;
+  background-image:
+    linear-gradient(rgba(#000, .75), rgba(#000, .75)),
+    linear-gradient(currentColor 1px, transparent 1px),
+    linear-gradient(90deg, currentColor 1px, transparent 1px);
+  background-repeat: repeat;
+  background-size: (100% / $grid);
+
+  @media (max-width: $grid * 2rem) {
+    font-size: 1rem;
+  }
+
+  &::after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% / $grid;
+    height: 100% / $grid;
+    animation: walking 3s step-start infinite;
+  }
+
+  &:hover::before { animation-duration: 1s; }
+  &:active::before { animation-duration: .5s; }
+}
+
+@keyframes walking {
+  @for $i from 1 through $frames {
+    #{$i * 100 / $frames}% {
+      box-shadow: render-point(nth($snapshot-list, $i));
+    }
+  }
+}
+
+.box {
+  flex: 1;
+  width: 100%;
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+/// reset
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  margin: 0;
+  background: linear-gradient(#ffe, #fff 90%) no-repeat fixed;
+  color: #222;
+}
+
+.intro {
+  width: 90%;
+  max-width: 40rem;
+  padding-bottom: 1rem;
+  margin: 0 auto 1em;
+  padding-top: .5em;
+  font-size: calc(1rem + 2vmin);
+  text-transform: capitalize;
+  border-bottom: 1px dashed rgba(#000, .3);
+  text-align: center;
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  margin: 0;
+  padding: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .5;
+
+  a {
+    color: inherit;
+  }
+}
