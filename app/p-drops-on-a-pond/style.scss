@@ -1,7 +1,7 @@
 $count: 14;
 $circle-size: 12em;
 $duration: 380ms;
-$rain-distance: 25rem;
+$rain-distance: $circle-size * 2;
 $rain-size: 2px;
 
 .ring {
