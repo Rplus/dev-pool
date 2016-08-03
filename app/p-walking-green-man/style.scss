@@ -12,7 +12,7 @@ $frames: 18;
 
     @for $j from 1 through $grid {
       @if nth($a1, $j) == 1 {
-        $str: join($str, #{($i - 1) * $gs ($j -   1) * $gs}, comma);
+        $str: join($str, #{($i - 1) * $gs ($j -   1) * $gs .5em}, comma);
       }
     }
   }
@@ -51,6 +51,7 @@ $frames: 18;
     left: 0;
     width: 100% / $grid;
     height: 100% / $grid;
+    border-radius: 50%;
     animation: walking 3s step-start infinite;
   }
 
