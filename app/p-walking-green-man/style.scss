@@ -25,7 +25,7 @@ $frames: 18;
   width: $grid * 1em;
   margin: 0 auto;
   color: #008000;
-  font-size: 2rem;
+  // font-size: 2rem;
   background-color: #000;
   background-image:
     linear-gradient(rgba(#000, .75), rgba(#000, .75)),
@@ -91,7 +91,7 @@ body {
   flex-direction: column;
   min-height: 100%;
   margin: 0;
-  background: linear-gradient(#ffe, #fff 90%) no-repeat fixed;
+  background: linear-gradient(rgba(#000, .5) 40%, #ccc) no-repeat fixed;
   color: #222;
 }
 
