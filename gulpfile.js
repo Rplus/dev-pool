@@ -124,6 +124,7 @@ gulp.task('serve', function () {
       scroll: false,
       forms: false
     },
+    https: true,
     scrollThrottle: 500,
     startPath: ($.util.env.p ? appPath.distDir + $.util.env.p : null),
     server: true
