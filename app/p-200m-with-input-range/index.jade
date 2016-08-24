@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title 200m, there is Pokémon [input version]
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(rel="stylesheet", href="style.css")
+  body
+
+    h1.intro 200m, there is Pokémon
+      small [input:range version]
+
+    - var pa = [25, 50];
+    - var pb = [70, 40];
+
+    div.map-box
+      input#point-a(type="radio", name="point", value="A", checked)
+      label(for="point-a") point A
+      input#point-b(type="radio", name="point", value="B")
+      label(for="point-b") point B
+
+      .map
+        label.point.point--a(for="point-a", data-char="A", style="top: #{pa[1]}%; left: #{pa[0]}%")
+        label.point.point--b(for="point-b", data-char="B", style="top: #{pb[1]}%; left: #{pb[0]}%")
+
+      input.axis.axis-x.axis-a.axis-ax(type="range", value=pa[0], max="100")
+      input.axis.axis-y.axis-a.axis-ay(type="range", value=pa[1], max="100")
+
+      input.axis.axis-x.axis-b.axis-bx(type="range", value=pb[0], max="100")
+      input.axis.axis-y.axis-b.axis-by(type="range", value=pb[1], max="100")
+
+    script(src="js.js")
+
+    .info
+      h3 How to use:
+      p Dragging the range input for moving (A) , (B) to latest see positions, <br>and the two crossed points are the locations your target may appear.
+
+      p map image from <a href="https://developers.google.com/maps/documentation/static-maps/">Google Maps static API</a>
+      p build with 💙
