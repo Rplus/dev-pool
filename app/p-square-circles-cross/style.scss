@@ -1,0 +1,186 @@
+@import '_trig';
+
+$c-white: #ddd;
+$c-black: #000;
+$ani-easing: cubic-bezier(.8, 0, .2, 1);
+$ani-duration: 3.6s;
+$circle-ratio: .9;
+
+$magic-rotate: 24.3deg; // MAGIC number for my poor Math...
+
+@function sign($num) {
+  @return if($num > 0, 1, -1);
+}
+
+.square {
+  position: relative;
+  width: 100%;
+  max-width: 4.8em;
+  font-size: 60px;
+  background-image:
+    radial-gradient(
+      circle closest-side,
+      currentColor (100% * $circle-ratio),
+      transparent calc(#{$circle-ratio * 100%} + 1px)
+      // hack for jagged radial-gradient edge, via: http://codepen.io/bali_balo/pen/xEKKBP
+    );
+  // background-image:
+  //   radial-gradient(
+  //     circle closest-side,
+  //     currentColor (100% * $circle-ratio),
+  //     transparent 0
+  //   );
+  background-size: 50%;
+
+  &::before {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+
+  &::after {
+    content: "debug mode";
+    position: absolute;
+    left: 0;
+    bottom: 100%;
+    font-size: 1rem;
+    text-transform: uppercase;
+    opacity: .5;
+    visibility: hidden;
+  }
+
+  &:hover {
+    background-color: rgba($c-black, .05);
+
+    &::after {
+      visibility: visible;
+    }
+
+    .cross-box {
+      opacity: .7;
+      outline: 1px solid $c-black;
+    }
+  }
+
+  &:active * {
+    animation-play-state: paused;
+  }
+}
+
+.cross-boxs {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  height: 50%;
+  transform: translate(-50%, -50%);
+  animation: square $ani-duration $ani-easing infinite;
+}
+
+.cross-box {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  background-color: currentColor;
+  animation: cross $ani-duration $ani-easing infinite;
+  box-shadow: 0 0 0 1px; // hack for rotating gap
+  color: $c-white;
+
+  @for $i from 1 through 4 {
+    &:nth-of-type(#{$i}) {
+      top: 25% + 25% * sign(cos(45deg + 90deg * $i));
+      left: 25% + 25% * sign(sin(45deg + 90deg * $i));
+      transform-origin:
+        (50% + 50% * sign(cos(45deg - 90deg * $i)))
+        (50% + 50% * sign(sin(45deg - 90deg * $i)));
+    }
+  }
+}
+
+@keyframes cross {
+  0%,
+  65%,
+  100% {
+    transform: none;
+  }
+
+  15%,
+  50% {
+    transform: rotate($magic-rotate);
+  }
+}
+
+@keyframes square {
+  0%,
+  15%,
+  100% {
+    transform: translate(-50%, -50%);
+  }
+
+  50%,
+  65% {
+    transform: translate(-50%, -50%) rotate(-90deg);
+  }
+}
+
+.box {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/// reset
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  margin: 0;
+  line-height: 1.4;
+  background-color: $c-white;
+}
+
+.intro {
+  width: 90%;
+  max-width: 36rem;
+  padding-bottom: 1rem;
+  margin: 0 auto 1em;
+  padding-top: .5em;
+  font-size: calc(1rem + 2vmin);
+  text-transform: capitalize;
+  border-bottom: 1px dashed rgba(#000, .3);
+  text-align: center;
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  margin: 0;
+  padding: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .5;
+
+  a {
+    color: inherit;
+  }
+}

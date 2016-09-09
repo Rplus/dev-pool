@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title circles / square / cross
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(rel="stylesheet", href="style.css")
+  body
+
+    h1.intro circles / square / cross
+      small [css-version]
+
+    .box
+      .square
+        .cross-boxs
+          - each $ in Array(4)
+            .cross-box
+
+    blockquote.info
+      p `:hover` to see debug mode
+      | inspired from Bees &amp; Bombs — 
+      a(href="https://beesandbombs.tumblr.com/post/149603835014/circles-square-cross") Circles / Square / Cross
+      br
+      code @keyframes % 
+      | from 
+      a(href="http://codepen.io/bali_balo/pen/xEKKBP") Bali Balo's pen
