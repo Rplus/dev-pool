@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title the Add Button
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(rel="stylesheet", href="style.css")
+  body
+
+    h1.intro the Add Button
+      small css animation version
+
+    - var icons = ['💿', '☸', '❤', '🌏'];
+
+    .box
+      input.fab-checkbox.sr-only#fab-checkbox(type="checkbox", checked)
+      .fab
+        - each $, i in Array(4)
+          label(for="fab-checkbox", data-icon=icons[i]).fab__item
+        label(for="fab-checkbox").fab__cross
+
+    blockquote.info
+      | inspired from 
+      a(href="https://dribbble.com/shots/1958250-GIF-for-the-Add-Button") GIF for the Add Button
+      |  by 
+      a(href="https://dribbble.com/SergeyValiukh") Sergey Valiukh
