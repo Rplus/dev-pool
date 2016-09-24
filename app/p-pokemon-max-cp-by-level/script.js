@@ -1,6 +1,6 @@
 class PokemonTable {
   constructor () {
-    this.MAX_CP = 40;
+    this.MAX_LV = 40;
     this.hrefLvQueryRegex = /\blv=(\d+)/;
   }
 
@@ -53,7 +53,7 @@ class PokemonTable {
 
   updateData (_data = this.oriData) {
     this.data = _data.map((i) => {
-      i.cp = ~~(i.maxcp - (this.MAX_CP - this.level) * i.cpPerLv);
+      i.cp = ~~(i.maxcp - (this.MAX_LV - this.level) * i.cpPerLv);
       return i;
     });
 
@@ -62,7 +62,7 @@ class PokemonTable {
 
   updateLv () {
     this.level = +this.elm.masterLv.value || 40;
-    this.levelRatio = this.level / this.MAX_CP;
+    this.levelRatio = this.level / this.MAX_LV;
 
     this.elm.lvLabel.dataset.lv = this.level;
 
