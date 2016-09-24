@@ -70,7 +70,7 @@ class PokemonTable {
   }
 
   updateLv () {
-    this.level = +this.elm.masterLv.value || 40;
+    this.level = +this.elm.masterLv.value || this.MAX_LV;
     this.levelRatio = this.level / this.MAX_LV;
 
     this.elm.lvLabel.dataset.lv = this.level;
