@@ -7,11 +7,59 @@ $grid-gap: 3vw;
   max-width: 60em;
 }
 
-.pokeTableWrapper {
+.pokeWrapper {
   column-width: 10em;
   column-gap: $grid-gap;
   padding-left: $grid-gap;
   padding-right: $grid-gap;
+}
+
+.pokeList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.poke {
+  padding-bottom: 1em;
+  break-inside: avoid;
+}
+
+.poke label {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.poke__cp {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2.5em;
+  text-align: right;
+  font: 700 1.75em / 1 monospace;
+  text-shadow: .1em .1em .1em #fff;
+  opacity: .75;
+}
+
+.poke__name {
+  position: absolute;
+  left: 6em;
+  font-size: smaller;
+  opacity: .75;
+}
+
+.poke__avatar {
+  width: 60px;
+  height: 60px;
+  margin-left: 2.5em;
+  opacity: .3;
+  transition: opacity .3s;
+  will-change: opacity;
+
+  .poke:active & {
+    opacity: 1;
+  }
 }
 
 .pokeMaxCP__ctrl {
@@ -29,54 +77,6 @@ $grid-gap: 3vw;
 .pokeMaxCP__masterLvLabel {
   &::after {
     content: attr(data-lv);
-  }
-}
-
-.pokeTable {
-  line-height: 1.75;
-  table-layout: fixed;
-  border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
-
-  td {
-    padding: .25em;
-
-    &:nth-of-type(2) {
-      font-size: 12px;
-      white-space: nowrap;
-      color: rgba($c-black, .5);
-
-      &::after {
-        content: attr(data-name);
-      }
-    }
-
-    &:nth-of-type(1) {
-      text-align: right;
-      // color: rgba($c-black, .5);
-    }
-  }
-}
-
-.pokemonAvatar {
-  width: 8vmin;
-  height: 8vmin;
-  vertical-align: middle;
-  margin-right: .5em;
-}
-
-.pokeTable__head__maxCP {
-  &::before {
-    content: 'max';
-    display: inline-block;
-    margin-right: -.25em;
-    vertical-align: super;
-    text-transform: lowercase;
-    font-size: smaller;
-    color: $c-white;
-    color: darken($c-white, 3%);
-    text-shadow: 0 0 .2em rgba($c-black, .3);
   }
 }
 
