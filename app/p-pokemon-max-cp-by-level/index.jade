@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title max CP by level Pokémons
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(rel="stylesheet", href="style.css")
+  body
+
+    h1.intro max CP by level Pokémons
+
+    .box
+      .pokeMaxCP
+        .pokeMaxCP__ctrl
+          label.pokeMaxCP__masterLvLabel(for="masterLv", data-lv="40") Your Level: 
+          input.pokeMaxCP__masterLv(type="range", min="1", max="40", value="40", id="masterLv")
+        .pokeTableWrapper
+          table.pokeTable
+            colgroup
+              col(width="40%")
+              col(width="60%")
+            thead.pokeTable__thead
+              tr
+                th.pokeTable__head__maxCP(align="right") CP
+                th
+            tbody.pokeTable__tbody
+
+    blockquote.info
+      | Pokemons original data source: 
+      a(href="https://rankedboost.com/pokemon-go/tier-list/") POKEMON GO TIER LIST
+
+    script(src="script.js")

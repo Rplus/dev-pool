@@ -1,0 +1,143 @@
+$c-white: #fff;
+$c-black: #000;
+$grid-gap: 3vw;
+
+.pokeMaxCP {
+  width: 100%;
+  max-width: 60em;
+}
+
+.pokeTableWrapper {
+  column-width: 10em;
+  column-gap: $grid-gap;
+  padding-left: $grid-gap;
+  padding-right: $grid-gap;
+}
+
+.pokeMaxCP__ctrl {
+  width: 50%;
+  max-width: 10em;
+  margin: 0 auto $grid-gap;
+  text-align: center;
+}
+
+.pokeMaxCP__masterLv {
+  display: block;
+  width: 100%;
+}
+
+.pokeMaxCP__masterLvLabel {
+  &::after {
+    content: attr(data-lv);
+  }
+}
+
+.pokeTable {
+  line-height: 1.75;
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+
+  td {
+    padding: .25em;
+
+    &:nth-of-type(2) {
+      font-size: 12px;
+      white-space: nowrap;
+      color: rgba($c-black, .5);
+
+      &::after {
+        content: attr(data-name);
+      }
+    }
+
+    &:nth-of-type(1) {
+      text-align: right;
+      // color: rgba($c-black, .5);
+    }
+  }
+}
+
+.pokemonAvatar {
+  width: 8vmin;
+  height: 8vmin;
+  vertical-align: middle;
+  margin-right: .5em;
+}
+
+.pokeTable__head__maxCP {
+  &::before {
+    content: 'max';
+    display: inline-block;
+    margin-right: -.25em;
+    vertical-align: super;
+    text-transform: lowercase;
+    font-size: smaller;
+    color: $c-white;
+    color: darken($c-white, 3%);
+    text-shadow: 0 0 .2em rgba($c-black, .3);
+  }
+}
+
+.box {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/// reset
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  margin: 0;
+  line-height: 1.4;
+  background-color: $c-white;
+}
+
+.intro {
+  width: 90%;
+  max-width: 36rem;
+  padding-bottom: 1rem;
+  margin: 0 auto 1em;
+  padding-top: .5em;
+  font-size: calc(1rem + 2vmin);
+  text-transform: capitalize;
+  border-bottom: 1px dashed rgba(#000, .3);
+  text-align: center;
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  margin: 0;
+  padding: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .5;
+
+  a {
+    color: inherit;
+  }
+}
