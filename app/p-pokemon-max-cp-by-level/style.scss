@@ -79,7 +79,8 @@ $grid-gap: 3vmin;
 
 .pokeMaxCP__masterLvLabel {
   &::after {
-    content: attr(data-lv);
+    counter-reset: level var(--level);
+    content: counter(level);
   }
 }
 

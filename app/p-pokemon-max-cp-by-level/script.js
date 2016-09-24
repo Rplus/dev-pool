@@ -70,13 +70,14 @@ class PokemonTable {
   }
 
   updateLv () {
+    // update latest level
     this.level = +this.elm.masterLv.value || this.MAX_LV;
-    this.levelRatio = this.level / this.MAX_LV;
 
-    this.elm.lvLabel.dataset.lv = this.level;
-
+    // update url hash
     window.location.hash = window.location.hash.replace(this.hrefLvQueryRegex, `lv=${this.level}`);
-    document.documentElement.style.setProperty('--level', this.level);
+
+    // update CSS variables to change current level CP
+    this.elm.wrapper.style.setProperty('--level', this.level);
   }
 
   bindLvInput () {
