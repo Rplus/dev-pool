@@ -4,24 +4,21 @@ $grid-gap: 3vw;
 
 .pokeMaxCP {
   width: 100%;
-  max-width: 60em;
+  max-width: 70em;
 }
 
-.pokeWrapper {
+.pokeList {
+  list-style: none;
+  margin: 0;
+  column-counter: 5;
   column-width: 10em;
   column-gap: $grid-gap;
   padding-left: $grid-gap;
   padding-right: $grid-gap;
 }
 
-.pokeList {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
 .poke {
-  padding-bottom: 1em;
+  padding-bottom: $grid-gap;
   break-inside: avoid;
 }
 
@@ -38,7 +35,6 @@ $grid-gap: 3vw;
   width: 2.5em;
   text-align: right;
   font: 700 1.75em / 1 monospace;
-  text-shadow: .1em .1em .1em #fff;
   opacity: .75;
 }
 
@@ -61,7 +57,8 @@ $grid-gap: 3vw;
   opacity: .3;
   transition: opacity .3s;
   will-change: opacity;
-  background: url('https://pokemon.gameinfo.io/images/thumbs/28/grid.png') 0 0 / ($img-size * $img-ratio * 10) ($img-size * $img-ratio * 16) no-repeat;
+  background: url('https://pokemon.gameinfo.io/images/thumbs/28/grid.png') 0 0 no-repeat;
+  background-size: ($img-size * $img-ratio * 10) ($img-size * $img-ratio * 16);
 
   .poke:active & {
     opacity: 1;
@@ -71,7 +68,7 @@ $grid-gap: 3vw;
 .pokeMaxCP__ctrl {
   width: 50%;
   max-width: 10em;
-  margin: 0 auto $grid-gap;
+  margin: 0 auto ($grid-gap * 2);
   text-align: center;
 }
 
