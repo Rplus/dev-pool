@@ -34,13 +34,17 @@ class PokemonTable {
       });
   }
 
+  colRow (num, grid = 10, size = -56) {
+    return `${((num - 1) % grid) * size}px ${~~((num - 1) / grid) * size}px`;
+  }
+
   render (_data = this.data, target = this.elm.tbody) {
     target.innerHTML = _data.map((i) => {
       return `
-        <li class="poke">
+        <li class="poke" data-id="${i.id}">
           <label>
             <span class="poke__cp">${i.cp}</span>
-            <img class="poke__avatar" src="https://rankedboost.com/wp-content/themes/RB2/riot/poksimages/pokemontable/${('000' + i.id).slice(-3)}.png" />
+            <span class="poke__avatar" style="background-position: ${this.colRow(i.id)}"></span>
             <span class="poke__name">${i.name}</span>
           </label>
         </li>`;

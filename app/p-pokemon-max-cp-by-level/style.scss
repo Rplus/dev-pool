@@ -50,12 +50,18 @@ $grid-gap: 3vw;
 }
 
 .poke__avatar {
-  width: 60px;
-  height: 60px;
+  $img-size: 28px;
+  $img-ratio: 2;
+
+  position: relative;
+  z-index: -1;
+  width: $img-size * $img-ratio;
+  height: $img-size * $img-ratio;
   margin-left: 2.5em;
   opacity: .3;
   transition: opacity .3s;
   will-change: opacity;
+  background: url('https://pokemon.gameinfo.io/images/thumbs/28/grid.png') 0 0 / ($img-size * $img-ratio * 10) ($img-size * $img-ratio * 16) no-repeat;
 
   .poke:active & {
     opacity: 1;
