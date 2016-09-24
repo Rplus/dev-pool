@@ -10,6 +10,7 @@ class PokemonTable {
     this.elm.tbody = this.elm.wrapper.querySelector('.pokeList');
     this.elm.masterLv = this.elm.wrapper.querySelector('.pokeMaxCP__masterLv');
     this.elm.lvLabel = this.elm.wrapper.querySelector('.pokeMaxCP__masterLvLabel');
+    this.elm.styleInitCP = document.querySelector('.pokeInitCP');
   }
 
   initLv () {
@@ -30,6 +31,8 @@ class PokemonTable {
       .then((data) => {
         this.oriData = data;
         this.updateData();
+        this.initCPStyle();
+        this.render();
         this.bindLvInput();
       });
   }
@@ -43,7 +46,7 @@ class PokemonTable {
       return `
         <li class="poke" data-id="${i.id}">
           <label>
-            <span class="poke__cp">${i.cp}</span>
+            <span class="poke__cp" dd="${i.cp}"></span>
             <span class="poke__avatar" style="background-position: ${this.colRow(i.id)}"></span>
             <span class="poke__name">${i.name}</span>
           </label>
@@ -51,13 +54,31 @@ class PokemonTable {
     }).join('');
   }
 
+  initCPStyle () {
+    this.elm.wrapper.style.counterReset = this.data.map((i) => {
+      return `pokecp-${i.id} ${i.maxcp}`;
+    }).join(' ');
+
+    let _style = this.data.map((i) => {
+      return `
+        .poke[data-id="${i.id}"] .poke__cp::before { content: counter(pokecp-${i.id}) }`;
+    }).join('');
+
+    this.elm.styleInitCP.textContent = _style;
+  }
+
+  updateCPStyle () {
+    console.log('upupup', this.MAX_LV - this.level);
+    this.elm.wrapper.style.counterIncrement = this.data.map((i) => {
+      return `pokecp-${i.id} -${i.cpPerLv * (this.MAX_LV - this.level)}`;
+    }).join(' ');
+  }
+
   updateData (_data = this.oriData) {
     this.data = _data.map((i) => {
       i.cp = ~~(i.maxcp - (this.MAX_LV - this.level) * i.cpPerLv);
       return i;
     });
-
-    this.render();
   }
 
   updateLv () {
@@ -72,7 +93,7 @@ class PokemonTable {
   bindLvInput () {
     this.elm.masterLv.addEventListener('input', () => {
       this.updateLv();
-      this.updateData();
+      this.updateCPStyle();
     });
   }
 
