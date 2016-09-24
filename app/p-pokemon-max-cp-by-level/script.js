@@ -30,7 +30,7 @@ class PokemonTable {
       .then((d) => d.json())
       .then((data) => {
         this.oriData = data;
-        this.updateData();
+        this.data = data;
         this.initCPStyle();
         this.render();
         this.bindLvInput();
@@ -44,9 +44,9 @@ class PokemonTable {
   render (_data = this.data, target = this.elm.tbody) {
     target.innerHTML = _data.map((i) => {
       return `
-        <li class="poke" data-id="${i.id}">
+        <li class="poke" data-id="${i.id}" title="#${i.id}, ${i.name}, cp(max): ${i.maxcp}">
           <label>
-            <span class="poke__cp" dd="${i.cp}"></span>
+            <span class="poke__cp"></span>
             <span class="poke__avatar" style="background-position: ${this.colRow(i.id)}"></span>
             <span class="poke__name">${i.name}</span>
           </label>
@@ -59,26 +59,14 @@ class PokemonTable {
       return `pokecp-${i.id} ${i.maxcp}`;
     }).join(' ');
 
-    let _style = this.data.map((i) => {
+    this.elm.wrapper.style.counterIncrement = this.data.map((i) => {
+      return `pokecp-${i.id} calc((var(--level) - ${this.MAX_LV}) * ${i.cpPerLv})`;
+    }).join(' ');
+
+    this.elm.styleInitCP.textContent = this.data.map((i) => {
       return `
         .poke[data-id="${i.id}"] .poke__cp::before { content: counter(pokecp-${i.id}) }`;
     }).join('');
-
-    this.elm.styleInitCP.textContent = _style;
-  }
-
-  updateCPStyle () {
-    console.log('upupup', this.MAX_LV - this.level);
-    this.elm.wrapper.style.counterIncrement = this.data.map((i) => {
-      return `pokecp-${i.id} -${i.cpPerLv * (this.MAX_LV - this.level)}`;
-    }).join(' ');
-  }
-
-  updateData (_data = this.oriData) {
-    this.data = _data.map((i) => {
-      i.cp = ~~(i.maxcp - (this.MAX_LV - this.level) * i.cpPerLv);
-      return i;
-    });
   }
 
   updateLv () {
@@ -88,12 +76,12 @@ class PokemonTable {
     this.elm.lvLabel.dataset.lv = this.level;
 
     window.location.hash = window.location.hash.replace(this.hrefLvQueryRegex, `lv=${this.level}`);
+    document.documentElement.style.setProperty('--level', this.level);
   }
 
   bindLvInput () {
     this.elm.masterLv.addEventListener('input', () => {
       this.updateLv();
-      this.updateCPStyle();
     });
   }
 
