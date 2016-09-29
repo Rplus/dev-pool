@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title max CP by level Pokémons
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(rel="stylesheet", href="style.css")
+  body
+
+    h1.intro max CP by level Pokémons
+      small vue version
+
+    .box
+      .pokeMaxCP#pokeMaxCP
+        .pokeMaxCP__ctrl
+          label.pokeMaxCP__masterLvLabel(for="masterLv", :data-level="level") Your Level: 
+          input(type="number", min="1", max="40", v-model.number="level")
+          input.pokeMaxCP__masterLv#masterLv(type="range", min="1", max="40", v-model.number="level")
+        ul.pokeList
+          li.poke(v-for="pokemon in pokemons",
+            :data-type="pokemon.types",
+            :data-family-id="pokemon.familyId",
+            :style="{ backgroundPosition: pokemon.spritePos }"
+          )
+            .poke__name {{ pokemon.name }}
+            .poke__maxcp {{ getMaxCpForTrainerLevel(pokemon, level) }}
+
+    blockquote.info
+      | Pokemons original data source: 
+      a(href="https://github.com/vinnymac/PokeNurse/blob/master/baseStats.json") PokeNurse
+
+    style.pokeInitCP
+    script(src="vue-2.js")
+    script(src="script.js")

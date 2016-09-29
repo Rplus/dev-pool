@@ -1,0 +1,156 @@
+$c-white: #fff;
+$c-black: #000;
+$grid-gap: 3vmin;
+
+$sprite-size: 65px;
+
+// 455 x 1430 : 7x22 (65x65)
+$sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons-large-sprite.png';
+$sprite-src: 'icons-large-sprite.png';
+
+.pokeMaxCP__ctrl {
+  text-align: center;
+}
+
+.pokeMaxCP__masterLv {
+  display: block;
+  min-width: 80%;
+  margin: 2em auto;
+}
+
+.pokeList {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  list-style-type: none;
+}
+
+.poke {
+  position: relative;
+  display: inline-block;
+  width: $sprite-size * 2;
+  margin: 1em 1em;
+  counter-increment: pokeId;
+
+  &::before {
+    content: counter(pokeId);
+    display: block;
+    width: $sprite-size;
+    height: $sprite-size;
+    margin: auto;
+    overflow: hidden;
+    background: url($sprite-src)  no-repeat;
+    background-position: inherit;
+    text-align: right;
+    color: rgba($c-black, .3);
+    color: transparent;
+    text-shadow: 0 0 2px rgba($c-black, .3);
+    font: 900 2.5em monospace;
+    opacity: .5;
+    filter: blur(2px);
+    letter-spacing: -.025em;
+    will-change: filter, opacity;
+    transition: opacity .3s;
+  }
+
+  &:hover::before {
+    filter: unset;
+    opacity: .7;
+  }
+}
+
+.poke__name {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  // transform: translateY(50%);
+  padding: 0 .2em;
+  box-shadow: inset 0 0 0 1px rgba($c-black, .3);
+  background-color: rgba($c-white, .8);
+  opacity: .5;
+  font-size: smaller;
+  will-change: opacity;
+  transition: opacity .3s;
+
+  .poke:hover & {
+    opacity: 1;
+  }
+}
+
+.poke__maxcp {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font: 100 2em monospace;
+  letter-spacing: -.03em;
+  will-change: opacity;
+  transition: all .3s;
+
+  .poke:hover & {
+    opacity: .7;
+    // color: transparent;
+    text-shadow: 0 0 .25em rgba(#ff0, .5);
+  }
+}
+
+.box {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/// reset
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  margin: 0;
+  line-height: 1.4;
+  background-color: $c-white;
+}
+
+.intro {
+  width: 90%;
+  max-width: 36rem;
+  padding-bottom: 1rem;
+  margin: 0 auto 1em;
+  padding-top: .5em;
+  font-size: calc(1rem + 2vmin);
+  text-transform: capitalize;
+  border-bottom: 1px dashed rgba(#000, .3);
+  text-align: center;
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  margin: 0;
+  padding: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .5;
+
+  a {
+    color: inherit;
+  }
+}
