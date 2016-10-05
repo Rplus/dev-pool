@@ -1,3 +1,7 @@
 max CP by level Pokémons
 
-Pokemons original data source: https://rankedboost.com/pokemon-go/tier-list/
+build with Vue.js
+
+Pokemons' original data source: https://github.com/vinnymac/PokeNurse/blob/master/baseStats.json
+
+Pokemons' image source: https://github.com/PokemonGoMap/PokemonGo-Map/blob/develop/static/icons-large-sprite.png
