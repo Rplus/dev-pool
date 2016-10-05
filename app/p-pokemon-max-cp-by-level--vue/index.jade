@@ -40,6 +40,7 @@ html(lang="en")
 
         ul.pokeList
           li.poke(v-for="pokemon in pokemons",
+            :title="`${pokemon.name} [#${pokemon.id}]\ntyps: ${pokemon.types}`",
             :data-type="pokemon.types",
             :data-family-id="pokemon.familyId",
             :style="{ backgroundPosition: pokemon.spritePos }"
