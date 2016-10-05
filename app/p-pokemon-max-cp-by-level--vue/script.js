@@ -87,6 +87,9 @@ const BEST_PROPERTY = 15;
 
 let pokeDataSrc = 'https://rawgit.com/vinnymac/PokeNurse/master/baseStats.json';
 
+// for dev
+pokeDataSrc = './baseStats.json';
+
 // source: https://github.com/vinnymac/PokeNurse/blob/v1.5.4/app/utils.js#L164-L170
 let getMaxCpForTrainerLevel = (poke, trainerLevel) => {
   let maxPokemonLevel = Math.min(40, trainerLevel + 1.5);
@@ -95,9 +98,6 @@ let getMaxCpForTrainerLevel = (poke, trainerLevel) => {
   let total = ADS * Math.pow(maxCpMultiplier, 2.0);
   return Math.floor(total / 10);
 };
-
-// for dev
-pokeDataSrc = './baseStats.json';
 
 let vm = new Vue({
   el: '#pokeMaxCP',
