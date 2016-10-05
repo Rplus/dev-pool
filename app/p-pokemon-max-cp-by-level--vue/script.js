@@ -115,6 +115,9 @@ let vm = new Vue({
   },
   methods: {
     getMaxCpForTrainerLevel,
+    selectFamily: function (familyId) {
+      this.filter.familyId = familyId;
+    },
     sortBy: function (by = 'id') {
       this.sort.by = by;
       this.sort.dir *= -1;
@@ -139,6 +142,7 @@ fetch(pokeDataSrc)
       let col = idx % 7;
 
       poke.id = idx + 1;
+      poke.familyId *= 1;
       poke.maxcp = getMaxCpForTrainerLevel(poke, 40);
       poke.spritePos = `${col * -65}px ${row * -65}px`;
 

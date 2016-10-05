@@ -43,6 +43,9 @@ html(lang="en")
             :title="`${pokemon.name} [#${pokemon.id}]\ntyps: ${pokemon.types}`",
             :data-type="pokemon.types",
             :data-family-id="pokemon.familyId",
+            @mousedown="selectFamily(pokemon.familyId)",
+            @touchstart="selectFamily(pokemon.familyId)",
+            :class="{ 'is-family-id-marked': filter.familyId === pokemon.familyId }",
             :style="{ backgroundPosition: pokemon.spritePos }"
           )
             .poke__name {{ pokemon.name }}

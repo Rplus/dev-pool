@@ -135,6 +135,13 @@ $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons
   list-style-type: none;
 }
 
+%poke-avatar-clear {
+  &::before {
+    filter: unset;
+    opacity: .7;
+  }
+}
+
 .poke {
   position: relative;
   // display: inline-block;
@@ -142,6 +149,8 @@ $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons
   width: $sprite-size * 2;
   margin: 1em;
   counter-increment: pokeId;
+  transition: opacity .3s;
+  user-select: none;
 
   &::before {
     content: counter(pokeId);
@@ -157,16 +166,19 @@ $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons
     color: transparent;
     text-shadow: 0 0 2px rgba($c-black, .3);
     font: 900 2.5em monospace;
-    opacity: .5;
-    filter: blur(2px);
+    opacity: .3;
     letter-spacing: -.025em;
     will-change: filter, opacity;
     transition: opacity .3s;
+
+    @media (pointer: fine) {
+      opacity: .5;
+      filter: blur(2px);
+    }
   }
 
-  &:hover::before {
-    filter: unset;
-    opacity: .7;
+  &:hover {
+    @extend %poke-avatar-clear;
   }
 
   // hack for align grids to left
@@ -178,6 +190,16 @@ $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons
     visibility: hidden;
     overflow: hidden;
   }
+
+  .pokeList:active & {
+    opacity: .3;
+
+    &.is-family-id-marked {
+      opacity: 1;
+      @extend %poke-avatar-clear;
+    }
+  }
+
 }
 
 .poke__name {
