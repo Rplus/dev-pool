@@ -1,15 +1,125 @@
 $c-white: #fff;
 $c-black: #000;
-$grid-gap: 3vmin;
-
 $sprite-size: 65px;
+$dev: true;
+
+$pokeTypes: 'normal', 'fighting', 'flying', 'poison', 'ground', 'rock', 'bug', 'ghost', 'steel', 'fire', 'water', 'grass', 'electric', 'psychic', 'ice', 'dragon', 'dark', 'fairy';
 
 // 455 x 1430 : 7x22 (65x65)
 $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons-large-sprite.png';
-$sprite-src: 'icons-large-sprite.png';
+
+@if $dev {
+  $sprite-src: 'icons-large-sprite.png';
+}
+
+.pokeMaxCP {
+  max-width: 70rem;
+  margin: auto;
+}
 
 .pokeMaxCP__ctrl {
   text-align: center;
+}
+
+.ctrlSort {
+  margin-bottom: 2em;
+
+  &::before {
+    content: 'sort by';
+    margin-right: .5em;
+    font-style: italic;
+    opacity: .5;
+  }
+}
+
+.ctrlSort__btn {
+  font-size: larger;
+
+  &.is-active {
+    background-color: rgba(#ff9, .5);
+
+    &::after {
+      content: attr(data-sort-dir);
+    }
+  }
+}
+
+.ctrlFilter--wrap {
+  display: flex;
+  width: 100%;
+  margin-bottom: 2em;
+  padding: 0 1em;
+  justify-content: center;
+
+  &::before {
+    content: 'filter by';
+    flex: 1 0 auto;
+    font-style: italic;
+    opacity: .5;
+  }
+}
+
+.ctrlFilter {
+  text-align: start;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  &::after {
+    content: '';
+  }
+}
+
+.ctrlFilter__label {
+  position: relative;
+  flex-basis: 5.5em;
+  margin-left: 1.5em;
+  margin-bottom: .5em;
+  transform-origin: 0 0;
+  cursor: pointer;
+  color: rgba($c-black, .8);
+
+  &::before {
+    content: '◎';
+    margin-left: .25em;
+    margin-right: .25em;
+    opacity: .5;
+    font-size: smaller;
+  }
+
+  &:hover {
+    color: lighten($c-black, 10%);
+  }
+}
+
+.ctrlFilter__checkbox {
+  //
+}
+
+%active-poke-filter {
+  background-color: rgba($c-black, .1);
+
+  &::before {
+    content: '◉';
+  }
+}
+
+%active-poke-info {
+  display: inline-block;
+}
+
+@each $type in $pokeTypes {
+  .ck-#{$type}:checked {
+    & ~ .pokeMaxCP__ctrl .ctrlFilter__label[for="ck-#{$type}"] {
+      @extend %active-poke-filter;
+    }
+
+    & ~ .pokeList {
+      .poke[data-type*="#{$type}"] {
+        @extend %active-poke-info;
+      }
+    }
+  }
 }
 
 .pokeMaxCP__masterLv {
@@ -27,9 +137,10 @@ $sprite-src: 'icons-large-sprite.png';
 
 .poke {
   position: relative;
-  display: inline-block;
+  // display: inline-block;
+  display: none;
   width: $sprite-size * 2;
-  margin: 1em 1em;
+  margin: 1em;
   counter-increment: pokeId;
 
   &::before {
@@ -57,13 +168,22 @@ $sprite-src: 'icons-large-sprite.png';
     filter: unset;
     opacity: .7;
   }
+
+  // hack for align grids to left
+  &:empty {
+    display: inline-block;
+    height: 0;
+    margin-top: unset;
+    margin-bottom: unset;
+    visibility: hidden;
+    overflow: hidden;
+  }
 }
 
 .poke__name {
   position: absolute;
   right: 0;
   bottom: 0;
-  // transform: translateY(50%);
   padding: 0 .2em;
   box-shadow: inset 0 0 0 1px rgba($c-black, .3);
   background-color: rgba($c-white, .8);
@@ -88,17 +208,12 @@ $sprite-src: 'icons-large-sprite.png';
 
   .poke:hover & {
     opacity: .7;
-    // color: transparent;
     text-shadow: 0 0 .25em rgba(#ff0, .5);
   }
 }
 
 .box {
-  display: flex;
   flex: 1;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 /// reset
@@ -153,4 +268,15 @@ body {
   a {
     color: inherit;
   }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }

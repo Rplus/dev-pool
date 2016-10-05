@@ -7,15 +7,37 @@ html(lang="en")
     link(rel="stylesheet", href="style.css")
   body
 
+    - var pokeTypes = ['normal', 'fighting', 'flying', 'poison', 'ground', 'rock', 'bug', 'ghost', 'steel', 'fire', 'water', 'grass', 'electric', 'psychic', 'ice', 'dragon', 'dark', 'fairy'];
+
     h1.intro max CP by level Pokémons
       small vue version
 
     .box
       .pokeMaxCP#pokeMaxCP
+        - each type in pokeTypes
+          input.ctrlFilter__checkbox.sr-only(type="checkbox", id="ck-#{type}", class="ck-#{type}", checked)
+
         .pokeMaxCP__ctrl
           label.pokeMaxCP__masterLvLabel(for="masterLv", :data-level="level") Your Level: 
           input(type="number", min="1", max="40", v-model.number="level")
           input.pokeMaxCP__masterLv#masterLv(type="range", min="1", max="40", v-model.number="level")
+
+          .ctrlSort
+            button(
+              :class="['ctrlSort__btn', { 'is-active': sort.by === 'id' }]",
+              :data-sort-dir="sort.dir === 1 ? '▲' : '▼'",
+              @click="sortBy('id')",
+            ) ID
+            button(
+              :class="['ctrlSort__btn', { 'is-active': sort.by === 'maxcp' }]",
+              :data-sort-dir="sort.dir === 1 ? '▲' : '▼'",
+              @click="sortBy('maxcp')",
+            ) CP
+          .ctrlFilter--wrap
+            .ctrlFilter
+              - each type in pokeTypes
+                label.ctrlFilter__label(for="ck-#{type}")= type
+
         ul.pokeList
           li.poke(v-for="pokemon in pokemons",
             :data-type="pokemon.types",
@@ -24,6 +46,9 @@ html(lang="en")
           )
             .poke__name {{ pokemon.name }}
             .poke__maxcp {{ getMaxCpForTrainerLevel(pokemon, level) }}
+
+          - each _ in Array(5)
+            li.poke
 
     blockquote.info
       | Pokemons original data source: 

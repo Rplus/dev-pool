@@ -107,10 +107,23 @@ let vm = new Vue({
       type: null,
       familyId: 1
     },
+    sort: {
+      by: 'id',
+      dir: 1
+    },
     pokemons: null
   },
   methods: {
-    getMaxCpForTrainerLevel: getMaxCpForTrainerLevel
+    getMaxCpForTrainerLevel,
+    sortBy: function (by = 'id') {
+      this.sort.by = by;
+      this.sort.dir *= -1;
+      let dir = this.sort.dir;
+
+      this.pokemons.sort((a, b) => {
+        return (a[by] * dir) - (b[by] * dir);
+      });
+    }
   }
 });
 
