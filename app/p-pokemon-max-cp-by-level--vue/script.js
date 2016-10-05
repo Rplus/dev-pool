@@ -138,7 +138,7 @@ fetch(pokeDataSrc)
       let row = ~~(idx / 7);
       let col = idx % 7;
 
-      poke.id = idx;
+      poke.id = idx + 1;
       poke.maxcp = getMaxCpForTrainerLevel(poke, 40);
       poke.spritePos = `${col * -65}px ${row * -65}px`;
 
