@@ -18,7 +18,7 @@ html(lang="en")
           input.ctrlFilter__checkbox.sr-only(type="checkbox", id="ck-#{type}", class="ck-#{type}", checked)
 
         .pokeMaxCP__ctrl
-          label.pokeMaxCP__masterLvLabel(for="masterLv", :data-level="level") Your Level: 
+          label.pokeMaxCP__masterLvLabel(for="masterLv", :data-level="level") Your Level:
           input(type="number", min="1", max="40", v-model.number="level")
           input.pokeMaxCP__masterLv#masterLv(type="range", min="1", max="40", v-model.number="level")
 
@@ -40,7 +40,7 @@ html(lang="en")
 
         ul.pokeList
           li.poke(v-for="pokemon in pokemons",
-            :title="`${pokemon.name} [#${pokemon.id}]\ntyps: ${pokemon.types}`",
+            :title="`#${pokemon.id} ${pokemon.name}\ntyps: ${pokemon.types}`",
             :data-type="pokemon.types",
             :data-id="pokemon.id",
             :data-family-id="pokemon.familyId",
