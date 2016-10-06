@@ -42,6 +42,7 @@ html(lang="en")
           li.poke(v-for="pokemon in pokemons",
             :title="`${pokemon.name} [#${pokemon.id}]\ntyps: ${pokemon.types}`",
             :data-type="pokemon.types",
+            :data-id="pokemon.id",
             :data-family-id="pokemon.familyId",
             @mousedown="selectFamily(pokemon.familyId)",
             @touchstart="selectFamily(pokemon.familyId)",

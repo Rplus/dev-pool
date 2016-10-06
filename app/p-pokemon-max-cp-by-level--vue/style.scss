@@ -148,12 +148,12 @@ $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons
   display: none;
   width: $sprite-size * 2;
   margin: 1em;
-  counter-increment: pokeId;
   transition: opacity .3s;
   user-select: none;
 
   &::before {
     content: counter(pokeId);
+    content: attr(data-id);
     display: block;
     width: $sprite-size;
     height: $sprite-size;
