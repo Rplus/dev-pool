@@ -45,44 +45,44 @@ $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons
 }
 
 .ctrlFilter--wrap {
-  display: flex;
-  width: 100%;
   margin-bottom: 2em;
   padding: 0 1em;
-  justify-content: center;
+}
 
-  &::before {
-    content: 'filter by';
-    flex: 1 0 auto;
-    font-style: italic;
-    opacity: .5;
-  }
+.ctrlFilter__header {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  flex: 1 0 4rem;
+  margin-bottom: 1em;
+  font-style: italic;
+  color: rgba($c-black, .5);
 }
 
 .ctrlFilter {
-  text-align: start;
-
   display: flex;
   flex-wrap: wrap;
-
-  &::after {
-    content: '';
-  }
+  justify-content: center;
+  text-align: start;
 }
 
 .ctrlFilter__label {
   position: relative;
   flex-basis: 5.5em;
-  margin-left: 1.5em;
-  margin-bottom: .5em;
+  margin-left: .7em;
+  margin-right: .7em;
+  margin-bottom: .7em;
   transform-origin: 0 0;
   cursor: pointer;
   color: rgba($c-black, .8);
 
   &::before {
     content: '◎';
+    display: inline-block;
+    width: 1em;
     margin-left: .25em;
     margin-right: .25em;
+    vertical-align: text-top;
     opacity: .5;
     font-size: smaller;
   }
@@ -257,6 +257,7 @@ body {
   margin: 0;
   line-height: 1.4;
   background-color: $c-white;
+  overflow-y: scroll;
 }
 
 .intro {

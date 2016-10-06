@@ -15,7 +15,7 @@ html(lang="en")
     .box
       .pokeMaxCP#pokeMaxCP
         - each type in pokeTypes
-          input.ctrlFilter__checkbox.sr-only(type="checkbox", id="ck-#{type}", class="ck-#{type}", checked)
+          input.ctrlFilter__checkbox.sr-only(type="checkbox", id="ck-#{type}", class="ck-#{type}", checked=(type !== 'none'))
 
         .pokeMaxCP__ctrl
           label.pokeMaxCP__masterLvLabel(for="masterLv", :data-level="level") Your Level:
@@ -34,6 +34,10 @@ html(lang="en")
               @click="sortBy('maxcp')",
             ) CP
           .ctrlFilter--wrap
+            .ctrlFilter__header
+              button(@click="selectAll(false)") none
+              | filter by
+              button(@click="selectAll(true)") all
             .ctrlFilter
               - each type in pokeTypes
                 label.ctrlFilter__label(for="ck-#{type}")= type

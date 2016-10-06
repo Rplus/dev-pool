@@ -118,6 +118,11 @@ let vm = new Vue({
     selectFamily: function (familyId) {
       this.filter.familyId = familyId;
     },
+    selectAll: function (all) {
+      [].forEach.call(document.querySelectorAll('.ctrlFilter__checkbox'), (i) => {
+        i.checked = all;
+      });
+    },
     sortBy: function (by = 'id') {
       this.sort.by = by;
       this.sort.dir *= -1;
