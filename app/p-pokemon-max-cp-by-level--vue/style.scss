@@ -195,8 +195,8 @@ $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons
     opacity: .3;
 
     &.is-family-id-marked {
-      opacity: 1;
       @extend %poke-avatar-clear;
+      opacity: 1;
     }
   }
 
