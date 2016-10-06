@@ -124,8 +124,8 @@ let vm = new Vue({
       });
     },
     sortBy: function (by = 'id') {
+      this.sort.dir *= (this.sort.by === by) ? -1 : 1;
       this.sort.by = by;
-      this.sort.dir *= -1;
       let dir = this.sort.dir;
 
       this.pokemons.sort((a, b) => {
