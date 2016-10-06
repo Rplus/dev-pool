@@ -102,7 +102,7 @@ let getMaxCpForTrainerLevel = (poke, trainerLevel) => {
 let vm = new Vue({
   el: '#pokeMaxCP',
   data: {
-    level: 40,
+    level: parseInt(window.location.search.match(/\d+/), 10) || 40,
     filter: {
       type: null,
       familyId: 1
