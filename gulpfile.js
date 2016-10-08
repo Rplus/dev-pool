@@ -83,8 +83,7 @@ gulp.task('js', function () {
     .pipe($.babel({
       'presets': [
         'es2015',
-        'stage-2',
-        'stage-0'
+        'stage-3'
       ]
     }))
     .pipe($.uglify())
