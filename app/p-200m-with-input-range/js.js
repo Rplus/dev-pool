@@ -5,6 +5,7 @@ class GeoMap {
     this.ele = {
       mapBox: document.querySelector('.map'),
 
+      refreshBtn: document.querySelector('.map-refresh'),
       axisAX: document.querySelector('.axis-ax'),
       axisAY: document.querySelector('.axis-ay'),
 
@@ -95,9 +96,16 @@ class GeoMap {
     });
   }
 
+  bindUpdate () {
+    this.ele.refreshBtn.addEventListener('click', (e) => {
+      this.updateBgi();
+    });
+  }
+
   init () {
     this.updateBgi();
     this.bindMoveEvent();
+    this.bindUpdate();
   }
 }
 
