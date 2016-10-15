@@ -92,9 +92,10 @@ pokeDataSrc = './baseStats.json';
 
 // source: https://github.com/vinnymac/PokeNurse/blob/v1.5.4/app/utils.js#L164-L170
 let getMaxCpForTrainerLevel = (poke, trainerLevel) => {
+  let _iv = vm.iv;
   let maxPokemonLevel = Math.min(40, trainerLevel + 1.5);
   let maxCpMultiplier = levelCpMultiplier[maxPokemonLevel];
-  let ADS = (poke.BaseAttack + BEST_PROPERTY) * Math.pow((poke.BaseDefense + BEST_PROPERTY) * (poke.BaseStamina + BEST_PROPERTY), 0.5);
+  let ADS = (poke.BaseAttack + _iv.attack) * Math.pow((poke.BaseDefense + _iv.defense) * (poke.BaseStamina + _iv.stamina), 0.5);
   let total = ADS * Math.pow(maxCpMultiplier, 2.0);
   return Math.floor(total / 10);
 };
@@ -106,6 +107,11 @@ let vm = new Vue({
     filter: {
       type: null,
       familyId: 1
+    },
+    iv: {
+      attack: 15,
+      defense: 15,
+      stamina: 15
     },
     sort: {
       by: 'id',

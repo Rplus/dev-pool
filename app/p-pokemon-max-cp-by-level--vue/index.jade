@@ -18,9 +18,39 @@ html(lang="en")
           input.ctrlFilter__checkbox.sr-only(type="checkbox", id="ck-#{type}", class="ck-#{type}", checked=(type !== 'none'))
 
         .pokeMaxCP__ctrl
-          label.pokeMaxCP__masterLvLabel(for="masterLv", :data-level="level") Your Level:
-          input(type="number", min="1", max="40", v-model.number="level")
-          input.pokeMaxCP__masterLv#masterLv(type="range", min="1", max="40", v-model.number="level")
+          table
+            tr
+              th
+                label.pokeMaxCP__masterLvLabel(for="masterLv", :data-level="level") Your Level:
+              td
+                input(type="number", min="1", max="40", v-model.number="level")
+              td
+                input.pokeMaxCP__masterLv#masterLv(type="range", min="1", max="40", v-model.number="level")
+
+            tr
+              td
+                label(for="iv-a") attack:
+              td
+                input(type="number", min="0", max="15", v-model.number="iv.attack")
+              td
+                input#iv-a(type="range", min="0", max="15", v-model.number="iv.attack")
+
+            tr
+              td
+                label(for="iv-d") defense:
+              td
+                input(type="number", min="0", max="15", v-model.number="iv.defense")
+              td
+                input#iv-d(type="range", min="0", max="15", v-model.number="iv.defense")
+
+            tr
+              td
+                label(for="iv-s") stamina:
+              td
+                input(type="number", min="0", max="15", v-model.number="iv.stamina")
+              td
+                input#iv-s(type="range", min="0", max="15", v-model.number="iv.stamina")
+
 
           .ctrlSort
             button(
@@ -54,7 +84,7 @@ html(lang="en")
             :style="{ backgroundPosition: pokemon.spritePos }"
           )
             .poke__name {{ pokemon.name }}
-            .poke__maxcp {{ getMaxCpForTrainerLevel(pokemon, level) }}
+            .poke__maxcp {{ getMaxCpForTrainerLevel(pokemon, level, iv) }}
 
           - each _ in Array(5)
             li.poke

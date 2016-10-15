@@ -19,6 +19,32 @@ $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons
 
 .pokeMaxCP__ctrl {
   text-align: center;
+
+  table {
+    margin: 0 auto 2em;
+  }
+
+  td {
+    width: auto;
+    text-transform: capitalize;
+
+    &::first-letter {
+      font-weight: 900;
+      color: $c-black;
+    }
+
+    &:first-child {
+      text-align: right;
+      color: rgba($c-black, .5);
+    }
+
+    &:last-child {
+      input {
+        width: 20em;
+        max-width: 50vw;
+      }
+    }
+  }
 }
 
 .ctrlSort {
@@ -92,10 +118,6 @@ $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons
   }
 }
 
-.ctrlFilter__checkbox {
-  //
-}
-
 %active-poke-filter {
   background-color: rgba($c-black, .1);
 
@@ -105,7 +127,7 @@ $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons
 }
 
 %active-poke-info {
-  display: inline-block;
+  display: unset;
 }
 
 @each $type in $pokeTypes {
@@ -122,13 +144,10 @@ $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons
   }
 }
 
-.pokeMaxCP__masterLv {
-  display: block;
-  min-width: 80%;
-  margin: 2em auto;
-}
-
 .pokeList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   margin: 0;
   padding: 0;
   text-align: center;
@@ -144,7 +163,6 @@ $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons
 
 .poke {
   position: relative;
-  // display: inline-block;
   display: none;
   width: $sprite-size * 2;
   margin: 1em;
