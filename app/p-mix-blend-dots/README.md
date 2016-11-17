@@ -1,5 +1,10 @@
 # Dots' Symmetric Difference(AΔB)
 
+
+> codepen:  
+  CSS blend-mode: Dots' AΔB  
+  http://codepen.io/Rplus/pen/PbbZmy
+
 inspired from Bees & Bombs Twitter: <https://twitter.com/beesandbombs/status/796431885836681220>
 
 ### Used:
