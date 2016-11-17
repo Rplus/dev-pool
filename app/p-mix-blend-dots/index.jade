@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title Dots' Symmetric Difference(AΔB)
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(rel="stylesheet", href="style.css")
+  body
+
+    h1.intro Dots' Symmetric Difference
+      small AΔB
+    -
+      var dotCount = 17;
+
+    .box
+      .square
+        - each $ in Array(dotCount * dotCount)
+          .dot
+
+    blockquote.info
+      code :hover
+      |  to see animation
+      br
+      | inspired from Bees &amp; Bombs — 
+      a(href="https://twitter.com/beesandbombs/status/796431885836681220") twitter

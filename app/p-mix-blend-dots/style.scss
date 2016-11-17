@@ -1,0 +1,126 @@
+$c-white: #fff;
+$c-black: #000;
+$grid-count-in-line: 17;
+$max-diff-ratio: 3;
+$grid-count: $grid-count-in-line * $grid-count-in-line;
+$grid-size: floor(80 / $grid-count-in-line) * 1vmin;
+$grid-center: floor(($grid-count-in-line + 1) / 2);
+$grid-p: $grid-center * 2;
+
+.square {
+  display: flex;
+  flex-wrap: wrap;
+  width: $grid-size * $grid-count-in-line;
+  overflow: hidden;
+
+  @support (display: grid) {
+    display: grid;
+    grid-template-columns: repeat($grid-count-in-line, 1fr);
+    width: auto;
+  }
+}
+
+.dot {
+  width: $grid-size;
+  height: $grid-size;
+  background-color: currentcolor;
+  border-radius: 50%;
+  transition: transform .5s cubic-bezier(1, 0, .7, .8);
+  // will-change: transform; // this'll trigger Chrome bug
+
+  @supports(mix-blend-mode: difference) {
+    background-color: $c-white;
+    mix-blend-mode: difference;
+  }
+
+  &:nth-of-type(odd) {
+    visibility: hidden;
+  }
+
+  @for $i from 1 through $grid-count {
+    @if ($i % 2 == 0)  {
+      &:nth-of-type(#{$i}) {
+        $col: ($i % $grid-count-in-line);
+        @if $col == 0 {
+          $col: $grid-count-in-line;
+        }
+        $row: floor($i / $grid-count-in-line) + 1;
+        $x: $grid-center - abs($grid-center - $col);
+        $y: $grid-center - abs($grid-center - $row);
+        transform: scale(#{($x + $y) / $grid-p});
+
+        .square:hover & {
+          $dx: (random(100) - 50) * $max-diff-ratio * 3%;
+          $dy: (random(100) - 50) * $max-diff-ratio * 3%;
+          // @if random(10) < 8 {
+          //   $max-diff-ratio: $max-diff-ratio * 0.2;
+          // }
+          $ds: random(100 * $max-diff-ratio) / 100;
+          transform: translate($dx, $dy) scale($ds);
+        }
+      }
+    }
+  }
+}
+
+.box {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/// reset
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  margin: 0;
+  line-height: 1.4;
+  background-color: $c-white;
+}
+
+.intro {
+  width: 90%;
+  max-width: 40rem;
+  padding-bottom: 1rem;
+  margin: 0 auto 1em;
+  padding-top: .5em;
+  font-size: calc(1rem + 2vmin);
+  text-transform: capitalize;
+  border-bottom: 1px dashed rgba(#000, .3);
+  text-align: center;
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  margin: 0;
+  padding: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .5;
+
+  a {
+    color: inherit;
+  }
+}
