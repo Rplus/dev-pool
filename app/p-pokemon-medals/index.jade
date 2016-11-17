@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title Pokémons GO medals
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(rel="stylesheet", href="style.css")
+  body
+
+    -
+      var medalLevels = ['none', 'copper', 'silver', 'gold'];
+      var medals = [
+        {
+          type: 'normal',
+          icon: '普',
+          lv: 3
+        },
+        {
+          type: 'fighting',
+          icon: '鬥',
+          lv: 2
+        },
+        {
+          type: 'flying',
+          icon: '飛',
+          lv: 1
+        },
+        {
+          type: 'poison',
+          icon: '毒',
+          lv: 0
+        },
+        {
+          type: 'ground',
+          icon: '地',
+          lv: 0
+        },
+        {
+          type: 'rock',
+          icon: '岩',
+          lv: 0
+        },
+        {
+          type: 'bug',
+          icon: '蟲',
+          lv: 0
+        },
+        {
+          type: 'ghost',
+          icon: '鬼',
+          lv: 0
+        },
+        {
+          type: 'steel',
+          icon: '鋼',
+          lv: 0
+        },
+        {
+          type: 'fire',
+          icon: '火',
+          lv: 0
+        },
+        {
+          type: 'water',
+          icon: '水',
+          lv: 0
+        },
+        {
+          type: 'grass',
+          icon: '草',
+          lv: 0
+        },
+        {
+          type: 'electric',
+          icon: '電',
+          lv: 0
+        },
+        {
+          type: 'psychic',
+          icon: '念',
+          lv: 0
+        },
+        {
+          type: 'ice',
+          icon: '冰',
+          lv: 0
+        },
+        {
+          type: 'dragon',
+          icon: '龍',
+          lv: 1
+        },
+        // {
+        //   type: 'dark',
+        //   icon: '闇',
+        //   lv: 0
+        // },
+        {
+          type: 'fairy',
+          icon: '妖',
+          lv: 0
+        }
+      ];
+
+    h1.intro Pokémons GO medals
+      small [css version with flexbox order]
+
+    .box
+      - each medal in medals
+        - each medalLevel, index in medalLevels
+          input.medal-type-radio.sr-only(type="radio", name="medal-for-#{medal.type}", value=medalLevel, id="#{medal.type}-#{medalLevel}", checked=(index === medal.lv))
+      ul.medalBox
+        - each medal, index in medals
+          li.medal(title=medal.type, class="medal--#{medal.type}")
+            - each medalLevel in medalLevels
+              label.medal__lable--forNext(for="#{medal.type}-#{medalLevel}", title="upgrade to #{medal.type}-#{medalLevel}")
+            .medal-icon(class="medal-icon--#{medal.type}", title=medal.icon)
+
+    //- hack for align
+    - each _ in Array(4)
+      li.medal
+
+    blockquote.info
+      | inspired from: Pokemons GO medal board
+
+    script(src="script.js")

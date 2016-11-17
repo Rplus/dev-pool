@@ -1,0 +1,193 @@
+$c-white: #fff;
+$c-black: #000;
+
+$medal-size: 5em;
+
+$pokeTypes: 'normal', 'fighting', 'flying', 'poison', 'ground', 'rock', 'bug', 'ghost', 'steel', 'fire', 'water', 'grass', 'electric', 'psychic', 'ice', 'dragon', 'dark', 'fairy';
+
+$medalTypes: 'none', 'copper', 'silver', 'gold';
+$medalTypesOrder: -10, -100, -1000, -10000;
+$medalColors: transparent, rgba(#f00, .3), #99c, #dd0;
+$medalTypesCount: length($medalTypes);
+
+
+.medalBox {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  max-width: 30em;
+  margin: 0 auto;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.medal {
+  position: relative;
+  display: inline-block;
+  width: $medal-size;
+  height: $medal-size;
+  margin: 0 .25em 1em;
+
+  &:empty {
+    height: 0;
+    margin-bottom: unset;
+  }
+}
+
+%medal__lable--show {
+  display: block;
+}
+
+.medal__lable--forNext {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin-right: 2px;
+  cursor: pointer;
+  display: none;
+}
+
+@each $pokeType in $pokeTypes {
+  @for $i from 1 through $medalTypesCount {
+    $medalType: nth($medalTypes, $i);
+    $nextMedalType: nth($medalTypes, $i % $medalTypesCount + 1);
+
+    /* input */
+    .medal-type-radio[name="medal-for-#{$pokeType}"][value="#{$medalType}"]:checked ~ .medalBox {
+
+      .medal--#{$pokeType} {
+        order: nth($medalTypesOrder, $i);
+        color: nth($medalColors, $i);
+
+        @if $i == 1 {
+          .medal-icon::before {
+            opacity: .3;
+          }
+
+          .medal-icon::after {
+            opacity: .75;
+          }
+        }
+      }
+
+      .medal__lable--forNext[for="#{$pokeType}-#{$nextMedalType}"] {
+        display: block;
+        // @extend %medal__lable--show;
+      }
+    }
+  }
+}
+
+.medal-icon {
+  position: relative;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    z-index: -1;
+    background-image:
+      radial-gradient(closest-side, rgba($c-white, .9) 75%, transparent 0),
+      radial-gradient(closest-side, rgba($c-black, .3) 75%, rgba($c-black, .1) 80%, transparent 90%),
+      radial-gradient(circle at 75% 75%, currentColor 0%, transparent);
+    box-shadow: inset 0 0 4px 1px currentColor;
+    opacity: .75;
+  }
+
+  &::after {
+    content: attr(title);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    color: $c-black;
+  }
+}
+
+.box {
+  flex: 1;
+}
+
+/// reset
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  margin: 0;
+  line-height: 1.4;
+  background-color: $c-white;
+  background-image: linear-gradient(rgba(#ff0, .15) 50%, transparent);
+  overflow-y: scroll;
+}
+
+.intro {
+  width: 90%;
+  max-width: 36rem;
+  padding-bottom: 1rem;
+  margin: 0 auto 1em;
+  padding-top: .5em;
+  font-size: calc(1rem + 2vmin);
+  text-transform: capitalize;
+  border-bottom: 1px dashed rgba(#000, .3);
+  text-align: center;
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  margin: 0;
+  padding: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .5;
+
+  a {
+    color: inherit;
+  }
+}
+
+.sr-only {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
