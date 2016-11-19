@@ -1,0 +1,184 @@
+$c-white: #fff;
+$c-black: #000;
+
+$ani-dur: 2.8s;
+
+$ring-stroke-width: 1em;
+$ring-size: 25em;
+
+$dot-count: 12;
+$dot-size: $ring-stroke-width * 2;
+$dot-amplitude: 2;
+
+$shadow-size: $ring-stroke-width / 2;
+
+// $debug: true;
+$debug: false;
+
+.ring {
+  position: relative;
+  width: $ring-size;
+  height: $ring-size;
+  color: $c-white;
+  transform-style: preserve-3d;
+  animation: rotation ($ani-dur * 4) linear infinite;
+
+  @if $debug == true {
+    background:
+      linear-gradient(90deg, rgba($c-black, .1) 50%, rgba($c-black, .2) 0),
+      linear-gradient(0deg, rgba($c-black, .1) 50%, rgba($c-black, .2) 0);
+  }
+
+  @keyframes rotation {
+    to {
+      transform: rotate3d(0, 0, 1, 360deg);
+    }
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    box-shadow:
+      inset 0 0 0 $ring-stroke-width,
+      inset 0 0 0 ($ring-stroke-width + $shadow-size) $c-black,
+      0 0 0 $shadow-size $c-black;
+  }
+
+  &:hover,
+  &:hover *,
+  &:hover *::before {
+    animation-play-state: paused;
+  }
+
+  &:active,
+  &:active *,
+  &:active *::before {
+    animation-play-state: running;
+  }
+}
+
+.dot--wrapper {
+  position: absolute;
+  top: $ring-stroke-width / 2;
+  left: 50%;
+  transform-origin: 50% (($ring-size - $ring-stroke-width) / 2);
+  transform-style: preserve-3d;
+
+  @for $i from 1 through $dot-count {
+    &:nth-of-type(#{$i}) {
+      transform: rotate($i * -360deg / $dot-count);
+
+      .dot {
+        animation-delay: - $i * $ani-dur / $dot-count;
+      }
+    }
+  }
+}
+
+$dd: 280deg;
+
+.dot {
+  position: absolute;
+  top: $dot-size * $dot-amplitude;
+  left: 0;
+  transform-origin: 50% (-1 * $dot-size * $dot-amplitude);
+  transform-style: preserve-3d;
+  animation: revolution $ani-dur linear infinite;
+
+  @if $debug == true {
+    box-shadow: 0 0 0 2px #000;
+  }
+
+  @keyframes revolution {
+    to {
+      transform: rotate3d(1, 0, 0, 360deg);
+    }
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: - $dot-size / 2;
+    left: - $dot-size / 2;
+    width: $dot-size;
+    height: $dot-size;
+    border-radius: 50%;
+    box-shadow:
+      inset 0 0 0 $dot-size,
+      0 0 0 $shadow-size $c-black;
+    animation: inherit;
+    animation-direction: reverse;
+  }
+}
+
+.box {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $c-black;
+
+  @if $debug == true {
+    background-color: rgba($c-black, .5);
+  }
+}
+
+/// reset
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  margin: 0;
+  line-height: 1.4;
+  // background-color: $c-white;
+}
+
+.intro {
+  width: 90%;
+  max-width: 50rem;
+  padding-bottom: 1rem;
+  margin: 0 auto 1em;
+  padding-top: .5em;
+  font-size: calc(1rem + 2vmin);
+  text-transform: capitalize;
+  border-bottom: 1px dashed rgba(#000, .3);
+  text-align: center;
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  margin: 0;
+  padding: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .5;
+
+  a {
+    color: inherit;
+  }
+}
