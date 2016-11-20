@@ -13,7 +13,7 @@ $dot-amplitude: 2;
 $shadow-size: $ring-stroke-width / 2;
 
 $debug: false;
-$debug: true;
+// $debug: true;
 
 .ring {
   position: relative;
@@ -31,7 +31,7 @@ $debug: true;
 
   @keyframes rotation {
     to {
-      transform: rotate3d(0, 0, 1, 360deg);
+      transform: rotate3d(0, 0, 1, -360deg);
     }
   }
 
