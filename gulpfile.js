@@ -116,7 +116,7 @@ gulp.task('clean:css', function () {
 
 gulp.task('serve', function () {
   browserSync({
-    open: 'external',
+    open: $.util.env.ip ? 'external' : 'local',
     browser: 'google-chrome',
     notify: false,
     ghostMode: {
