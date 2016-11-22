@@ -2,6 +2,7 @@ $c-white: #fff;
 $c-black: #000;
 $sprite-size: 65px;
 $dev: true;
+// $dev: false;
 
 $pokeTypes: 'normal', 'fighting', 'flying', 'poison', 'ground', 'rock', 'bug', 'ghost', 'steel', 'fire', 'water', 'grass', 'electric', 'psychic', 'ice', 'dragon', 'dark', 'fairy';
 
@@ -24,8 +25,15 @@ $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons
     margin: 0 auto 2em;
   }
 
+  tr {
+    :first-child {
+      text-align: right;
+    }
+  }
+
   td {
     width: auto;
+    text-align: left;
     text-transform: capitalize;
 
     &::first-letter {
@@ -34,15 +42,16 @@ $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons
     }
 
     &:first-child {
-      text-align: right;
       color: rgba($c-black, .5);
     }
 
     &:last-child {
-      input {
-        width: 20em;
-        max-width: 50vw;
-      }
+      width: 20em;
+      max-width: 50vw;
+    }
+
+    input {
+      width: 100%;
     }
   }
 }
@@ -189,10 +198,10 @@ $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons
     will-change: filter, opacity;
     transition: opacity .3s;
 
-    @media (pointer: fine) {
-      opacity: .5;
-      filter: blur(2px);
-    }
+    // @media (pointer: fine) {
+    //   opacity: .5;
+    //   filter: blur(2px);
+    // }
   }
 
   &:hover {

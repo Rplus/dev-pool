@@ -83,17 +83,21 @@ const levelCpMultiplier = {
   40.5: 0.7931164
 };
 
-const BEST_PROPERTY = 15;
-
-let pokeDataSrc = 'https://rawgit.com/vinnymac/PokeNurse/master/baseStats.json';
-
 // for dev
-pokeDataSrc = './baseStats.json';
+if (/^\/_dist/.test(window.location.pathname)) {
+  pokeDataSrc = './baseStats.json';
+}
+
+// const BEST_PROPERTY = 15;
+const MAX_LV = 40;
+const WILD_PM_MAX_LV = 30;
+
+let pokeDataSrc = 'https://cdn.rawgit.com/Rplus/358fd8f680dd2d5945c80826dfcdd599/raw/b97cfb0cccf61a119b521f43df4d449fc0eaa5f2/baseStats.json';
 
 // source: https://github.com/vinnymac/PokeNurse/blob/v1.5.4/app/utils.js#L164-L170
-let getMaxCpForTrainerLevel = (poke, trainerLevel) => {
+let getMaxCpForTrainerLevel = (poke, pmLv) => {
   let _iv = vm.iv;
-  let maxPokemonLevel = Math.min(40, trainerLevel + 1.5);
+  let maxPokemonLevel = Math.min(MAX_LV, pmLv);
   let maxCpMultiplier = levelCpMultiplier[maxPokemonLevel];
   let ADS = (poke.BaseAttack + _iv.attack) * Math.pow((poke.BaseDefense + _iv.defense) * (poke.BaseStamina + _iv.stamina), 0.5);
   let total = ADS * Math.pow(maxCpMultiplier, 2.0);
@@ -103,7 +107,9 @@ let getMaxCpForTrainerLevel = (poke, trainerLevel) => {
 let vm = new Vue({
   el: '#pokeMaxCP',
   data: {
-    level: parseInt(window.location.search.match(/\d+/), 10) || 40,
+    trainerLevel: Math.min(MAX_LV, parseInt(window.location.search.match(/\d+/), 10) || MAX_LV),
+    pmLv: WILD_PM_MAX_LV,
+    isPmWild: true,
     filter: {
       type: null,
       familyId: 1
@@ -119,8 +125,33 @@ let vm = new Vue({
     },
     pokemons: null
   },
+  watch: {
+    trainerLevel: function () {
+      this.reCalcPmLv();
+    },
+    isPmWild: function () {
+      this.reCalcPmLv();
+    },
+    pmLv: function () {
+      this.reCalcPmLv();
+    }
+  },
+  computed: {
+    pmWidthRatio: function () {
+      return `${this.pmMaxLv * 100 / MAX_LV}%`;
+    },
+    pmMaxLv: function () {
+      return Math.min(this.isPmWild ? WILD_PM_MAX_LV : MAX_LV, this.trainerLevel + 1.5);
+    }
+  },
   methods: {
     getMaxCpForTrainerLevel,
+    reCalcPmLv: function () {
+      this.pmLv = Math.min.call(null, this.isPmWild ? WILD_PM_MAX_LV : MAX_LV, this.pmLv, this.pmMaxLv);
+    },
+    getPmMaxLv: function () {
+      this.pmMaxLv = Math.min(MAX_LV, this.trainerLevel + 1.5);
+    },
     selectFamily: function (familyId) {
       this.filter.familyId = familyId;
     },
@@ -154,11 +185,10 @@ fetch(pokeDataSrc)
 
       poke.id = idx + 1;
       poke.familyId *= 1;
-      poke.maxcp = getMaxCpForTrainerLevel(poke, 40);
+      poke.maxcp = getMaxCpForTrainerLevel(poke, MAX_LV);
       poke.spritePos = `${col * -65}px ${row * -65}px`;
 
       return poke;
     });
     vm.$mount('#pokeMaxCP');
   });
-

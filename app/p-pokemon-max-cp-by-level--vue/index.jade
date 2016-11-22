@@ -9,7 +9,7 @@ html(lang="en")
 
     - var pokeTypes = ['normal', 'fighting', 'flying', 'poison', 'ground', 'rock', 'bug', 'ghost', 'steel', 'fire', 'water', 'grass', 'electric', 'psychic', 'ice', 'dragon', 'dark', 'fairy'];
 
-    h1.intro max CP by level Pokémons
+    h1.intro Pokémons' CP calculator
       small vue version
 
     .box
@@ -21,11 +21,22 @@ html(lang="en")
           table
             tr
               th
-                label.pokeMaxCP__masterLvLabel(for="masterLv", :data-level="level") Your Level:
+                label(for="masterLv", :data-level="trainerLevel") Your Level:
               td
-                input(type="number", min="1", max="40", v-model.number="level")
+                input(type="number", min="1", max="40", v-model.number="trainerLevel")
               td
-                input.pokeMaxCP__masterLv#masterLv(type="range", min="1", max="40", v-model.number="level")
+                input#masterLv(type="range", min="1", max="40", v-model.number="trainerLevel")
+
+            tr
+              th
+                label
+                  input(type="checkbox", v-model.booleam="isPmWild")
+                  | wild?
+                label(for="pmLv", :data-level="pmLv") PM Level:
+              td
+                input(type="number", min="1", :max="pmMaxLv", step="0.5", v-model.number="pmLv")
+              td
+                input#pmLv(type="range", min="1", :max="pmMaxLv", step="0.5", :style="{ maxWidth: pmWidthRatio }", v-model.number="pmLv")
 
             tr
               td
@@ -84,7 +95,7 @@ html(lang="en")
             :style="{ backgroundPosition: pokemon.spritePos }"
           )
             .poke__name {{ pokemon.name }}
-            .poke__maxcp {{ getMaxCpForTrainerLevel(pokemon, level, iv) }}
+            .poke__maxcp {{ getMaxCpForTrainerLevel(pokemon, pmLv) }}
 
           - each _ in Array(5)
             li.poke
