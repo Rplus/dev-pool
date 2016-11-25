@@ -1,13 +1,14 @@
 $c-white: #fff;
 $c-black: #000;
 $sprite-size: 65px;
+$dev: false;
 $dev: true;
-// $dev: false;
 
 $pokeTypes: 'normal', 'fighting', 'flying', 'poison', 'ground', 'rock', 'bug', 'ghost', 'steel', 'fire', 'water', 'grass', 'electric', 'psychic', 'ice', 'dragon', 'dark', 'fairy';
 
 // 455 x 1430 : 7x22 (65x65)
-$sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons-large-sprite.png';
+// source: https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons-large-sprite.png
+$sprite-src: 'https://lh3.googleusercontent.com/DcGw-XJdteHrpS9L9mfdnGGaswUevUqQ3SsVH_BF5KK7BK1LBpRg2tqy8ZggnIUZlq3LfRkYkqeAiCmkLfV1yYtaxdUwg9QPz-oCfErVS4RNu-AAuy0VIOubN7yVOoTdI1-U7toN_fl5MpyLg_VvEarb0X2LlwLVvuH1k-ITY0eNgAV4_be1fXlfQ5KnNJ7mRJ-MtWkbzuNYGUaY5xsiAJ-m9NDLQ2cugS1Lh512yhJ8Ad9f0J43KbZ8vmWSTx4-HzRH7EndIPL_zgZSFbMRbFNLbi7Nr3_VQ81xWR1OooFBRTGff_0r-cj-jK9dSgJgizDap9JRMnT8dyRzdtDO7fFNn_-ozG9JY2D2z0VQi9TXVQO4_Q33H95p4jtDOvR8HTox5X8WRNOlGQxMmNlbSz5fJuMkyBZuf3kLmrH1-ethbqvvmcQ6O_GNfEmVxWzQwOz2LufQDh9RpeHKgc3b9bgyA29FXpWrt0D-WxI3JlB0zshNDZ8y4y41IWXddcVB2KCXKxGyIu-x2nkss0dWFdDrPnLrUqqMuiMjwNSxfSMKYYFkNjbhqkEEwcdA1RT5NmktKOZnhmDDdCdmryRjRj9yS3j6ky_7gVsNvo39w-cF-TrJ=w228-h715-no';
 
 @if $dev {
   $sprite-src: 'icons-large-sprite.png';
@@ -165,8 +166,11 @@ $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons
 
 %poke-avatar-clear {
   &::before {
-    filter: unset;
     opacity: .7;
+
+    @if $dev {
+      filter: unset;
+    }
   }
 }
 
@@ -187,22 +191,26 @@ $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons
     height: $sprite-size;
     margin: auto;
     overflow: hidden;
-    background: url($sprite-src)  no-repeat;
+    background: url($sprite-src) no-repeat;
     background-position: inherit;
+    background-size: ($sprite-size * 7) ($sprite-size * 22);
     text-align: right;
-    // color: rgba($c-black, .3);
     color: transparent;
     text-shadow: 0 0 2px rgba($c-black, .3);
     font: 900 calc(1.5em + 2vmin) monospace;
     opacity: .3;
     letter-spacing: -.025em;
-    will-change: filter, opacity;
+    will-change: opacity;
     transition: opacity .3s;
 
-    // @media (pointer: fine) {
-    //   opacity: .5;
-    //   filter: blur(2px);
-    // }
+    @if $dev {
+      will-change: filter, opacity;
+
+      @media (pointer: fine) {
+        opacity: .5;
+        filter: blur(2px);
+      }
+    }
   }
 
   &:hover {
@@ -224,6 +232,7 @@ $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons
 
     &.is-family-id-marked {
       @extend %poke-avatar-clear;
+
       opacity: 1;
     }
   }
