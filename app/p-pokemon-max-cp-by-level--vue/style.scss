@@ -22,6 +22,7 @@ $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons
   text-align: center;
 
   table {
+    max-width: 90%;
     margin: 0 auto 2em;
   }
 
@@ -46,8 +47,7 @@ $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons
     }
 
     &:last-child {
-      width: 20em;
-      max-width: 50vw;
+      width: 50%;
     }
 
     input {
@@ -104,8 +104,8 @@ $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons
 .ctrlFilter__label {
   position: relative;
   flex-basis: 5.5em;
-  margin-left: .7em;
-  margin-right: .7em;
+  margin-left: 1vw;
+  margin-right: 1vw;
   margin-bottom: .7em;
   transform-origin: 0 0;
   cursor: pointer;
@@ -174,6 +174,7 @@ $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons
   position: relative;
   display: none;
   width: $sprite-size * 2;
+  max-width: 20vw;
   margin: 1em;
   transition: opacity .3s;
   user-select: none;
@@ -189,10 +190,10 @@ $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons
     background: url($sprite-src)  no-repeat;
     background-position: inherit;
     text-align: right;
-    color: rgba($c-black, .3);
+    // color: rgba($c-black, .3);
     color: transparent;
     text-shadow: 0 0 2px rgba($c-black, .3);
-    font: 900 2.5em monospace;
+    font: 900 calc(1.5em + 2vmin) monospace;
     opacity: .3;
     letter-spacing: -.025em;
     will-change: filter, opacity;
@@ -249,7 +250,7 @@ $sprite-src: 'https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons
   position: absolute;
   top: 0;
   left: 0;
-  font: 100 2em monospace;
+  font: 100 calc(1em + 2vmin) monospace;
   letter-spacing: -.03em;
   will-change: opacity;
   transition: all .3s;
