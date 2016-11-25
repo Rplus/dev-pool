@@ -4,3 +4,4 @@ _dist
 .publish
 bower_components
 gist
+yarn.lock

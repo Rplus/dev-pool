@@ -75,17 +75,13 @@ gulp.task('js', function () {
   projectName = $.util.env.p ? $.util.env.p + '/' : projectName;
 
   return gulp.src(appPath.srcDir + projectName + '*.js', {base: appPath.srcDir})
-    .pipe($.plumber())
     .pipe($.eslint())
+    .pipe($.plumber())
     .pipe($.eslint.format())
-    // .pipe($.eslint.failAfterError())
+    .pipe($.eslint.failAfterError())
+    .on('error', $.notify.onError('Error!!!'))
     .pipe($.sourcemaps.init())
-    .pipe($.babel({
-      'presets': [
-        'es2015',
-        'stage-3'
-      ]
-    }))
+    .pipe($.babel())
     .pipe($.uglify())
     .pipe($.rename(function (path) {
       path.basename = path.basename.replace('.src', '.min');
