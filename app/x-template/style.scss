@@ -1,0 +1,65 @@
+$c-white: #fff;
+$c-black: #000;
+
+.box {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/// reset
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  margin: 0;
+  line-height: 1.4;
+  background-color: $c-black;
+  color: $c-white;
+}
+
+.intro {
+  width: 90%;
+  max-width: 50rem;
+  padding-bottom: 1rem;
+  margin: 0 auto 1em;
+  padding-top: .5em;
+  font-size: calc(1rem + 2vmin);
+  text-transform: capitalize;
+  border-bottom: 1px dashed rgba($c-white, .5);
+  text-align: center;
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  margin: 0;
+  padding: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .75;
+
+  a {
+    color: inherit;
+  }
+}
