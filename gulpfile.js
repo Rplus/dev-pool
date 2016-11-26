@@ -91,6 +91,8 @@ gulp.task('js', function () {
 });
 
 gulp.task('html', function () {
+  projectName = $.util.env.p ? $.util.env.p + '/' : projectName;
+
   return gulp.src(appPath.srcDir + projectName + '*.{html,jade}', {base: appPath.srcDir})
     .pipe($.plumber({
       errorHandler: function (err) {
