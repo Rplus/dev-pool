@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+html(lang="en")
+  -
+    var title = 'Calculator layout with CSS grid';
+    var ref = {
+      name: 'A Complete Guide to Grid | CSS-Tricks',
+      url: 'https://css-tricks.com/snippets/css/complete-guide-grid/'
+    };
+
+    var btns = [
+      'MC', 'MR', 'MS', 'M+', 'M-',
+      '<-', 'CE', 'C', '±', '√',
+      '7', '8', '9', '/', '%',
+      '4', '5', '6', '*', '1/x',
+      '1', '2', '3', '-', '=',
+      '0', '.', '+'
+    ];
+
+  head
+    meta(charset="UTF-8")
+    title #{title}
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(rel="stylesheet", href="style.css")
+
+  body
+
+    h1.intro= title
+
+    .box
+      .grid
+        input.cell(class="cell-0", type="text", value="0", readonly)
+        - each v, i in btns
+          button.cell(class="cell-#{i+1}", type="button")= v
+
+    blockquote.info
+      | ref: 
+      a(href=ref.url) #{ref.name}
