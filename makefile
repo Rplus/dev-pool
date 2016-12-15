@@ -1,3 +1,4 @@
+# make name='${name}'
 # name options(--ip --https)
 init:
 	cp -r app/x-template app/p-$(name)
