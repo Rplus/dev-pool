@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title grid grow when hover
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(rel="stylesheet", href="style.css")
+
+  body
+
+    h1.intro grid grow when hover
+      small hover grid~
+
+    .box
+      .screen
+        .grid-title Welcome!
+        - each $, i in Array(3)
+          .grid section #{i + 1}
+            img.grid-bgi(src="https://unsplash.it/480/480?image=#{i}", width=480, height=480)

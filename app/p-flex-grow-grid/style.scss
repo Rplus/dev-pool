@@ -1,0 +1,158 @@
+$c-white: #fff;
+$c-black: #000;
+
+.screen {
+  display: flex;
+  width: 60vmin;
+  height: 80vmin;
+  flex-direction: column;
+  align-content: center;
+  font-size: 2rem;
+  text-align: center;
+
+  &:hover .grid-title {
+    max-height: 0;
+  }
+}
+
+.grid-title {
+  display: flex;
+  flex: .5 0 auto;
+  max-height: 20%;
+  align-items: center;
+  justify-content: center;
+  transition: max-height .3s;
+  overflow: hidden;
+  text-transform: capitalize;
+  animation: auto-hide .5s 1s forwards;
+
+  @keyframes auto-hide {
+    to {
+      max-height: 0;
+      flex-grow: 0;
+      display: none;
+    }
+  }
+}
+
+.grid {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 0 auto;
+  overflow: hidden;
+  text-transform: capitalize;
+  font-weight: 900;
+  color: $c-white;
+  text-shadow: 0 0 .2em $c-black, .1em .1em .5em $c-black;
+  transition: flex-grow .3s;
+  will-change: flex-grow;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(transparent 0%, rgba($c-white, .75));
+    // mix-blend-mode: difference;
+    pointer-events: none;
+    opacity: .5;
+    transition: opacity .3s;
+    will-change: opacity;
+  }
+
+  &:focus,
+  &:hover {
+    flex-grow: 2;
+
+    @media (max-width: 600px) {
+      flex-grow: 4;
+    }
+
+    &::before {
+      opacity: 0;
+    }
+  }
+}
+
+.grid-bgi {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  width: 100%;
+  height: auto;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  background: $c-black 50% / cover no-repeat;
+}
+
+.box {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/// reset
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.intro {
+  width: 90%;
+  max-width: 50rem;
+  padding-bottom: 1rem;
+  margin: 0 auto 1em;
+  padding-top: .5em;
+  font-size: calc(1rem + 2vmin);
+  text-transform: capitalize;
+  text-align: center;
+
+  &::after {
+    content: '';
+    display: block;
+    border-bottom: 1px dashed;
+    opacity: .5;
+  }
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  margin: 0;
+  padding: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .75;
+
+  a {
+    color: inherit;
+  }
+}
