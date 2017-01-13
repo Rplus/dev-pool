@@ -1,6 +1,7 @@
 node_modules
 _dist
 .temp
+_temp
 .publish
 bower_components
 gist
