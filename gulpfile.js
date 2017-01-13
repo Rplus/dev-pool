@@ -93,7 +93,7 @@ gulp.task('js', function () {
 gulp.task('html', function () {
   projectName = $.util.env.p ? $.util.env.p + '/' : projectName;
 
-  return gulp.src(appPath.srcDir + projectName + '*.{html,jade}', {base: appPath.srcDir})
+  return gulp.src(appPath.srcDir + projectName + '*.{html,jade,pug}', {base: appPath.srcDir})
     .pipe($.plumber({
       errorHandler: function (err) {
         console.log(err);
@@ -103,6 +103,7 @@ gulp.task('html', function () {
     .pipe($.if('*.jade', $.jade({
       pretty: true
     })))
+    .pipe($.if('*.pug', $.pug()))
     .pipe(gulp.dest(appPath.distDir));
 });
 
@@ -136,7 +137,7 @@ gulp.task('dev', ['serve'], function () {
   // watch the folder to reload if files was change
   gulp.watch([appPath.srcDir + projectName + '*.js'], ['js', reload]);
   gulp.watch([appPath.srcDir + projectName + '*.{css,styl,scss}'], ['css', reload]);
-  gulp.watch([appPath.srcDir + projectName + '*.{html,jade}'], ['html', reload]);
+  gulp.watch([appPath.srcDir + projectName + '*.{html,jade,pug}'], ['html', reload]);
 });
 
 // deploy dist folder to github branch gh-pages
