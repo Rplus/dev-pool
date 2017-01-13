@@ -7,7 +7,7 @@ $cat-c2: #f0a75a;
 $cat-stoke-color: #353952;
 $cat-tail-color: #c5853d;
 
-$box-size: 30vw;
+$box-size: 40vmin;
 
 @mixin fill-full($dir: 'full', $type: absolute) {
   position: $type;
@@ -23,7 +23,7 @@ $box-size: 30vw;
   height: $box-size;
 
   font-size: $box-size / 20;
-  background-color: #fff;
+  // background-color: #fff;
   color: $cat-stoke-color;
 
   &:hover {
@@ -42,7 +42,6 @@ $box-size: 30vw;
   }
 }
 
-
 .helf-box {
   @include fill-full(top);
   height: ($box-size / 2);
@@ -54,47 +53,42 @@ $box-size: 30vw;
   }
 }
 
+@keyframes mouth {
+  from { transform: translateY(.3em) scaleY(.4); }
+  to { transform: none; }
+}
+
 @keyframes head-ratate {
-  from {
-    transform: rotate(720deg);
-  }
-  to {
-    transform: none;
-  }
+  from { transform: rotate(720deg); }
+  to { transform: none; }
 }
 
 @keyframes head-body-ratate {
-  from {
-    transform: rotate(-130deg);
-  }
-  to {
-    transform: rotate(-50deg);
-  }
+  0% { transform: rotate(-130deg); }
+  25%, 40% { transform: rotate(-0deg); }
+  50% { transform: rotate(-50deg); }
+  60% { transform: rotate(-80deg); }
+  100% { transform: rotate(-130deg); }
 }
 
 @keyframes ass-ratate {
-  from {
-    transform: rotate(600deg);
-  }
-  to {
-    transform: rotate(-120deg);
-  }
+  from { transform: rotate(600deg); }
+  to { transform: rotate(-120deg); }
 }
 
 @keyframes ass-body-ratate {
-  from {
-    transform: rotate(120deg);
-  }
-  to {
-    transform: rotate(60deg);
-  }
+  0% { transform: rotate(120deg); }
+  25% { transform: rotate(60deg); }
+  40% { transform: rotate(30deg); }
+  50% { transform: rotate(60deg); }
+  100% { transform: rotate(120deg); }
 }
 
 .helf-box--head {
   animation: head-ratate 2.79s infinite;
 
   .cat__body::before {
-    animation: head-body-ratate (2.79s / 2) cubic-bezier(0, 0, 0.01, 0.99) infinite alternate;
+    animation: head-body-ratate 2.79s linear infinite;
     transform: rotate(-130deg);
   }
 }
@@ -104,8 +98,7 @@ $box-size: 30vw;
   animation: ass-ratate 2.79s .4s infinite;
 
   .cat__body::before {
-    animation: ass-body-ratate (2.79s / 2) cubic-bezier(0, 0, 0.01, 0.99) infinite alternate;
-    animation-timing-function: ease-in;
+    animation: ass-body-ratate 2.79s linear infinite;
     transform: rotate(120deg);
   }
 }
@@ -164,9 +157,11 @@ $box-size: 30vw;
     width: .6em;
     height: .5em;
     border: .175em solid;
+    background-color: $cat-tail-color;;
     border-bottom-color: transparent;
     border-top-left-radius: .3em .4em;
     border-top-right-radius: .3em .4em;
+    animation: mouth (2.79s / 2) linear infinite alternate;
     // transform: translateY(.3em) scaleY(.4);
   }
 
@@ -290,7 +285,8 @@ $box-size: 30vw;
   }
 
   .cat__ass & {
-    transform: rotate(185deg);
+    // transform: rotate(185deg);
+    transform: rotate(180deg);
     background-color: unset;
 
     &::before,
@@ -342,16 +338,46 @@ $box-size: 30vw;
 }
 
 .cat__tail {
-  position: absolute;
-  top: .2em;
-  left: 1.4em;
-  width: 1.5em;
-  height: 4.5em;
-  background-color: $cat-tail-color;
-  border: .5em solid;
-  border-radius: 0 0 1em 1em;
-  transform: rotate(9deg);
-  box-shadow: 0 -.4em $cat-c2;
+  @include fill-full;
+  overflow: hidden;
+  transform: rotate(1deg);
+  transform-origin: ($box-size / -2) 0;
+  border-top: .5em solid;
+  box-shadow: 0 -.25em 0 $cat-c2;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 2;
+    width: .4em;
+    height: .4em;
+    z-index: 1;
+    background-color: $cat-tail-color;
+    border-radius: 50%;
+    box-shadow: 0 0 0 .5em;
+    transform: rotate(23.5deg) translateX(-.25em);
+    transform-origin: calc(#{$box-size / - 2} + 2.5em) 0;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: - $box-size / 2;
+    right: 0;
+    z-index: 2;
+    width: $box-size;
+    height: $box-size;
+    border: 1.85em solid transparent;
+    border-radius: 50%;
+    transform: rotate(25deg);
+    clip: rect(0 $box-size ($box-size / 2) 0);
+    box-shadow:
+      inset 0 0 0 .5em $cat-stoke-color,
+      inset 0 0 0 .9em $cat-tail-color,
+      inset 0 0 0 1.4em $cat-stoke-color;
+  }
 }
 
 .cat__body {
@@ -386,6 +412,7 @@ $box-size: 30vw;
   overflow: hidden;
 
   background-color: $cat-bgc;
+  background-image: linear-gradient($cat-bgc, mix(#ffc, $cat-bgc), $cat-bgc);
 }
 
 /// reset
