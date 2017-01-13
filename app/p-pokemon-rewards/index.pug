@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title PM reward
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(rel="stylesheet", href="style.css")
+
+  body
+    -
+      var imgCDN = (imgSrc) => `https://images.weserv.nl/?url=${imgSrc.match(/^.*\/\/(.+)$/)[1]}&il')}`;
+
+    mixin reward(className)
+      label.badge(class=className, for!=attributes.for)
+        img.badge-img(src=imgCDN('//i.imgur.com/HwK85ID.png'))
+
+    input#reward--bronze.reward--bronze.sr-only(type="radio", name="reward", checked)
+    input#reward--silver.reward--silver.sr-only(type="radio", name="reward")
+    input#reward--golden.reward--golden.sr-only(type="radio", name="reward")
+    .achievement
+      .achievement-inner
+        header.achievement-header
+          h1.achievement-title Depot Agent
+          .achievement-description(data-type="Steel")
+        .achievement-content
+          +reward('main')
+
+          .rewards
+            .ribbon rewards
+            .reward-description Steel-type catch bonus
+
+        .level
+          +reward('bronze small')(for="reward--bronze")
+          +reward('silver small')(for="reward--silver")
+          +reward('golden small')(for="reward--golden")
+
+    .close-button
+
+    blockquote.info
+      | inspired from 
+      a(href='http://codepen.io/touneko') TouNeko
+      | 's pen:
+      br
+      a(href='http://codepen.io/touneko/pen/egpWre') Pokemon Go achievement UI

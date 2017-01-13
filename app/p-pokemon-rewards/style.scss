@@ -1,0 +1,370 @@
+$c-white: #fff;
+$c-black: #000;
+
+$ribbon-h: 2.4em;
+$ribbon-offset-y: .7em;
+$ribbon-tail-w: 4em;
+$ribbon-tail-overlay-w: 2em;
+
+@mixin fill-full($dir: 'full', $type: absolute) {
+  position: $type;
+  @if $dir != 'bottom' {top: 0; }
+  @if $dir != 'right' {left: 0; }
+  @if $dir != 'left' {right: 0; }
+  @if $dir != 'top' {bottom: 0; }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+
+  &,
+  &::before,
+  &::after {
+    box-sizing: border-box;
+  }
+}
+
+body {
+  min-height: 100vh;
+  padding-bottom: 12.5vmin;
+  background: linear-gradient(135deg, #a9e08f, #369090);
+  font-family: sans-serif;
+}
+
+input[type='radio'].sr-only {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.achievement {
+  // max-width: 25rem;
+  max-width: 90vw;
+  margin-left: auto;
+  margin-right: auto;
+  padding: .5em;
+  counter-increment: bonus 0 catched-goal 10;
+  font-size: 3vmin;
+
+  .reward--bronze:checked ~ & {
+    counter-increment: bonus 1 catched-goal 10;
+  }
+
+  .reward--silver:checked ~ & {
+    counter-increment: bonus 2 catched-goal 50;
+  }
+
+  .reward--golden:checked ~ & {
+    counter-increment: bonus 3 catched-goal 200;
+  }
+}
+
+.achievement-inner {
+  padding: 1.25rem;
+  text-align: center;
+  color: #42686a;
+  background-color: $c-white;
+  box-shadow: 0 1px .2rem rgba($c-black, .1);
+  border-radius: 3px;
+}
+
+.achievement-header {
+  position: relative;
+  z-index: 1;
+}
+
+.achievement-title {
+  // font-size: 1.25em;
+  font-size: 4.5vmin;
+  margin-bottom: .5rem;
+}
+
+.achievement-description {
+  &::before {
+    content: 'Catch ' counter(catched-goal) ' ' attr(data-type) '-type Pokemon.';
+  }
+}
+
+.achievement-content {
+  padding-top: .5rem;
+}
+
+.badge {
+  --border-w: .125em;
+  position: relative;
+  z-index: 0;
+  display: block;
+  font-size: 20vmin;
+  width: 2em;
+  height: 2em;
+  margin: .25em auto;
+  border-radius: 50%;
+  border: var(--border-w) solid transparent;
+  background-repeat: no-repeat;
+  background-origin: border-box;
+
+  input:checked ~ .achievement &.main,
+  .reward--bronze:checked ~ .achievement &.bronze,
+  .reward--silver:checked ~ .achievement &.bronze,
+  .reward--golden:checked ~ .achievement &.bronze,
+  .reward--silver:checked ~ .achievement &.silver,
+  .reward--golden:checked ~ .achievement &.silver,
+  .reward--golden:checked ~ .achievement &.golden {
+    background-image: linear-gradient(to bottom right, var(--grad-tl), var(--grad-br));
+    box-shadow:
+      0 0 1em var(--shadow),
+      0 0 0 var(--ring1-w, .02em) var(--ring1),
+      inset 0 0 .02em var(--ring2-w, .01em) var(--ring2),
+      inset 0 0 0 var(--ring-white-w, .03em) $c-white,
+      inset 0 0 0 var(--ring3-w, .05em) var(--ring3),
+      inset 0 0 0 1em $c-white;
+  }
+
+  &::after {
+    content: '';
+    @include fill-full;
+    z-index: 0;
+    margin: calc(- var(--border-w));
+    border-radius: inherit;
+    background-image: linear-gradient(to bottom right, rgba($c-white, .5), transparent 80%);
+    pointer-events: none;
+  }
+
+  .badge-img {
+    position: relative;
+    z-index: 1;
+    width: 66%;
+    height: 100%;
+    border-radius: inherit;
+    object-fit: contain;
+    pointer-events: none;
+    opacity: .15;
+
+    input:checked ~ .achievement & {
+      opacity: 1;
+    }
+  }
+
+  .reward--bronze:checked ~ .achievement &.main,
+  &.bronze {
+    --grad-tl: #fbf1e3;
+    --grad-br: #f6c8b0;
+    --shadow: #fad3ae;
+    --ring1: #facbb7;
+    --ring2: #f6ab7e;
+    --ring3: lighten(#d2703d, 10%);
+  }
+
+  .reward--silver:checked ~ .achievement &.main,
+  &.silver {
+    --grad-tl: #ebf6fa;
+    --grad-br: #bfdae4;
+    --shadow: #f5fdff;
+    --ring1: #a2c1cc;
+    --ring2: #c5d8e2;
+    --ring3: #6ea0b7;
+  }
+
+  .reward--golden:checked ~ .achievement &.main,
+  &.golden {
+    --grad-tl: #fff68e;
+    --grad-br: #fbdc57;
+    --shadow: #fffdd8;
+    --ring1: #fcbd31;
+    --ring2: #eeb959;
+    --ring3: #dc8e2d;
+  }
+
+  &.small {
+    font-size: 5.5vmin;
+    --border-w: .175em;
+    --ring1-w: .01em;
+    --ring2-w: 0em;
+    --ring-white-w: 0em;
+    --ring3-w: .02em;
+    --shadow: transparent;
+  }
+}
+
+.rewards {
+  padding-top: .5rem;
+}
+
+.ribbon {
+  position: relative;
+  z-index: 1;
+  width: 80%;
+  margin: 0 auto 2.5rem;
+  padding-bottom: $ribbon-offset-y;
+  font-size: smaller;
+  line-height: $ribbon-h;
+  text-transform: uppercase;
+  letter-spacing: .25em;
+  color: $c-white;
+  background-repeat: no-repeat;
+  background-image:
+    linear-gradient(90deg, var(--ribbon-color1), var(--ribbon-color1)),
+    linear-gradient(-45deg, transparent 50%, var(--ribbon-color2) 0),
+    linear-gradient(-135deg, transparent 50%, var(--ribbon-color2) 0),
+    linear-gradient(-90deg, var(--ribbon-color2), var(--ribbon-color2)),
+    linear-gradient(45deg, transparent 50%, var(--ribbon-color2) 0),
+    linear-gradient(135deg, transparent 50%, var(--ribbon-color2) 0),
+    linear-gradient(90deg, var(--ribbon-color2), var(--ribbon-color2));
+  background-size:
+    calc(100% - #{($ribbon-tail-w - $ribbon-tail-overlay-w) * 2}) $ribbon-h,
+    $ribbon-h $ribbon-h,
+    $ribbon-h $ribbon-h,
+    ($ribbon-tail-w - $ribbon-h / 2 - $ribbon-tail-overlay-w) $ribbon-h,
+    $ribbon-h $ribbon-h,
+    $ribbon-h $ribbon-h,
+    ($ribbon-tail-w - $ribbon-h / 2 - $ribbon-tail-overlay-w) $ribbon-h;
+  background-position:
+    50% 0,
+    100% 100%,
+    100% 100%,
+    right ($ribbon-h / 2) top 100%,
+    0 100%,
+    0 100%,
+    ($ribbon-h / 2) 100%;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    border-top: $ribbon-offset-y solid var(--ribbon-color3);
+    color: var(--ribbon-color2);
+  }
+
+  &::before {
+    left: $ribbon-tail-w - $ribbon-tail-overlay-w;
+    border-left: $ribbon-tail-overlay-w solid;
+  }
+
+  &::after {
+    right: $ribbon-tail-w - $ribbon-tail-overlay-w;
+    border-right: $ribbon-tail-overlay-w solid;
+  }
+
+  .reward--bronze:checked ~ .achievement & {
+    --ribbon-color1: #f9a26d;
+    --ribbon-color2: #e99866;
+    --ribbon-color3: #c68157;
+  }
+
+  .reward--silver:checked ~ .achievement & {
+    --ribbon-color1: #b2c6d6;
+    --ribbon-color2: #bed4e5;
+    --ribbon-color3: #97a9b6;
+  }
+
+  .reward--golden:checked ~ .achievement & {
+    --ribbon-color1: #eec459;
+    --ribbon-color2: #fed160;
+    --ribbon-color3: #cca54c;
+  }
+}
+
+.reward-description {
+  font-weight: bolder;
+  margin-bottom: 2.5em;
+
+  &::before {
+    content: '+' counter(bonus);
+    padding-right: .5em;
+  }
+}
+
+.level {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 1.5em;
+  padding-bottom: 1em;
+  border-top: 1px solid #eee;
+
+  .badge {
+    margin: unset;
+
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: -.75em;
+      left: calc(50% - .1em);
+      width: .2em;
+      height: .2em;
+      border-radius: 50%;
+      background-color: #2ee7da;
+      transition: opacity .3s;
+      opacity: 0;
+    }
+
+    // &.is-active::before,
+    .reward--bronze:checked ~ .achievement &.bronze::before,
+    .reward--silver:checked ~ .achievement &.silver::before,
+    .reward--golden:checked ~ .achievement &.golden::before {
+      opacity: 1;
+    }
+  }
+}
+
+.close-button {
+  position: fixed;
+  left: calc(50% - .5em);
+  bottom: 1.5rem;
+  z-index: 1;
+  width: 1em;
+  height: 1em;
+  font-size: 7.5vmin;
+  border-radius: 50%;
+  background-image: linear-gradient(to bottom right, #a4f5a9, #6eeecd);
+  background-origin: border-box;
+  background-repeat: no-repeat;
+  border: 1px solid transparent;
+  color: #248795;
+  box-shadow:
+    0 0 0 .15em,
+    inset 0 0 0 1em;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 40%;
+    height: 1px;
+    color: #8af9c7;
+    background-color: currentColor;
+  }
+
+  &::before {transform: rotate(45deg); }
+  &::after {transform: rotate(-45deg); }
+}
+
+.info {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  margin: 0;
+  padding: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  color: $c-white;
+  opacity: .75;
+
+  a {
+    color: inherit;
+  }
+}
