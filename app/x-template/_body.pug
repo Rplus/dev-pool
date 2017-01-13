@@ -1,0 +1,18 @@
+-
+  var inspired = {
+    name: 'hi',
+    url: 'uuu'
+  };
+
+title ${title}
+h1.intro ${title}
+
+.box
+  each $ in Array(12)
+    .dot
+
+blockquote.info
+  | inspired from #{inspired.name} — 
+  a(href=inspired.url) post
+
+script(src="script.js")
