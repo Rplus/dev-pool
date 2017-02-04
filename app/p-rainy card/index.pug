@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(rel="stylesheet", href="style.css")
+  body
+    -
+      var cards = [
+        '《壬辰之戰》',
+        '《政問》',
+        '《釵》',
+        '1210平權專車',
+        '女人迷樂園',
+        '月釀杯',
+        '世界人權日婚姻平權彩虹巴士計畫',
+        '他們在島嶼寫作',
+        '台東聖母醫院：太麻里部落廚房助建計畫',
+        '台灣原生網路影集 Mr.Bartender',
+        '全民挺同婚，現正募資中',
+        '我滿懷希望的有病信仰之《創神計畫》',
+        '法律白話文運動之報紙頭版廣告',
+        '社會民主黨',
+        '時代力量',
+        '浪孩起步走——飼主責任教育募資計劃',
+        '茶籽堂：苦茶油復興之路',
+        'XLTt濾藍光時尚機能眼鏡'
+      ];
+
+    title Rainy Card
+    h1.intro Rainy Card
+
+    .box
+      each $, i in cards
+        figure.imgBox(data-title=$)
+          img.img(src=`https://images.weserv.nl/?url=fakeimg.pl/150x100/?text=Card-${i}&il`, alt=$)
+
+    blockquote.info
+      | inspired from 
+      a(href="http://codepen.io/DopplerKuo") DopplerKuo
+      | 's pen: 
+      a(href="http://codepen.io/DopplerKuo/pen/GrvJve") Waterfall
