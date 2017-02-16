@@ -1,0 +1,232 @@
+$c-white: #fff;
+$c-black: #000;
+
+$c-bg: #041823;
+
+$c-wing1: #6a0029;
+$c-wing2: #a94634;
+$c-wing3: #e09347;
+$c-wing4: #fab74d;
+
+$c-body1: #1d5e6f;
+$c-body2: #266d7a;
+$c-body3: #60b6ab;
+$c-body4: #70cbb9;
+
+$c-head1: #145267;
+$c-head2: #286d79;
+$c-head3: #3f9d9b;
+$c-head4: #6fc9ba;
+
+$debug: false;
+// $debug: true;
+
+.hummingbird {
+  position: relative;
+  width: 10em;
+  height: 10em;
+  font-size: 7.5vmin;
+  border-radius: 50%;
+  // background-color: rgba($c-bg, .5);
+
+  @media (min-width: 40em) {
+    font-size: 5vmin;
+  }
+
+  *,
+  *::before,
+  *::after {
+    border-radius: inherit;
+  }
+
+  &, * {
+    &,
+    &::before,
+    &::after {
+      @if $debug == true {
+        box-shadow: inset 0 0 0 1px #fff;
+      }
+    }
+  }
+}
+
+.c-main {
+  position: absolute;
+  left: 19.5%;
+  top: 31.5%;
+  width: 37%;
+  height: 37%;
+  overflow: hidden;
+}
+
+.c-head {
+  position: absolute;
+  top: -35%;
+  left: 61%;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 43%;
+    left: -3%;
+    width: 50%;
+    height: 50%;
+    background-color: #f00;
+    transform: rotateZ(-40deg) scaleX(.7);
+    background-image: linear-gradient(to right, $c-head4, $c-head2);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 8%;
+    width: 42%;
+    height: 42%;
+    background-image: linear-gradient(to right, rgba($c-black, .1), rgba($c-black, .3) 50%);
+  }
+}
+
+.c-beak {
+  position: absolute;
+  top: 20%;
+  left: 25%;
+  border-top: .125em solid transparent;
+  border-right: 2.5em solid $c-white;
+  border-bottom: .125em solid transparent;
+}
+
+.c-body {
+  position: absolute;
+  top: 50%;
+  left: 60%;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-image:
+    linear-gradient(to right,
+      $c-body4 15%,
+      darken($c-body1, 10%) 20%,
+      darken($c-body1, 10%) 30%,
+      $c-body1 50%);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 6%;
+    left: 5%;
+    width: 62%;
+    height: 62%;
+    background-image: linear-gradient(to right, $c-body4, $c-body2 50%);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 18%;
+    width: 62%;
+    height: 62%;
+    background-image: linear-gradient(5deg, rgba($c-body1, .2) 60%, rgba($c-body1, .8));
+  }
+}
+
+.c-wing {
+  position: absolute;
+  top: 2%;
+  left: 18%;
+  width: 51.5%;
+  height: 51.5%;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 52%;
+    left: 57.5%;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to right, $c-wing2, $c-wing4 30%);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 67.5%;
+    left: 57.5%;
+    width: 71%;
+    height: 71%;
+    background-image: linear-gradient(to right, $c-wing1, $c-wing3 50%);
+  }
+}
+
+.box {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  @if $debug == true {
+    background: url('bg.jpg') no-repeat 50% 50% / contain;
+  }
+}
+
+/// reset
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  margin: 0;
+  line-height: 1.4;
+  color: $c-white;
+  background-image: linear-gradient($c-bg, lighten($c-bg, 10%));
+}
+
+.intro {
+  width: 90%;
+  max-width: 50rem;
+  padding-bottom: 1rem;
+  margin: 0 auto 1em;
+  padding-top: .5em;
+  font-size: calc(1rem + 2vmin);
+  text-transform: capitalize;
+  border-bottom: 1px dashed rgba($c-white, .5);
+  text-align: center;
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  margin: 0;
+  padding: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .75;
+
+  a {
+    color: inherit;
+  }
+}
