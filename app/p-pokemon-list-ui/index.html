@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pokemon List UI</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=.5">
+</head>
+<body>
+  <h1>Pokemon List UI</h1>
+  <div id="pm-board" class="pm-board">
+    <div class="loader" :class="{ 'is-loaded': `${loaded}` }"></div>
+    <dl class="Specie" v-for="specie in pmBySpecies">
+      <template v-for="pm in specie">
+        <dt class="SpecieCard">
+          <div class="pm-avatar" :style="{ backgroundImage: `url(${pm.avatar})` }"></div>
+          <div class="pm-id">{{ pm.pokemon_id }}</div>
+          <div class="pm-baseStat">
+            A:{{ pm.atk }}
+            <br>
+            D:{{ pm.def }}
+            <br>
+            S:{{ pm.stm }}
+          </div>
+          <div
+            class="pm-name"
+            :data-name=`${pm.name_zh_tw}`
+          >
+            {{ pm.name_en }}
+          </div>
+          <div class="pm-type"></div>
+        </dt>
+        <dd class="PM" :class="{ 'is-recent': pm.recent }">
+          <div class="pm-data">
+            <div data-prefix="CP">{{ pm.cp }}</div>
+            <div data-prefix="Lv">{{ pm.lv }}</div>
+          </div>
+          <div class="pm-cp-bar">
+            <div
+              style="width: 100%;"
+              :data-value="pm.cp40_all15"
+              data-title="Lv40, Best(All 15) CP"
+            ></div>
+            <div
+              :style="{
+                width: `${ getPR(pm.cp40 / pm.cp40_all15, 2) }%`,
+                zIndex: `${pm.cp40_all15 - pm.cp40}`
+              }"
+              :data-value="pm.cp40"
+              data-title="Lv40, Max CP"
+            ></div>
+            <div
+              :style="{
+                width: `${ getPR(pm.cpLvBest / pm.cp40_all15, 2) }%`,
+                zIndex: `${pm.cp40_all15 - pm.cpLvBest}`
+              }"
+              :data-value="pm.cpLvBest"
+              data-title="now Lv, Best(All 15) CP"
+            ></div>
+            <div
+              :style="{
+                width: `${ getPR(pm.cpLvMax / pm.cp40_all15, 2) }%`,
+                zIndex: `${pm.cp40_all15 - pm.cpLvMax}`
+              }"
+              :data-value="pm.cpLvMax"
+              data-title="now Lv, Max CP"
+            ></div>
+            <div
+              :style="{
+                width: `${ getPR(pm.cp / pm.cp40_all15, 2) }%`,
+                zIndex: `${pm.cp40_all15 - pm.cp}`
+              }"
+              :data-value="pm.cp"
+              data-title="now Lv, CP"
+            ></div>
+          </div>
+          <div class="pm-ads" :data-ivpr="pm.iv">{{ pm.iv_attack }}, {{ pm.iv_defence }}, {{ pm.iv_stamina }}</div>
+          <div class="pm-nickname">
+            {{ pm.nickname || pm.name_en }}
+            <div class="pm-time">{{ pm.time }}</div>
+
+            <div class="pm-info">
+              <div>{{ (15 - pm.iv_attack).toString(16) }}{{ (15 - pm.iv_defence).toString(16) }}{{ (15 - pm.iv_stamina).toString(16) }} L{{ pm.lv }}</div>
+              <div :title="pm.move1">M1: {{ pm.move1_zh_tw }}</div>
+              <div :title="pm.move2">M2: {{ pm.move2_zh_tw }}</div>
+              <div>W: {{ pm.weight }}</div>
+              <div>H: {{ pm.height }}</div>
+            </div>
+          </div>
+        </dd>
+      </template>
+    </dl>
+
+    <div class="ctrl">
+      <div>
+        <label>
+          <input type="radio" value="cp" v-model="sortBy">
+          CP
+        </label>
+        <label>
+          <input type="radio" value="cp40" v-model="sortBy">
+          IV
+        </label>
+        <label>
+          <input type="radio" value="catch_date" v-model="sortBy">
+          TIME
+        </label>
+        <label>
+          <input type="radio" value="lv" v-model="sortBy">
+          LV
+        </label>
+      </div>
+      <div>
+        <label>
+          <input type="radio" value="-1" v-model="sortDir">
+          ▼ DESC
+        </label>
+        <label>
+          <input type="radio" value="1" v-model="sortDir">
+          ▲ ASC
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script> -->
+  <script src="vue.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
