@@ -1,0 +1,212 @@
+$c-white: #fff;
+$c-black: #000;
+
+$c-bg: #e9631a;
+$stroke-width: 4px;
+$miffy-size: (140px, 120px);
+
+$debug: false;
+$debug: true;
+
+@mixin fill($dir: 'full', $type: absolute) {
+  position: $type;
+  @if $dir != 'bottom' {top: 0; }
+  @if $dir != 'right' {left: 0; }
+  @if $dir != 'left' {right: 0; }
+  @if $dir != 'top' {bottom: 0; }
+}
+
+.miffy {
+  display: flex;
+  width: 300px;
+  height: 300px;
+  justify-content: center;
+  align-items: center;
+  color: $c-black;
+  transform: rotate(-5deg);
+}
+
+.face {
+  position: relative;
+  width: nth($miffy-size, 1) + $stroke-width;
+  height: nth($miffy-size, 2) + $stroke-width;
+  border-radius: 45% / 48%;
+  border: $stroke-width solid transparent;
+  background-color: $c-black;
+
+  &::after {
+    content: '';
+    @include fill;
+    z-index: 1;
+    border-radius: inherit;
+    background-color: $c-white;
+  }
+}
+
+.eyes {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 11px;
+  border-radius: 50%;
+  z-index: 2;
+  transform: translateX(-50%);
+  box-shadow:
+    -40px 0 0,
+    40px 0 0;
+}
+
+.tears {
+  position: absolute;
+  top: 0;
+  left: -46px;
+  width: 20px;
+  height: 20px;
+  border-radius: 10% 50% 50% 50%;
+  box-shadow:
+    inset 0 0 0 $stroke-width,
+    inset 0 0 0 20px $c-white;
+  animation: crying 2s ease-out infinite;
+
+  @keyframes crying {
+    0%, 100%{
+      opacity: 0;
+      transform: translateY(0) rotate(50deg) scale(0);
+    }
+    10%{
+      opacity: 1;
+      transform: translateY(.5em) rotate(50deg) scale(0.5);
+    }
+    20%{
+      transform: translateY(1em) rotate(50deg) scale(1);
+    }
+    70%{
+      opacity: 1;
+      transform: translateY(4em) rotate(50deg) scale(1);
+    }
+    80%{
+      opacity: 0;
+      transform: translateY(4.5em) rotate(50deg) scale(1.2);
+    }
+  }
+}
+
+.mouth {
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  width: 18px;
+  height: $stroke-width;
+  border-radius: $stroke-width;
+  background-color: currentColor;
+  z-index: 2;
+  transform: translateX(-50%) rotate(25deg);
+
+  &::before {
+    content: '';
+    @include fill;
+    background-color: currentColor;
+    transform: rotate(-50deg);
+  }
+}
+
+.ears {
+  position: absolute;
+  bottom: 75%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 45px;
+  height: 110px;
+  z-index: 1;
+
+  &::before,
+  &::after {
+    content: '';
+    @include fill;
+    border-radius: 48% / 40%;
+    box-shadow: 0 0 0 $stroke-width $c-black;
+    background-color: $c-white;
+  }
+
+  &::before {
+    transform: translateX(-65%) rotate(-4deg);
+  }
+
+  &::after {
+    transform: translateX(65%) rotate(8deg);
+  }
+}
+
+h2 {
+  margin: 0;
+  font-family: sans-serif;
+  font-size: 2em;
+  color: $c-black;
+}
+
+.box {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/// reset
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  margin: 0;
+  line-height: 1.4;
+  color: $c-white;
+  background-color: $c-bg;
+  // background-image: linear-gradient($c-bg, lighten($c-bg, 10%));
+}
+
+.intro {
+  width: 90%;
+  max-width: 50rem;
+  padding-bottom: 1rem;
+  margin: 0 auto 1em;
+  padding-top: .5em;
+  font-size: calc(1rem + 2vmin);
+  text-transform: capitalize;
+  border-bottom: 1px dashed rgba($c-white, .5);
+  text-align: center;
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  margin: 0;
+  padding: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .75;
+
+  a {
+    color: inherit;
+  }
+}
