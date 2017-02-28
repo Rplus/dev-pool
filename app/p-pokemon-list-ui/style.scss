@@ -3,6 +3,14 @@ $card-h: 10rem;
 $specie-gap: 1.5rem;
 $pm-gap: 1.5rem;
 
+$specie-count: 251;
+
+$sprite-col: 15;
+$sprite-row: ceil($specie-count / $sprite-col);
+
+// $sprite-url: 'sprite-50x50-15col.jpg';
+$sprite-url: 'https://images.weserv.nl/?url=i.imgur.com/qRxx65v.jpg&il';
+
 @mixin fill($dir: 'full', $type: absolute) {
   position: $type;
   @if $dir != 'bottom' { top: 0; }
@@ -20,8 +28,7 @@ $pm-gap: 1.5rem;
   margin: auto;
   border-radius: 50%;
   border: 2.5em double;
-  border-color: #000 #000 #000 transparent;
-  border-right-style: dotted;
+  border-style: double dotted;
   animation: rotate 1.5s infinite;
 
   @keyframes rotate {
@@ -109,10 +116,16 @@ $pm-gap: 1.5rem;
 
 .pm-avatar {
   z-index: -1;
-  opacity: .5;
-  background: 50% / auto 90% no-repeat;
-  width: 100%;
+  width: 100% * $sprite-col / $sprite-row;
   height: 100%;
+  margin: 0 auto;
+  opacity: .5;
+  background-image: url(#{$sprite-url});
+  background-repeat: no-repeat;
+  background-size: $sprite-col * 100% $sprite-row * 100%;
+  background-position:
+    calc(var(--col-start) * 100% / #{$sprite-col - 1})
+    calc(var(--row-start) * 100% / #{$sprite-row - 1});
 
   .SpecieCard:first-of-type & {
     position: sticky;
@@ -182,7 +195,7 @@ $pm-gap: 1.5rem;
     content: '';
     position: absolute;
     top: -.25rem;
-    bottom: -.25rem;
+    // bottom: -.25rem;
     left: 0;
     right: 0;
     height: .5rem;

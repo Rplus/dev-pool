@@ -5,8 +5,13 @@ const NOW = new Date();
 const timezoneOffset = NOW.getTimezoneOffset() * 60 * 1000;
 const ONE_WEEK_IN_SECOND = (7 * 24 * 60 * 60 * 1000);
 
+const PM_LV_OVER = 1.5;
+const spriteCol = 15;
+
+const recentTime = ONE_WEEK_IN_SECOND * 0.5;
+
 // data from https://pokeiv.net/
-let dataUrl = (window.location.hostname === 'localhost') ? 'pm.json' : 'https://api.myjson.com/bins/mm0n9';
+const dataUrl = (window.location.hostname === 'localhost') ? 'pm.json' : 'https://api.myjson.com/bins/ckwq1';
 
 let levelCpMultiplier = {
   '1': 0.094,
@@ -119,7 +124,7 @@ let getLv = (pm) => {
   return pmlv;
 };
 
-let groupBySpecies = ({pms = PMs, sortBy = 'cp', sortDir = -1} = {}) => {
+let groupBySpecies = ({pms = window.PMs, sortBy = 'cp', sortDir = -1} = {}) => {
   return pms.sort((a, b) => {
     return (a[sortBy] > b[sortBy]) ? (1 * sortDir) : (-1 * sortDir);
   }).reduce((all, pm) => {
@@ -131,16 +136,15 @@ let groupBySpecies = ({pms = PMs, sortBy = 'cp', sortDir = -1} = {}) => {
   }, []);
 };
 
-let PMs;
 let handlePMdata = (pms) => {
-  PMs = pms.map((pm) => {
+  window.PMs = pms.map((pm) => {
     pm.id = `00${pm.pokemon_id}`.slice(-3);
-    pm.avatar = `https://images.weserv.nl/?url=pokeiv.net/img/pokemons/${pm.id}.gif&il&w=100`;
+    // pm.avatar = `https://images.weserv.nl/?url=pokeiv.net/img/pokemons/${pm.id}.gif&il&w=100`;
     pm.name = `${pm.name_en} / ${pm.name_zh_tw}`;
     pm.time = timeFormater(pm.catch_date);
-    pm.lv = getLv(pm);
-    pm.recent = (NOW - pm.catch_date) < ONE_WEEK_IN_SECOND * 2;
-    pm.cpLvMax = getCpWithLv(pm, TrainerLevel);
+    pm.lv = getLv(pm) || 1;
+    pm.recent = (NOW - pm.catch_date) < recentTime;
+    pm.cpLvMax = getCpWithLv(pm, TrainerLevel + PM_LV_OVER);
     pm.cpLvBest = getCpWithLv({
       atk: pm.atk,
       def: pm.def,
@@ -148,11 +152,14 @@ let handlePMdata = (pms) => {
       iv_attack: 15,
       iv_defence: 15,
       iv_stamina: 15
-    }, TrainerLevel);
+    }, TrainerLevel + PM_LV_OVER);
+
+    pm.rowStart = ~~((pm.pokemon_id - 1) / spriteCol);
+    pm.colStart = (pm.pokemon_id - 1) % spriteCol;
     return pm;
   });
 
-  return PMs;
+  return window.PMs;
 };
 
 let fakePmdata = {
