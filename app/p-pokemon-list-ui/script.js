@@ -155,15 +155,43 @@ let handlePMdata = (pms) => {
   return PMs;
 };
 
+let fakePmdata = {
+  'pokemon_id': '--',
+  'name_en': '--',
+  'name_zh_tw': '--',
+  'cp': '--',
+  'iv_attack': 10,
+  'iv_defence': 10,
+  'iv_stamina': 10,
+  'stm': '-',
+  'atk': '-',
+  'def': '-',
+  'iv': '--',
+  'weight': '-',
+  'height': '-',
+  'move1': '-',
+  'move2': '-',
+  'move1_en': '-',
+  'move2_zh_tw': '-',
+  'cp40': 2547,
+  'cp40_all15': 2619,
+  'id': '094',
+  'avatar': 'https://images.weserv.nl/?url=pokeiv.net/img/pokemons/201.gif&il&w=100',
+  'time': '2017-00-00T00:00:00',
+  'lv': '-'
+};
+
 let $app;
-let initVue = () => {
+let initApp = () => {
   $app = new Vue({
     el: '#pm-board',
     data: {
       loaded: false,
       sortDir: -1,
       sortBy: 'cp',
-      pmBySpecies: []
+      pmBySpecies: [
+        [ fakePmdata, fakePmdata ]
+      ]
     },
     components: {
       'cp-bar': {
@@ -190,7 +218,7 @@ let initVue = () => {
   });
 };
 
-initVue();
+initApp();
 
 window.fetch(dataUrl)
 .then((d) => d.json())

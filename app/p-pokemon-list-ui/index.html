@@ -19,8 +19,8 @@
     </div>
   </template>
 
-  <div id="pm-board" class="pm-board">
-    <div class="loader" :class="{ 'is-loaded': loaded }"></div>
+  <div id="pm-board" class="pm-board" :class="{ 'is-loaded': loaded }">
+    <div class="loader"></div>
     <dl class="Specie" v-for="specie in pmBySpecies">
       <template v-for="pm in specie">
         <dt class="SpecieCard">
