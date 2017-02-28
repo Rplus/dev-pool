@@ -8,6 +8,17 @@
 </head>
 <body>
   <h1>Pokemon List UI</h1>
+
+  <template id="cp-bar-tpl">
+    <div class="pm-cp-bar">
+      <div data-title="Lv40, Best(All 15) CP"></div>
+      <div data-title="Lv40, Max CP"></div>
+      <div data-title="now Lv, Best(All 15) CP"></div>
+      <div data-title="now Lv, Max CP"></div>
+      <div data-title="now Lv, CP"></div>
+    </div>
+  </template>
+
   <div id="pm-board" class="pm-board">
     <div class="loader" :class="{ 'is-loaded': loaded }"></div>
     <dl class="Specie" v-for="specie in pmBySpecies">
@@ -30,50 +41,21 @@
           </div>
           <div class="pm-type"></div>
         </dt>
-        <dd class="PM" :class="{ 'is-recent': pm.recent }">
+        <dd class="PM" :class="{ 'is-recent': pm.recent }"
+          :style="{
+            '--max-cp': pm.cp40_all15,
+            '--pm-cp40_all15': pm.cp40_all15,
+            '--pm-cp40': pm.cp40,
+            '--pm-cpLvBest': pm.cpLvBest,
+            '--pm-cpLvMax': pm.cpLvMax,
+            '--pm-cp': pm.cp
+          }"
+        >
           <div class="pm-data">
             <div data-prefix="CP">{{ pm.cp }}</div>
             <div data-prefix="Lv">{{ pm.lv }}</div>
           </div>
-          <div class="pm-cp-bar">
-            <div
-              style="width: 100%;"
-              :data-value="pm.cp40_all15"
-              data-title="Lv40, Best(All 15) CP"
-            ></div>
-            <div
-              :style="{
-                width: `${ getPR(pm.cp40 / pm.cp40_all15, 2) }%`,
-                zIndex: `${pm.cp40_all15 - pm.cp40}`
-              }"
-              :data-value="pm.cp40"
-              data-title="Lv40, Max CP"
-            ></div>
-            <div
-              :style="{
-                width: `${ getPR(pm.cpLvBest / pm.cp40_all15, 2) }%`,
-                zIndex: `${pm.cp40_all15 - pm.cpLvBest}`
-              }"
-              :data-value="pm.cpLvBest"
-              data-title="now Lv, Best(All 15) CP"
-            ></div>
-            <div
-              :style="{
-                width: `${ getPR(pm.cpLvMax / pm.cp40_all15, 2) }%`,
-                zIndex: `${pm.cp40_all15 - pm.cpLvMax}`
-              }"
-              :data-value="pm.cpLvMax"
-              data-title="now Lv, Max CP"
-            ></div>
-            <div
-              :style="{
-                width: `${ getPR(pm.cp / pm.cp40_all15, 2) }%`,
-                zIndex: `${pm.cp40_all15 - pm.cp}`
-              }"
-              :data-value="pm.cp"
-              data-title="now Lv, CP"
-            ></div>
-          </div>
+          <cp-bar></cp-bar>
           <div class="pm-ads" :data-ivpr="pm.iv">{{ pm.iv_attack }}, {{ pm.iv_defence }}, {{ pm.iv_stamina }}</div>
           <div class="pm-nickname">
             {{ pm.nickname || pm.name_en }}

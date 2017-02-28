@@ -13,6 +13,7 @@ $pm-gap: 1.5rem;
 
 .loader {
   @include fill('full', fixed);
+
   width: 30vmin;
   height: 30vmin;
   margin: auto;
@@ -43,7 +44,6 @@ $pm-gap: 1.5rem;
   min-height: $card-h + $specie-gap;
   margin-bottom: $specie-gap * 2;
   padding-bottom: $specie-gap;
-
   background-image: linear-gradient(90deg, transparent, rgba(#000, .3), transparent);
   background-size: 100% 1px;
   background-repeat: no-repeat;
@@ -86,7 +86,7 @@ $pm-gap: 1.5rem;
   text-align: center;
   padding: 0;
   background-color: rgba(#000, .05);
-  border-radius: 0 50% 50% 50%;
+  border-radius: 0 50% 50%;
 }
 
 .pm-name {
@@ -195,36 +195,47 @@ $pm-gap: 1.5rem;
     opacity: 1;
   }
 
+  $CPs: (--pm-cp40_all15, --pm-cp40, --pm-cpLvBest, --pm-cpLvMax, --pm-cp);
+
   > * {
     @include fill('left');
+
     background-color: rgba(#c00, .15);
+    z-index: calc(var(--max-cp) - var(--cp));
+    width: calc(var(--cp) / var(--max-cp) * 100%);
+
+    @for $i from 1 through length($CPs) {
+      &:nth-child(#{$i}) {
+        --cp: var(nth($CPs, $i));
+      }
+    }
 
     &::before {
-      content: attr(data-value);
-      position: absolute;
-      right: 0;
+      @include fill('top');
+
+      content: counter(cp);
+      counter-reset: cp var(--cp);
       padding-right: .5rem;
       padding-top: 2rem;
-      opacity: .75;
-      display: none;
-      border-right: 2px solid rgba(#000, .3);
+      text-align: right;
+      opacity: 0;
+      pointer-events: none;
+      box-shadow: inset -4px 6px 5px -1px rgba(#000, .3);
     }
 
     &::after {
       content: attr(data-title);
+      padding-left: .5rem;
       line-height: 2rem;
       font-size: 12px;
-      padding-left: .5rem;
-      opacity: .75;
-      display: none;
+      opacity: 0;
+      pointer-events: none;
     }
 
     &:hover {
-      box-shadow: inset -2px 2px 8px 1px rgba(#000, .3);
-
       &::before,
       &::after {
-        display: block;
+        opacity: .75;
       }
     }
   }
@@ -243,7 +254,7 @@ $pm-gap: 1.5rem;
     color: #000;
   }
 
-  .PM:hover  &{
+  .PM:hover & {
     opacity: 1;
   }
 }

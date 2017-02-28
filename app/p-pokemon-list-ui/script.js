@@ -1,12 +1,12 @@
 /* global Vue */
-const TrainerLevel = 35;
-const timezoneOffset = new Date().getTimezoneOffset() * 60 * 1000;
 
-const now = new Date();
-const oneWeek = (7 * 24 * 60 * 60 * 1000);
+const TrainerLevel = 35;
+const NOW = new Date();
+const timezoneOffset = NOW.getTimezoneOffset() * 60 * 1000;
+const ONE_WEEK_IN_SECOND = (7 * 24 * 60 * 60 * 1000);
 
 // data from https://pokeiv.net/
-let dataUrl = (window.location.hostname === 'localhost') ? '02-28-pm.json' : 'https://api.myjson.com/bins/mm0n9';
+let dataUrl = (window.location.hostname === 'localhost') ? 'pm.json' : 'https://api.myjson.com/bins/mm0n9';
 
 let levelCpMultiplier = {
   '1': 0.094,
@@ -139,7 +139,7 @@ let handlePMdata = (pms) => {
     pm.name = `${pm.name_en} / ${pm.name_zh_tw}`;
     pm.time = timeFormater(pm.catch_date);
     pm.lv = getLv(pm);
-    pm.recent = (now - pm.catch_date) < oneWeek * 2;
+    pm.recent = (NOW - pm.catch_date) < ONE_WEEK_IN_SECOND * 2;
     pm.cpLvMax = getCpWithLv(pm, TrainerLevel);
     pm.cpLvBest = getCpWithLv({
       atk: pm.atk,
@@ -164,6 +164,11 @@ let initVue = () => {
       sortDir: -1,
       sortBy: 'cp',
       pmBySpecies: []
+    },
+    components: {
+      'cp-bar': {
+        template: '#cp-bar-tpl'
+      }
     },
     watch: {
       sortBy: function (newBy) {
