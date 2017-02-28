@@ -214,7 +214,13 @@ $sprite-url: 'https://images.weserv.nl/?url=i.imgur.com/qRxx65v.jpg&il';
     opacity: 1;
   }
 
-  $CPs: (--pm-cp40_all15, --pm-cp40, --pm-cpLvBest, --pm-cpLvMax, --pm-cp);
+  $CPs: (
+    --pm-cp40_all15,
+    --pm-cpLvBest,
+    --pm-cp40,
+    --pm-cpLvMax,
+    --pm-cp
+  );
 
   > * {
     @include fill('left');
