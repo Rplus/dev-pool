@@ -131,10 +131,8 @@ let groupBySpecies = ({pms = PMs, sortBy = 'cp', sortDir = -1} = {}) => {
   }, []);
 };
 
-var PMs;
-window.fetch(dataUrl)
-.then((d) => d.json())
-.then((pms) => {
+let PMs;
+let handlePMdata = (pms) => {
   PMs = pms.map((pm) => {
     pm.id = `00${pm.pokemon_id}`.slice(-3);
     pm.avatar = `https://images.weserv.nl/?url=pokeiv.net/img/pokemons/${pm.id}.gif&il&w=100`;
@@ -154,18 +152,23 @@ window.fetch(dataUrl)
     return pm;
   });
 
-  window.vm = new Vue({
+  return PMs;
+};
+
+let $app;
+let initVue = () => {
+  $app = new Vue({
     el: '#pm-board',
     data: {
       loaded: false,
       sortDir: -1,
       sortBy: 'cp',
-      pmBySpecies: groupBySpecies()
+      pmBySpecies: []
     },
     watch: {
       sortBy: function (newBy) {
         this.pmBySpecies = groupBySpecies({
-          sortBy: newBy,
+          sortBy: this.sortBy,
           sortDir: this.sortDir
         });
       },
@@ -180,4 +183,14 @@ window.fetch(dataUrl)
       getPR: getPR
     }
   });
+};
+
+initVue();
+
+window.fetch(dataUrl)
+.then((d) => d.json())
+.then(handlePMdata)
+.then((pms) => {
+  $app.loaded = true;
+  $app.pmBySpecies = groupBySpecies();
 });
