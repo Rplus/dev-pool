@@ -2,6 +2,9 @@
   "extends": "stylelint-config-standard",
   "rules": {
     "at-rule-no-vendor-prefix": true,
+    "at-rule-empty-line-before": ["always", {
+      "ignore": ["inside-block"]
+    }],
     "number-leading-zero": null
   }
 }
