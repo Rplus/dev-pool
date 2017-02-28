@@ -6,7 +6,7 @@ const now = new Date();
 const oneWeek = (7 * 24 * 60 * 60 * 1000);
 
 // data from https://pokeiv.net/
-let dataUrl = (window.location.hostname === 'localhost') ? '02-27-pm.json' : 'https://api.myjson.com/bins/mm0n9';
+let dataUrl = (window.location.hostname === 'localhost') ? '02-28-pm.json' : 'https://api.myjson.com/bins/mm0n9';
 
 let levelCpMultiplier = {
   '1': 0.094,
