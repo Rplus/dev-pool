@@ -9,7 +9,7 @@
 <body>
   <h1>Pokemon List UI</h1>
   <div id="pm-board" class="pm-board">
-    <div class="loader" :class="{ 'is-loaded': `${loaded}` }"></div>
+    <div class="loader" :class="{ 'is-loaded': loaded }"></div>
     <dl class="Specie" v-for="specie in pmBySpecies">
       <template v-for="pm in specie">
         <dt class="SpecieCard">
