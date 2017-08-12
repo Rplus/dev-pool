@@ -1,0 +1,18 @@
+title [CSS 3D Animation] Cube Buddies
+h1.intro [CSS 3D] Cube Buddies
+
+mixin cube
+  .cube
+    each $ in Array(6)
+      .o
+
+.box
+  .ground
+    each $ in Array(17)
+      .axis
+        +cube
+        +cube
+
+blockquote.info
+  | inspired from 
+  a(href="https://beesandbombs.tumblr.com/post/159994014939/cube-buddies") Cube Buddies

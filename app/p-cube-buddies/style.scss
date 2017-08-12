@@ -1,0 +1,184 @@
+$color-1: #1e1e1e;
+$color-2: #fafafa;
+$color-3: #1eb4e6;
+$color-bgc: $color-1;
+
+$count: 17;
+$radius: 9em;
+$ani-dur: 3.6s * 2;
+$delay-ratio: 12%;
+
+// $debug: true;
+$debug: false;
+
+@mixin fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.ground {
+  position: relative;
+  width: $radius * 2;
+  height: $radius * 2;
+  font-size: 3vmin;
+  transform: rotateX(60deg);
+  transform-style: preserve-3d;
+
+  &:hover * { animation-play-state: paused; }
+  &:active * { animation-play-state: running; }
+
+  @if $debug == true {
+    background-color: rgba(#fff, .1);
+  }
+}
+
+.axis {
+  --basic-transform: rotate(var(--angle));
+
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 0;
+  height: 100%;
+  transform: var(--basic-transform) rotateX(0deg);
+  transform-style: preserve-3d;
+  animation: rotate $ani-dur linear infinite;
+  animation-delay: calc(var(--delay));
+
+  @for $i from 1 through $count {
+    &:nth-of-type(#{$i}) {
+      --angle: 2 * $i * (360deg / 2) / $count;
+      --delay: - ($ani-dur) * $i / $count / 2;
+
+      // hacks for Firefox about calc + var in animation
+      // ref: http://bugzil.la/956573
+      // hack via: http://browserhacks.com/#fx
+      // @supports not (animation-delay: calc(var(--delay))) { // gg
+      @supports (-moz-appearance:meterbar) and (display:flex) {
+        animation-delay: - ($ani-dur) * $i / $count / 2;
+      }
+    }
+  }
+
+  @if $debug == true {
+    box-shadow: 0 0 0 1px;
+    &:nth-of-type(1) { color: #f00; }
+    &:nth-of-type(2) { color: #00f; }
+  }
+
+  @keyframes rotate {
+    0%,
+    #{0% + $delay-ratio} {
+      transform: var(--basic-transform) rotateX(0deg);
+    }
+
+    #{50% - $delay-ratio},
+    #{50% + $delay-ratio} {
+      transform: var(--basic-transform) rotateX(180deg);
+    }
+
+    #{100% - $delay-ratio},
+    100% {
+      transform: var(--basic-transform) rotateX(360deg);
+    }
+  }
+}
+
+.cube {
+  position: absolute;
+  top: 0;
+  left: -.5em;
+  width: 1em;
+  height: 1em;
+  transform-style: preserve-3d;
+
+  &:nth-of-type(2) {
+    top: unset;
+    bottom: 0;
+  }
+
+  .o {
+    @include fill;
+
+    background-color: var(--o-color);
+    transform: var(--o-dir) translateZ(calc(var(--o-offset)));
+
+    &:nth-of-type(3n + 0) {
+      --o-dir: rotateX(90deg);
+      --o-color: $color-1;
+    }
+
+    &:nth-of-type(3n + 1) {
+      --o-dir: rotateZ(90deg);
+      --o-color: $color-2;
+    }
+
+    &:nth-of-type(3n + 2) {
+      --o-dir: rotateY(90deg);
+      --o-color: $color-3;
+    }
+
+    &:nth-of-type(odd) { --o-offset: .5em; }
+    &:nth-of-type(even) { --o-offset: -.5em; }
+  }
+}
+
+.box {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  perspective: 700px;
+}
+
+/// reset
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  line-height: 1.4;
+  color: #fff;
+  background-color: $color-bgc;
+}
+
+.intro {
+  width: 90%;
+  max-width: 50rem;
+  padding-top: .5em;
+  padding-bottom: 1rem;
+  margin: 0 auto 1em;
+  font-size: calc(1rem + 2vmin);
+  text-transform: capitalize;
+  text-align: center;
+  font-family: serif;
+  border-bottom: 1px dashed rgba(#fff, .3);
+}
+
+.info {
+  margin: auto 0 0;
+  padding: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .75;
+
+  a {
+    color: inherit;
+  }
+}
