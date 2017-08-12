@@ -1,0 +1,169 @@
+$c-white: #fff;
+$c-black: #000;
+
+$c-bg: $c-black;
+$size: 50vmin;
+
+$ratio: .191; // (3 - Math.sqrt(5)) / 4
+
+$strike-size: $size * $ratio; // (3 - Math.sqrt(5)) / 4
+$scale-ratio: 1 / (1 - $ratio * 2); // 1.618
+
+$ani-duration: 3.6s;
+
+$debug: false;
+// $debug: true;
+
+@mixin fill($dir: 'full', $type: absolute) {
+  position: $type;
+  @if $dir != 'bottom' {top: 0; }
+  @if $dir != 'right' {left: 0; }
+  @if $dir != 'left' {right: 0; }
+  @if $dir != 'top' {bottom: 0; }
+}
+
+.suqare {
+  position: relative;
+  width: $size;
+  height: $size;
+  animation: ani-wrapper $ani-duration linear infinite forwards;
+  @if $debug == true {
+    animation-iteration-count: 1;
+  }
+}
+
+.strike {
+  @include fill;
+  --rotate-plus: 0deg;
+  mix-blend-mode: difference;
+  animation: ani-outer $ani-duration linear infinite forwards;
+  animation: ani-outer $ani-duration var(--ani-delay) linear infinite forwards;
+
+  @if $debug == true {
+    animation-iteration-count: 1;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: $strike-size;
+    right: $strike-size;
+    height: $strike-size;
+    background-color: currentColor;
+    transform-origin: 50% $size / 2;
+    animation: ani-inner $ani-duration var(--ani-delay) linear infinite forwards;
+    animation: ani-inner $ani-duration linear infinite forwards;
+    @if $debug == true {
+      animation-iteration-count: 1;
+    }
+  }
+
+  @for $i from 1 through 4 {
+    &:nth-of-type(#{$i}) {
+      --rotate-base: 90deg * (1 - $i);
+    }
+  }
+}
+
+@keyframes ani-wrapper {
+  to { transform: scale($scale-ratio); }
+}
+
+@keyframes ani-outer {
+  0% {
+    transform: none;
+  }
+
+  100% {
+    transform: rotate(90deg);
+  }
+}
+
+@keyframes ani-inner {
+  0% {
+    transform: rotate(var(--rotate-base)) translateY(0);
+  }
+  100% {
+    transform: rotate(calc(90deg + var(--rotate-base))) translateY($size / 2 - $strike-size);
+  }
+}
+
+.box {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  &:hover {
+    *,
+    *::before {
+      animation-play-state: paused;
+    }
+  }
+
+  &:active {
+    *,
+    *::before {
+      animation-play-state: running;
+    }
+  }
+}
+
+/// reset
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  margin: 0;
+  line-height: 1.4;
+  color: $c-white;
+  background-color: $c-bg;
+}
+
+.intro {
+  width: 90%;
+  max-width: 50rem;
+  padding-bottom: 1rem;
+  margin: 0 auto 1em;
+  padding-top: .5em;
+  font-size: calc(1rem + 2vmin);
+  text-transform: capitalize;
+  border-bottom: 1px dashed rgba($c-white, .5);
+  text-align: center;
+
+  small {
+    display: block;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+  }
+}
+
+.info {
+  margin: 0;
+  padding: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .75;
+
+  a {
+    color: inherit;
+  }
+}
