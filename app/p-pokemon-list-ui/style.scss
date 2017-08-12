@@ -9,7 +9,8 @@ $sprite-col: 15;
 $sprite-row: ceil($specie-count / $sprite-col);
 
 // $sprite-url: 'sprite-50x50-15col.jpg';
-$sprite-url: 'https://images.weserv.nl/?url=i.imgur.com/qRxx65v.jpg&il';
+$sprite-url: 'https://images.weserv.nl/?url=i.imgur.com/qRxx65v.jpg&il'; // 50x50
+$sprite-url: 'https://images.weserv.nl/?url=i.imgur.com/UPaKdec.jpg&il'; // 80x80
 
 @mixin fill($dir: 'full', $type: absolute) {
   position: $type;

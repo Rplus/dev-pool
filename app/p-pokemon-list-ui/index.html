@@ -60,7 +60,7 @@
             <div class="pm-time">{{ pm.time }}</div>
 
             <div class="pm-info">
-              <div>{{ (15 - pm.iv_attack).toString(16) }}{{ (15 - pm.iv_defence).toString(16) }}{{ (15 - pm.iv_stamina).toString(16) }} L{{ pm.lv }}</div>
+              <div>{{ (15 - pm.iv_attack).toString(16).toUpperCase() }}{{ (15 - pm.iv_defence).toString(16).toUpperCase() }}{{ (15 - pm.iv_stamina).toString(16).toUpperCase() }} L{{ pm.lv }}</div>
               <div :title="pm.move1">M1: {{ pm.move1_zh_tw }}</div>
               <div :title="pm.move2">M2: {{ pm.move2_zh_tw }}</div>
               <div>W: {{ pm.weight }}</div>
@@ -102,6 +102,10 @@
       </div>
     </div>
   </div>
+
+  <footer>
+    data from <a href="https://pokeiv.net/">https://pokeiv.net/</a>
+  </footer>
 
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script> -->
   <script src="vue.js"></script>

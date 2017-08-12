@@ -8,7 +8,7 @@ const ONE_WEEK_IN_SECOND = (7 * 24 * 60 * 60 * 1000);
 const PM_LV_OVER = 1.5;
 const spriteCol = 15;
 
-const recentTime = ONE_WEEK_IN_SECOND * 0.5;
+const recentTime = ONE_WEEK_IN_SECOND * 2;
 
 // data from https://pokeiv.net/
 const dataUrl = (window.location.hostname === 'localhost') ? 'pm.json' : 'https://api.myjson.com/bins/ckwq1';
@@ -126,7 +126,7 @@ let getLv = (pm) => {
 
 let groupBySpecies = ({pms = window.PMs, sortBy = 'cp', sortDir = -1} = {}) => {
   return pms.sort((a, b) => {
-    return (a[sortBy] > b[sortBy]) ? (1 * sortDir) : (-1 * sortDir);
+    return +(a[sortBy] > +b[sortBy]) ? (1 * sortDir) : (-1 * sortDir);
   }).reduce((all, pm) => {
     if (!all[pm.pokemon_id]) {
       all[pm.pokemon_id] = [];
