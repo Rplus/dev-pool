@@ -142,6 +142,15 @@ let handlePMdata = (pms) => {
     pm.name = `${pm.name_en} / ${pm.name_zh_tw}`;
     pm.time = timeFormater(pm.catch_date);
     pm.lv = getLv(pm) || 1;
+    if (pm.iv === 100) {
+      pm.ivRank = 'SS';
+    } else if (pm.iv >= 90) {
+      pm.ivRank = 'S';
+    } else if (pm.iv >= 80) {
+      pm.ivRank = 'A';
+    } else {
+      pm.ivRank = 'A-';
+    }
     pm.recent = (NOW - pm.catch_date) < recentTime;
     pm.cpLvMax = getCpWithLv(pm, TrainerLevel + PM_LV_OVER);
     pm.cpLvBest = getCpWithLv({

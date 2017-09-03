@@ -39,7 +39,7 @@
           </div>
           <div class="pm-type"></div>
         </dt>
-        <dd class="PM" :class="{ 'is-recent': pm.recent }"
+        <dd class="PM" :class="{ 'is-recent': pm.recent }" :data-iv-rank="pm.ivRank"
           :style="{
             '--max-cp': pm.cp40_all15,
             '--pm-cp40_all15': pm.cp40_all15,

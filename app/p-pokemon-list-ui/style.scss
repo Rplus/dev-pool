@@ -171,6 +171,10 @@ $sprite-url: 'https://images.weserv.nl/?url=i.imgur.com/UPaKdec.jpg&il'; // 80x8
   .is-recent & {
     background-color: rgba(#ffc, .5);
   }
+
+  .is-recent[data-iv-rank="A-"] & {
+    border-left: 5px solid;
+  }
 }
 
 [data-prefix]::before {
@@ -293,6 +297,10 @@ $sprite-url: 'https://images.weserv.nl/?url=i.imgur.com/UPaKdec.jpg&il'; // 80x8
 
   .is-recent & {
     background-color: rgba(#ffc, .5);
+  }
+
+  .is-recent[data-iv-rank="A-"] & {
+    border-right: 5px solid;
   }
 }
 
