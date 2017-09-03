@@ -145,12 +145,12 @@ let handlePMdata = (pms) => {
     pm.recent = (NOW - pm.catch_date) < recentTime;
     pm.cpLvMax = getCpWithLv(pm, TrainerLevel + PM_LV_OVER);
     pm.cpLvBest = getCpWithLv({
-      atk: pm.atk,
-      def: pm.def,
-      stm: pm.stm,
-      iv_attack: 15,
-      iv_defence: 15,
-      iv_stamina: 15
+      ...pm,
+      ...{
+        iv_attack: 15,
+        iv_defence: 15,
+        iv_stamina: 15
+      }
     }, TrainerLevel + PM_LV_OVER);
 
     pm.rowStart = ~~((pm.pokemon_id - 1) / spriteCol);
