@@ -157,6 +157,12 @@ $sprite-url: 'https://images.weserv.nl/?url=i.imgur.com/UPaKdec.jpg&il'; // 80x8
   margin-left: $card-w;
   margin-bottom: $pm-gap;
   white-space: nowrap;
+
+  #iv-rank--SS:checked ~ .pm-board &:not([data-iv-rank="SS"]),
+  #iv-rank--S:checked ~ .pm-board &:not([data-iv-rank="S"]),
+  #iv-rank--A:checked ~ .pm-board &:not([data-iv-rank="A"]) {
+    display: none;
+  }
 }
 
 .pm-data {
