@@ -108,11 +108,17 @@
         </label>
       </div>
     </div>
-  </div>
 
-  <footer>
-    data from <a href="https://pokeiv.net/">https://pokeiv.net/</a>
-  </footer>
+    <footer>
+      <h2 class="total">total: {{ gtotal() }}</h2>
+      <label>
+        import personal data:<br>
+        <input type="file" accept=".json" @change="upload">
+      </label>
+      <br>
+      JSON file from <a href="https://pokeiv.net/" target="follower" rel="noopener">pokeiv</a>
+    </footer>
+  </div>
 
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script> -->
   <script src="vue.js"></script>

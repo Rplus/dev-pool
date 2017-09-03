@@ -342,6 +342,19 @@ $sprite-url: 'https://images.weserv.nl/?url=i.imgur.com/UPaKdec.jpg&il'; // 80x8
   }
 }
 
+label {
+  cursor: pointer;
+}
+
+input[type="number"] {
+  width: 3em;
+  text-align: center;
+}
+
+h2.total {
+  text-align: center;
+}
+
 /* reset */
 
 *,

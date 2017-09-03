@@ -1,4 +1,4 @@
-/* global Vue */
+/* global Vue, FileReader */
 
 const TrainerLevel = 35;
 const NOW = new Date();
@@ -229,6 +229,23 @@ let initApp = () => {
       }
     },
     methods: {
+      upload: function (e) {
+        let file = e.target.files[0];
+        let reader = new FileReader();
+        $app.loaded = false;
+        reader.onload = (evt) => {
+          let pmData = JSON.parse(evt.target.result);
+          handlePMdata(pmData);
+          groupBySpecies();
+          $app.loaded = true;
+          $app.pmBySpecies = groupBySpecies();
+          console.log(`Uploaded! total ${window.PMs.length} PMs.`);
+        };
+        reader.readAsText(file);
+      },
+      gtotal: function () {
+        return window.PMs && window.PMs.length;
+      },
       getPR: getPR
     }
   });
