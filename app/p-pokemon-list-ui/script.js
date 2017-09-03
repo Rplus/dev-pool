@@ -7,8 +7,7 @@ const ONE_WEEK_IN_SECOND = (7 * 24 * 60 * 60 * 1000);
 
 const PM_LV_OVER = 1.5;
 const spriteCol = 15;
-
-const recentTime = ONE_WEEK_IN_SECOND * 2;
+let recentTime = ONE_WEEK_IN_SECOND * 1;
 
 // data from https://pokeiv.net/
 const dataUrl = (window.location.hostname === 'localhost') ? 'pm.json' : 'https://api.myjson.com/bins/ckwq1';
@@ -189,6 +188,9 @@ let fakePmdata = {
 };
 
 let $app;
+let getRelatedTime = () => {
+  return new Date(new Date() - recentTime - timezoneOffset).toJSON().split('.')[0];
+};
 let initApp = () => {
   $app = new Vue({
     el: '#pm-board',
@@ -196,6 +198,8 @@ let initApp = () => {
       loaded: false,
       sortDir: -1,
       sortBy: 'cp',
+      weeks: 1,
+      relatedTime: getRelatedTime(),
       pmBySpecies: [
         [ fakePmdata, fakePmdata ]
       ]
@@ -211,6 +215,11 @@ let initApp = () => {
           sortBy: this.sortBy,
           sortDir: this.sortDir
         });
+      },
+      weeks: function (weeks) {
+        recentTime = ONE_WEEK_IN_SECOND * weeks;
+        this.relatedTime = getRelatedTime();
+        handlePMdata(window.PMs);
       },
       sortDir: function (newDir) {
         this.pmBySpecies = groupBySpecies({

@@ -99,6 +99,13 @@
           <input type="radio" value="1" v-model="sortDir">
           ▲ ASC
         </label>
+        <hr>
+        <label>
+          <input type="number" value="0" min="0" step=".2" v-model="weeks">
+          weeks
+          <br>
+          <small>after {{ relatedTime }}</small>
+        </label>
       </div>
     </div>
   </div>
