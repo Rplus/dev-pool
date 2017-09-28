@@ -92,8 +92,10 @@ html(lang="en")
             @mousedown="selectFamily(pokemon.familyId)",
             @touchstart="selectFamily(pokemon.familyId)",
             :class="{ 'is-family-id-marked': filter.familyId === pokemon.familyId }",
-            :style="{ backgroundPosition: pokemon.spritePos }"
           )
+            .poke__img(
+              :style="{ backgroundPosition: pokemon.spritePos }"
+            )
             .poke__name {{ pokemon.name }}
             .poke__maxcp {{ getMaxCpForTrainerLevel(pokemon, pmLv) }}
 
@@ -102,8 +104,9 @@ html(lang="en")
 
     blockquote.info
       | Pokemons original data source: 
-      a(href="https://github.com/vinnymac/PokeNurse/blob/master/baseStats.json") PokeNurse
+      a(href="https://github.com/BrunnerLivio/pokemongo-json-pokedex/blob/master/output/pokemon.json") pokemongo-json-pokedex
 
     style.pokeInitCP
-    script(src="vue.min.js")
+    //- script(src="vue.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js")
     script(src="script.js")

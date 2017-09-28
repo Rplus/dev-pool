@@ -1,25 +1,27 @@
 $c-white: #fff;
 $c-black: #000;
-$sprite-size: 65px;
+$sprite-size: 80px;
 $dev: false;
 $dev: true;
 
 $pokeTypes: 'normal', 'fighting', 'flying', 'poison', 'ground', 'rock', 'bug', 'ghost', 'steel', 'fire', 'water', 'grass', 'electric', 'psychic', 'ice', 'dragon', 'dark', 'fairy';
 
 // 455 x 1430 : 7x22 (65x65)
-// source: https://rawgit.com/PokemonGoMap/PokemonGo-Map/develop/static/icons-large-sprite.png
-$sprite-src: 'https://lh3.googleusercontent.com/DcGw-XJdteHrpS9L9mfdnGGaswUevUqQ3SsVH_BF5KK7BK1LBpRg2tqy8ZggnIUZlq3LfRkYkqeAiCmkLfV1yYtaxdUwg9QPz-oCfErVS4RNu-AAuy0VIOubN7yVOoTdI1-U7toN_fl5MpyLg_VvEarb0X2LlwLVvuH1k-ITY0eNgAV4_be1fXlfQ5KnNJ7mRJ-MtWkbzuNYGUaY5xsiAJ-m9NDLQ2cugS1Lh512yhJ8Ad9f0J43KbZ8vmWSTx4-HzRH7EndIPL_zgZSFbMRbFNLbi7Nr3_VQ81xWR1OooFBRTGff_0r-cj-jK9dSgJgizDap9JRMnT8dyRzdtDO7fFNn_-ozG9JY2D2z0VQi9TXVQO4_Q33H95p4jtDOvR8HTox5X8WRNOlGQxMmNlbSz5fJuMkyBZuf3kLmrH1-ethbqvvmcQ6O_GNfEmVxWzQwOz2LufQDh9RpeHKgc3b9bgyA29FXpWrt0D-WxI3JlB0zshNDZ8y4y41IWXddcVB2KCXKxGyIu-x2nkss0dWFdDrPnLrUqqMuiMjwNSxfSMKYYFkNjbhqkEEwcdA1RT5NmktKOZnhmDDdCdmryRjRj9yS3j6ky_7gVsNvo39w-cF-TrJ=w228-h715-no';
+$sprite-src: 'https://images.weserv.nl/?url=veekun.com/static/pokedex/downloads/gold.png&w=1000&il';
+$sprite-src: 'https://lh3.googleusercontent.com/Sg6LeWd8vqPoPpEaMaBoFX3Mn9v26PWnNPy95cYEfvT1p6vR_COxRJMwrpKwMT-WEbJKB1mfCDIX82ahv9Pt8RUauTZ8KSXl8910qyph46q5Oo-1b42_sr9-Ia3DKp44UyXpIQb-3jBBvL83ab02PCkLay_go-54vL7bANFCIxAb8o6X1l92pMUv026-550aQ4hDSn_MB9UeMtJ6qWnmC2oGxHc9N7XWNM-vAgTnnyUM8FwV2ozFidvCK0tWafJgxq56Ozo8u4lKSY5nO_iv0_4JZjVKNtDL0hdblKI_tWXB8i6kG294R9GmHB2Lk3tkQDRZr8ZmQkXn5X78WwexGNiupU0KCTPgLnOM9_tDeLOuok__UoLUks3dcJdm8DX1tDRwlRdqfV4lAGn7mw81d0wjvK0a1yDxmHrT1c_0Mw4VObl-MIIRhPKvXrAILVSKsnKhqjlOXYXikaDfgOLsD_hmcynWyDM6f00MS0rItB9S09hfGjSRNbFklHSXk3vGpnBi-Wm1fPtmoThJgB1JJaq8jVA9S_RmEekeM3SGatJTN7f6fSw1J95Fh6ez08X4zaEJUsnDiTEfojV6bA04ZQ_BkBk6qPOfWn4glgRwP7gcj4kiRG8nggZIMsOYpt2Sj-SkJuku5qvIh9d6S-C3rG9iylgnKLF2Uws=w1120-h728-no';
 
 @if $dev {
-  $sprite-src: 'icons-large-sprite.png';
+  // $sprite-src: 'icons-large-sprite.png';
 }
 
 .pokeMaxCP {
-  max-width: 70rem;
-  margin: auto;
+  // max-width: 70rem;
+  // margin: auto;
 }
 
 .pokeMaxCP__ctrl {
+  max-width: 50rem;
+  margin: auto;
   text-align: center;
 
   table {
@@ -155,21 +157,20 @@ $sprite-src: 'https://lh3.googleusercontent.com/DcGw-XJdteHrpS9L9mfdnGGaswUevUqQ
 }
 
 .pokeList {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax($sprite-size * 2, 1fr));
   margin: 0;
   padding: 0;
-  text-align: center;
+  // text-align: center;
   list-style-type: none;
 }
 
 %poke-avatar-clear {
-  &::before {
+  .poke__img {
     opacity: .7;
 
     @if $dev {
-      filter: unset;
+      // filter: unset;
     }
   }
 }
@@ -177,15 +178,20 @@ $sprite-src: 'https://lh3.googleusercontent.com/DcGw-XJdteHrpS9L9mfdnGGaswUevUqQ
 .poke {
   position: relative;
   display: none;
-  width: $sprite-size * 2;
   max-width: 20vw;
   margin: 1em;
   transition: opacity .3s;
   user-select: none;
 
-  &::before {
-    content: counter(pokeId);
-    content: attr(data-id);
+  &::after {
+    content: '#' attr(data-id);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    color: rgba($c-black, .2);
+  }
+
+  .poke__img {
     display: block;
     width: $sprite-size;
     height: $sprite-size;
@@ -193,11 +199,8 @@ $sprite-src: 'https://lh3.googleusercontent.com/DcGw-XJdteHrpS9L9mfdnGGaswUevUqQ
     overflow: hidden;
     background: url($sprite-src) no-repeat;
     background-position: inherit;
-    background-size: ($sprite-size * 7) ($sprite-size * 22);
+    background-size: ($sprite-size * 20) ($sprite-size * 13);
     text-align: right;
-    color: transparent;
-    text-shadow: 0 0 2px rgba($c-black, .3);
-    font: 900 calc(1.5em + 2vmin) monospace;
     opacity: .3;
     letter-spacing: -.025em;
     will-change: opacity;
@@ -207,8 +210,8 @@ $sprite-src: 'https://lh3.googleusercontent.com/DcGw-XJdteHrpS9L9mfdnGGaswUevUqQ
       will-change: filter, opacity;
 
       @media (pointer: fine) {
-        opacity: .5;
-        filter: blur(2px);
+        opacity: .4;
+        // filter: blur(2px);
       }
     }
   }

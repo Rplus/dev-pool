@@ -3,10 +3,11 @@
 // const BEST_PROPERTY = 15;
 const MAX_LV = 40;
 const WILD_PM_MAX_LV = 30;
-const VERSION = '2016-11-22';
+const VERSION = '2017-09-28';
 
 let localVersion = localStorage.getItem(VERSION);
 let isOutdated = !localVersion;
+console.log({isOutdated});
 let localData = {
   pokeData: null,
   levelCpMultiplier: null
@@ -18,23 +19,23 @@ if (isOutdated) {
 }
 
 let upstreamUrls = {
-  pokeData: 'https://cdn.rawgit.com/Rplus/358fd8f680dd2d5945c80826dfcdd599/raw/b97cfb0cccf61a119b521f43df4d449fc0eaa5f2/baseStats.json',
+  pokeData: 'https://raw.githubusercontent.com/Rplus/pokemongo-json-pokedex/master/output/pokemon.json',
   levelCpMultiplier: 'https://cdn.rawgit.com/Rplus/a4f16be334a5a458144c1fc425034ed3/raw/ced3970da1e6eed8b7fc4512bc2231159ad4cbde/levelCpMultiplier.json'
 };
 
 // for dev
-if (/^\/_dist/.test(window.location.pathname)) {
-  for (var name in upstreamUrls) {
-    upstreamUrls[name] = upstreamUrls[name].match(/.*\/(.+?\.json)$/)[1];
-  }
-}
+// if (/^\/_dist/.test(window.location.pathname)) {
+//   for (var name in upstreamUrls) {
+//     upstreamUrls[name] = upstreamUrls[name].match(/.*\/(.+?\.json)$/)[1];
+//   }
+// }
 
 // source: https://github.com/vinnymac/PokeNurse/blob/v1.5.4/app/utils.js#L164-L170
 let getMaxCpForTrainerLevel = (poke, pmLv) => {
   let _iv = vm.iv;
   let maxPokemonLevel = Math.min(MAX_LV, pmLv);
   let maxCpMultiplier = localData.levelCpMultiplier[maxPokemonLevel];
-  let ADS = (poke.BaseAttack + _iv.attack) * Math.pow((poke.BaseDefense + _iv.defense) * (poke.BaseStamina + _iv.stamina), 0.5);
+  let ADS = (poke.stats.baseAttack + _iv.attack) * Math.pow((poke.stats.baseDefense + _iv.defense) * (poke.stats.baseStamina + _iv.stamina), 0.5);
   let total = ADS * Math.pow(maxCpMultiplier, 2.0);
   return Math.floor(total / 10);
 };
@@ -108,6 +109,7 @@ let vm = new Vue({
 });
 
 let getData = (name) => {
+  console.log({name});
   return new Promise((resolve, reject) => {
     if (isOutdated) {
       fetch(upstreamUrls[name])
@@ -138,18 +140,17 @@ Promise.all([
 });
 
 let handlePokeData = () => {
-  let pokemons = localData.pokeData.pokemon;
-
-  pokemons = Object.keys(pokemons).map((i) => pokemons[i]);
+  let pokemons = localData.pokeData;
 
   vm.pokemons = pokemons.map((poke, idx) => {
-    let row = ~~(idx / 7);
-    let col = idx % 7;
+    let row = ~~(idx / 20);
+    let col = idx % 20;
 
     poke.id = idx + 1;
-    poke.familyId *= 1;
+    poke.familyId = poke.family.id;
     poke.maxcp = getMaxCpForTrainerLevel(poke, MAX_LV);
-    poke.spritePos = `${col * -65}px ${row * -65}px`;
+    poke.types = poke.types.reduce((all, v) => all.concat(v.name.toLowerCase()), []);
+    poke.spritePos = `${col * -80}px ${row * -80}px`;
 
     return poke;
   });
