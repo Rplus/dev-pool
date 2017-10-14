@@ -7,7 +7,6 @@ const VERSION = '2017-09-28';
 
 let localVersion = localStorage.getItem(VERSION);
 let isOutdated = !localVersion;
-console.log({isOutdated});
 let localData = {
   pokeData: null,
   levelCpMultiplier: null
@@ -109,7 +108,6 @@ let vm = new Vue({
 });
 
 let getData = (name) => {
-  console.log({name});
   return new Promise((resolve, reject) => {
     if (isOutdated) {
       fetch(upstreamUrls[name])
@@ -149,7 +147,7 @@ let handlePokeData = () => {
     poke.id = idx + 1;
     poke.familyId = poke.family.id;
     poke.maxcp = getMaxCpForTrainerLevel(poke, MAX_LV);
-    poke.types = poke.types.reduce((all, v) => all.concat(v.name.toLowerCase()), []);
+    poke.types = poke.types.reduce((all, v) => all.concat(v.name && v.name.toLowerCase()), []);
     poke.spritePos = `${col * -80}px ${row * -80}px`;
 
     return poke;
