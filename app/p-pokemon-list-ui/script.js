@@ -1,6 +1,6 @@
 /* global Vue, FileReader */
 
-const TrainerLevel = 35;
+const TrainerLevel = 37;
 const NOW = new Date();
 const timezoneOffset = NOW.getTimezoneOffset() * 60 * 1000;
 const ONE_WEEK_IN_SECOND = (7 * 24 * 60 * 60 * 1000);
