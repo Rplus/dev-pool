@@ -111,6 +111,10 @@ let getCpWithLv = (pm, lv) => {
   return Math.floor(total / 10);
 };
 
+let getPmHp = (pm) => {
+  return Math.floor((pm.stm + pm.iv_stamina) * levelCpMultiplier[pm.lv]);
+};
+
 let getLv = (pm) => {
   let pmlv;
   let cp = pm.cp;
@@ -156,6 +160,7 @@ let handlePMdata = (pms) => {
     pm.name = `${pm.name_en} / ${pm.name_zh_tw}`;
     pm.time = timeFormater(pm.catch_date);
     pm.lv = getLv(pm) || 1;
+    pm.hp = getPmHp(pm);
     pm.ivRank = getIvRank(pm.iv);
     pm.recent = (NOW - pm.catch_date) < recentTime;
     pm.cpLvMax = getCpWithLv(pm, TrainerLevel + PM_LV_OVER);
