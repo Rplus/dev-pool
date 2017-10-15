@@ -23,15 +23,20 @@
 
   <template id="cp-bar-tpl">
     <div class="pm-cp-bar">
-      <div data-title="Lv40, Best(All 15) CP"></div>
-      <div data-title="now Max Lv, Best(All 15) CP"></div>
+      <div data-title="Lv40, perfect CP (All 15)"></div>
+      <div data-title="max Lv(now), perfect CP"></div>
       <div data-title="Lv40, Max CP"></div>
-      <div data-title="now Max Lv, CP"></div>
+      <div data-title="max Lv(now), CP"></div>
       <div data-title="now Lv, CP"></div>
+      <div data-title="Lv 30, perfect CP"></div>
+      <div data-title="Lv 20, perfect CP"></div>
     </div>
   </template>
 
-  <div id="pm-board" class="pm-board" :class="{ 'is-loaded': loaded }">
+  <div id="pm-board"
+    :class="{ 'is-loaded': loaded, 'pm-board': true}"
+    :style="{'--trainer-lv': TrainerLevel }"
+  >
     <div class="loader"></div>
     <dl class="Specie" v-for="specie in pmBySpecies">
       <template v-for="pm in specie">
@@ -51,14 +56,17 @@
           </div>
           <div class="pm-type"></div>
         </dt>
-        <dd class="PM" :class="{ 'is-recent': pm.recent }" :data-iv-rank="pm.ivRank"
+        <dd class="PM" :class="{ 'is-recent': pm.recent }"
+          :data-iv-rank="pm.ivRank"
           :style="{
             '--max-cp': pm.cp40_all15,
-            '--pm-cp40_all15': pm.cp40_all15,
-            '--pm-cp40': pm.cp40,
-            '--pm-cpLvBest': pm.cpLvBest,
-            '--pm-cpLvMax': pm.cpLvMax,
-            '--pm-cp': pm.cp
+            '--pm-cp': pm.cp,
+            '--pm-cp_lv40': pm.cp_lv40,
+            '--pm-cp_lvMax': pm.cp_lvMax,
+            '--pm-perfectCP_lvMax': pm.perfectCP_lvMax,
+            '--pm-perfectCP_lv40': pm.perfectCP_lv40,
+            '--pm-perfectCP_lv30': pm.perfectCP_lv30,
+            '--pm-perfectCP_lv20': pm.perfectCP_lv20
           }"
         >
           <div class="pm-data">

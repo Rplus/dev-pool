@@ -6,11 +6,12 @@ const timezoneOffset = NOW.getTimezoneOffset() * 60 * 1000;
 const ONE_WEEK_IN_SECOND = (7 * 24 * 60 * 60 * 1000);
 
 const PM_LV_OVER = 1.5;
+const PM_MAX_LV = Math.min(40, TrainerLevel + PM_LV_OVER);
 const spriteCol = 15;
 let recentTime = ONE_WEEK_IN_SECOND * 1;
 
 // data from https://pokeiv.net/
-const dataUrl = (window.location.hostname === 'localhost') ? 'pm.json' : 'https://api.myjson.com/bins/ckwq1';
+const dataUrl = (window.location.hostname === 'localhost') ? 'pm.json' : 'https://api.myjson.com/bins/10ztnd';
 
 let levelCpMultiplier = {
   '1': 0.094,
@@ -163,15 +164,20 @@ let handlePMdata = (pms) => {
     pm.hp = getPmHp(pm);
     pm.ivRank = getIvRank(pm.iv);
     pm.recent = (NOW - pm.catch_date) < recentTime;
-    pm.cpLvMax = getCpWithLv(pm, TrainerLevel + PM_LV_OVER);
-    pm.cpLvBest = getCpWithLv({
+    let bestPMproperty = {
       ...pm,
-      ...{
-        iv_attack: 15,
-        iv_defence: 15,
-        iv_stamina: 15
-      }
-    }, TrainerLevel + PM_LV_OVER);
+      iv_attack: 15,
+      iv_defence: 15,
+      iv_stamina: 15
+    };
+
+    pm.cp_lv40 = pm.cp40;
+    pm.cp_lvMax = getCpWithLv(pm, PM_MAX_LV);
+    pm.perfectCP_lvMax = getCpWithLv(bestPMproperty, PM_MAX_LV);
+    pm.perfectCP_lv40 = pm.cp40_all15;
+    pm.perfectCP_lv30 = getCpWithLv(bestPMproperty, 30);
+    pm.perfectCP_lv20 = getCpWithLv(bestPMproperty, 20);
+
 
     pm.rowStart = ~~((pm.pokemon_id - 1) / spriteCol);
     pm.colStart = (pm.pokemon_id - 1) % spriteCol;
@@ -215,6 +221,7 @@ let initApp = () => {
   $app = new Vue({
     el: '#pm-board',
     data: {
+      trainerLevel: TrainerLevel,
       loaded: false,
       sortDir: -1,
       sortBy: 'cp',

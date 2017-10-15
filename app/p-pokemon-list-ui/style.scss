@@ -46,6 +46,7 @@ $sprite-url: 'https://images.weserv.nl/?url=i.imgur.com/UPaKdec.jpg&il'; // 80x8
   max-width: 100%;
   margin: 0 auto;
   padding-top: 2rem;
+  counter-reset: trainer-lv calc(var(--trainer-lv));
 }
 
 .Specie {
@@ -226,23 +227,29 @@ $sprite-url: 'https://images.weserv.nl/?url=i.imgur.com/UPaKdec.jpg&il'; // 80x8
   }
 
   $CPs: (
-    --pm-cp40_all15,
-    --pm-cpLvBest,
-    --pm-cp40,
-    --pm-cpLvMax,
-    --pm-cp
+    (--pm-perfectCP_lv40, 1),
+    (--pm-perfectCP_lvMax, 1),
+    (--pm-cp_lv40, 0),
+    (--pm-cp_lvMax, 0),
+    (--pm-cp, 0),
+    (--pm-perfectCP_lv30, 1),
+    (--pm-perfectCP_lv20, 1)
   );
 
   > * {
     @include fill('left');
 
-    background-color: currentColor;
     z-index: calc(var(--max-cp) - var(--cp));
     width: calc(var(--cp) / var(--max-cp) * 100%);
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 100% calc(75% - 50% * var(--i));
+    background-repeat: no-repeat;
+    background-position: 0 calc(var(--i) * 100%);
 
     @for $i from 1 through length($CPs) {
       &:nth-child(#{$i}) {
-        --cp: var(nth($CPs, $i));
+        --cp: var(nth(nth($CPs, $i), 1));
+        --i: nth(nth($CPs, $i), 2);
       }
     }
 
@@ -268,6 +275,10 @@ $sprite-url: 'https://images.weserv.nl/?url=i.imgur.com/UPaKdec.jpg&il'; // 80x8
       color: #000;
       opacity: 0;
       pointer-events: none;
+    }
+
+    &[data-title^="max Lv"]::after {
+      content: '(' counter(trainer-lv) '+1.5) ' attr(data-title);
     }
 
     &:hover {
