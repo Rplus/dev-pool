@@ -178,7 +178,6 @@ let handlePMdata = (pms) => {
     pm.perfectCP_lv30 = getCpWithLv(bestPMproperty, 30);
     pm.perfectCP_lv20 = getCpWithLv(bestPMproperty, 20);
 
-
     pm.rowStart = ~~((pm.pokemon_id - 1) / spriteCol);
     pm.colStart = (pm.pokemon_id - 1) % spriteCol;
     return pm;
