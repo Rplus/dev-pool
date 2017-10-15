@@ -36,6 +36,7 @@ let getMaxCpForTrainerLevel = (poke, pmLv) => {
   let maxCpMultiplier = localData.levelCpMultiplier[maxPokemonLevel];
   let ADS = (poke.stats.baseAttack + _iv.attack) * Math.pow((poke.stats.baseDefense + _iv.defense) * (poke.stats.baseStamina + _iv.stamina), 0.5);
   let total = ADS * Math.pow(maxCpMultiplier, 2.0);
+  poke.hp = Math.floor((poke.stats.baseStamina + _iv.stamina) * maxCpMultiplier);
   return Math.floor(total / 10);
 };
 
@@ -58,7 +59,7 @@ let vm = new Vue({
       by: 'id',
       dir: 1
     },
-    pokemons: null
+    pokemons: []
   },
   watch: {
     trainerLevel () {
@@ -139,16 +140,24 @@ Promise.all([
 
 let handlePokeData = () => {
   let pokemons = localData.pokeData;
+  let colCount = Number(window.getComputedStyle(document.querySelector('.pokeMaxCP')).getPropertyValue('--sprite-grid-col'));
+  let splite = window.getComputedStyle(document.querySelector('.poke__img'));
+  let spliteWidth = parseFloat(splite.width);
+  let spliteHeight = parseFloat(splite.height);
 
   vm.pokemons = pokemons.map((poke, idx) => {
-    let row = ~~(idx / 20);
-    let col = idx % 20;
+    let dex = poke.dex;
+    let index = dex - 1;
+    let row = ~~(index / colCount);
+    let col = index % colCount;
 
-    poke.id = idx + 1;
+    poke.id = dex;
     poke.familyId = poke.family.id;
     poke.maxcp = getMaxCpForTrainerLevel(poke, MAX_LV);
-    poke.types = poke.types.reduce((all, v) => all.concat(v.name && v.name.toLowerCase()), []);
-    poke.spritePos = `${col * -80}px ${row * -80}px`;
+    if (typeof poke.types[0] !== 'string') {
+      poke.types = poke.types.reduce((all, v) => all.concat(v.name && v.name.toLowerCase()), []);
+    }
+    poke.spritePos = `${col * -spliteWidth}px ${row * -spliteHeight}px`;
 
     return poke;
   });

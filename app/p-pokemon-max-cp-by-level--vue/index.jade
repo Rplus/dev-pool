@@ -14,8 +14,8 @@ html(lang="en")
 
     .box
       .pokeMaxCP#pokeMaxCP
-        - each type in pokeTypes
-          input.ctrlFilter__checkbox.sr-only(type="checkbox", id="ck-#{type}", class="ck-#{type}", checked=(type !== 'none'))
+        each type in pokeTypes
+          input.ctrlFilter__checkbox.sr-only(type="checkbox", id=`ck-${type}`, class=`ck-${type}`, checked=(type !== 'none'))
 
         .pokeMaxCP__ctrl
           table
@@ -80,12 +80,12 @@ html(lang="en")
               | filter by
               button(@click="selectAll(true)") all
             .ctrlFilter
-              - each type in pokeTypes
-                label.ctrlFilter__label(for="ck-#{type}")= type
+              each type in pokeTypes
+                label.ctrlFilter__label(for=`ck-${type}`)= type
 
         ul.pokeList
           li.poke(v-for="pokemon in pokemons",
-            :title="`#${pokemon.id} ${pokemon.name}\ntyps: ${pokemon.types}`",
+            :title="`#${pokemon.id} ${pokemon.name}\ntyps: ${pokemon.types}\nHP: ${pokemon.hp}`",
             :data-type="pokemon.types",
             :data-id="pokemon.id",
             :data-family-id="pokemon.familyId",
@@ -98,8 +98,10 @@ html(lang="en")
             )
             .poke__name {{ pokemon.name }}
             .poke__maxcp {{ getMaxCpForTrainerLevel(pokemon, pmLv) }}
+          li.poke
+            .poke__img
 
-          - each _ in Array(5)
+          each _ in Array(5)
             li.poke
 
     blockquote.info

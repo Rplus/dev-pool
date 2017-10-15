@@ -8,15 +8,21 @@ $pokeTypes: 'normal', 'fighting', 'flying', 'poison', 'ground', 'rock', 'bug', '
 
 // 455 x 1430 : 7x22 (65x65)
 $sprite-src: 'https://images.weserv.nl/?url=veekun.com/static/pokedex/downloads/gold.png&w=1000&il';
+// gen 2
 $sprite-src: 'https://lh3.googleusercontent.com/Sg6LeWd8vqPoPpEaMaBoFX3Mn9v26PWnNPy95cYEfvT1p6vR_COxRJMwrpKwMT-WEbJKB1mfCDIX82ahv9Pt8RUauTZ8KSXl8910qyph46q5Oo-1b42_sr9-Ia3DKp44UyXpIQb-3jBBvL83ab02PCkLay_go-54vL7bANFCIxAb8o6X1l92pMUv026-550aQ4hDSn_MB9UeMtJ6qWnmC2oGxHc9N7XWNM-vAgTnnyUM8FwV2ozFidvCK0tWafJgxq56Ozo8u4lKSY5nO_iv0_4JZjVKNtDL0hdblKI_tWXB8i6kG294R9GmHB2Lk3tkQDRZr8ZmQkXn5X78WwexGNiupU0KCTPgLnOM9_tDeLOuok__UoLUks3dcJdm8DX1tDRwlRdqfV4lAGn7mw81d0wjvK0a1yDxmHrT1c_0Mw4VObl-MIIRhPKvXrAILVSKsnKhqjlOXYXikaDfgOLsD_hmcynWyDM6f00MS0rItB9S09hfGjSRNbFklHSXk3vGpnBi-Wm1fPtmoThJgB1JJaq8jVA9S_RmEekeM3SGatJTN7f6fSw1J95Fh6ez08X4zaEJUsnDiTEfojV6bA04ZQ_BkBk6qPOfWn4glgRwP7gcj4kiRG8nggZIMsOYpt2Sj-SkJuku5qvIh9d6S-C3rG9iylgnKLF2Uws=w1120-h728-no';
-
+$sprite-grid: (20, 13);
+// gen 3
+$sprite-src: 'https://lh3.googleusercontent.com/aAXfL381irDIoHvnIfAxH5g-gM5kB9HvKjgb9irJElAnTXu5sG3WigmCQ6T-Rg_5uct2DKmft9Z7EI_hHMNlkHmUE3lPwyJJNVyBuUo9iwVjoWvTWssErjclWpQZgRXtVTuMTr6t6A=w1480-h947-no';
+$sprite-grid: (25, 16);
 @if $dev {
   // $sprite-src: 'icons-large-sprite.png';
 }
 
 .pokeMaxCP {
+  --sprite-grid-col: nth($sprite-grid, 1);
+  --sprite-grid-row: nth($sprite-grid, 2);
   // max-width: 70rem;
-  // margin: auto;
+  margin: auto;
 }
 
 .pokeMaxCP__ctrl {
@@ -199,7 +205,9 @@ $sprite-src: 'https://lh3.googleusercontent.com/Sg6LeWd8vqPoPpEaMaBoFX3Mn9v26PWn
     overflow: hidden;
     background: url($sprite-src) no-repeat;
     background-position: inherit;
-    background-size: ($sprite-size * 20) ($sprite-size * 13);
+    background-size:
+      calc(var(--sprite-grid-col) * #{$sprite-size})
+      calc(var(--sprite-grid-row) * #{$sprite-size});
     text-align: right;
     opacity: .3;
     letter-spacing: -.025em;
