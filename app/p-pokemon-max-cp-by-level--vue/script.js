@@ -3,7 +3,7 @@
 // const BEST_PROPERTY = 15;
 const MAX_LV = 40;
 const WILD_PM_MAX_LV = 30;
-const VERSION = '2017-09-28';
+const VERSION = '2017-10-14';
 
 let localVersion = localStorage.getItem(VERSION);
 let isOutdated = !localVersion;
@@ -114,6 +114,9 @@ let getData = (name) => {
       fetch(upstreamUrls[name])
         .then((d) => d.json())
         .then((d) => {
+          if (name === 'pokeData') {
+            d = d.concat(gen3GhostData);
+          }
           localData[name] = d;
           resolve(d);
         });
@@ -163,3 +166,109 @@ let handlePokeData = () => {
   });
   vm.$mount('#pokeMaxCP');
 };
+
+let gen3GhostData = [
+  {
+    dex: 302,
+    id: 'SABLEYE',
+    name: 'Sableye',
+    family: {
+      id: 'FAMILY_SABLEYE',
+      name: 'Sableye'
+    },
+    stats: {
+      baseAttack: 141,
+      baseDefense: 141,
+      baseStamina: 100
+    },
+    types: [
+      {
+        name: 'Dark'
+      },
+      {
+        name: 'Ghost'
+      }
+    ],
+    maxCP: 1305
+  },
+  {
+    dex: 353,
+    id: 'SHUPPET',
+    name: 'Shuppet',
+    family: {
+      id: 'FAMILY_SHUPPET',
+      name: 'Shuppet'
+    },
+    stats: {
+      baseAttack: 138,
+      baseDefense: 66,
+      baseStamina: 88
+    },
+    types: [
+      {
+        name: 'Ghost'
+      }
+    ],
+    maxCP: 872
+  },
+  {
+    dex: 354,
+    id: 'BANETTE',
+    name: 'Banette',
+    family: {
+      id: 'FAMILY_BANETTE',
+      name: 'Banette'
+    },
+    stats: {
+      baseAttack: 218,
+      baseDefense: 127,
+      baseStamina: 128
+    },
+    types: [
+      {
+        name: 'Ghost'
+      }
+    ],
+    maxCP: 2073
+  },
+  {
+    dex: 355,
+    id: 'DUSKULL',
+    name: 'Duskull',
+    family: {
+      id: 'FAMILY_DUSKULL',
+      name: 'Duskull'
+    },
+    stats: {
+      baseAttack: 70,
+      baseDefense: 162,
+      baseStamina: 40
+    },
+    types: [
+      {
+        name: 'Ghost'
+      }
+    ],
+    maxCP: 523
+  },
+  {
+    dex: 356,
+    id: 'DUSCLOPS',
+    name: 'Dusclops',
+    family: {
+      id: 'FAMILY_DUSCLOPS',
+      name: 'Dusclops'
+    },
+    stats: {
+      baseAttack: 124,
+      baseDefense: 234,
+      baseStamina: 80
+    },
+    types: [
+      {
+        name: 'Ghost'
+      }
+    ],
+    maxCP: 1335
+  }
+];
