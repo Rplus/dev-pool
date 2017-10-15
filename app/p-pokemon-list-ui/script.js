@@ -135,6 +135,20 @@ let groupBySpecies = ({pms = window.PMs, sortBy = 'cp', sortDir = -1} = {}) => {
   }, []);
 };
 
+let getIvRank = (pmIv) => {
+  let rank;
+  if (pmIv === 100) {
+    rank = 'SS';
+  } else if (pmIv >= 90) {
+    rank = 'S';
+  } else if (pmIv >= 80) {
+    rank = 'A';
+  } else {
+    rank = 'A-';
+  }
+  return rank;
+};
+
 let handlePMdata = (pms) => {
   window.PMs = pms.map((pm) => {
     pm.id = `00${pm.pokemon_id}`.slice(-3);
@@ -142,15 +156,7 @@ let handlePMdata = (pms) => {
     pm.name = `${pm.name_en} / ${pm.name_zh_tw}`;
     pm.time = timeFormater(pm.catch_date);
     pm.lv = getLv(pm) || 1;
-    if (pm.iv === 100) {
-      pm.ivRank = 'SS';
-    } else if (pm.iv >= 90) {
-      pm.ivRank = 'S';
-    } else if (pm.iv >= 80) {
-      pm.ivRank = 'A';
-    } else {
-      pm.ivRank = 'A-';
-    }
+    pm.ivRank = getIvRank(pm.iv);
     pm.recent = (NOW - pm.catch_date) < recentTime;
     pm.cpLvMax = getCpWithLv(pm, TrainerLevel + PM_LV_OVER);
     pm.cpLvBest = getCpWithLv({
