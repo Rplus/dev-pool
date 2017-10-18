@@ -1,0 +1,103 @@
+- var pokeTypes = ['normal', 'fighting', 'flying', 'poison', 'ground', 'rock', 'bug', 'ghost', 'steel', 'fire', 'water', 'grass', 'electric', 'psychic', 'ice', 'dragon', 'dark', 'fairy'];
+
+h1.intro Pokémons' CP calculator
+  small vue version
+
+.box
+  .pokeMaxCP#pokeMaxCP
+    each type in pokeTypes
+      input.ctrlFilter__checkbox.sr-only(type="checkbox", id=`ck-${type}`, class=`ck-${type}`, checked=(type !== 'none'))
+
+    .pokeMaxCP__ctrl
+      table
+        tr
+          th
+            label(for="masterLv", :data-level="trainerLevel") Your Level:
+          td
+            input(type="number", min="1", max="40", v-model.number="trainerLevel")
+          td
+            input#masterLv(type="range", min="1", max="40", v-model.number="trainerLevel")
+
+        tr
+          th
+            label
+              input(type="checkbox", v-model.booleam="isPmWild")
+              | wild?
+            label(for="pmLv", :data-level="pmLv") PM Level:
+          td
+            input(type="number", min="1", :max="pmMaxLv", step="0.5", v-model.number="pmLv")
+          td
+            input#pmLv(type="range", min="1", :max="pmMaxLv", step="0.5", :style="{ maxWidth: pmWidthRatio }", v-model.number="pmLv")
+
+        tr
+          td
+            label(for="iv-a") attack:
+          td
+            input(type="number", min="0", max="15", v-model.number="iv.attack")
+          td
+            input#iv-a(type="range", min="0", max="15", v-model.number="iv.attack")
+
+        tr
+          td
+            label(for="iv-d") defense:
+          td
+            input(type="number", min="0", max="15", v-model.number="iv.defense")
+          td
+            input#iv-d(type="range", min="0", max="15", v-model.number="iv.defense")
+
+        tr
+          td
+            label(for="iv-s") stamina:
+          td
+            input(type="number", min="0", max="15", v-model.number="iv.stamina")
+          td
+            input#iv-s(type="range", min="0", max="15", v-model.number="iv.stamina")
+
+        tr
+          td IV
+          td(colspan=2) : {{ getIv }}%
+
+      .ctrlSort
+        button(
+          :class="['ctrlSort__btn', { 'is-active': sort.by === 'id' }]",
+          :data-sort-dir="sort.dir === 1 ? '▲' : '▼'",
+          @click="sortBy('id')",
+        ) ID
+        button(
+          :class="['ctrlSort__btn', { 'is-active': sort.by === 'maxcp' }]",
+          :data-sort-dir="sort.dir === 1 ? '▲' : '▼'",
+          @click="sortBy('maxcp')",
+        ) CP
+      .ctrlFilter--wrap
+        .ctrlFilter__header
+          button(@click="selectAll(false)") none
+          | filter by
+          button(@click="selectAll(true)") all
+        .ctrlFilter
+          each type in pokeTypes
+            label.ctrlFilter__label(for=`ck-${type}`)= type
+
+    ul.pokeList
+      li.poke(v-for="pokemon in pokemons",
+        :title="`#${pokemon.id} ${pokemon.name}\ntyps: ${pokemon.types}\nHP: ${pokemon.hp}`",
+        :data-type="pokemon.types",
+        :data-id="pokemon.id",
+        :data-family-id="pokemon.familyId",
+        @mousedown="selectFamily(pokemon.familyId)",
+        @touchstart="selectFamily(pokemon.familyId)",
+        :class="{ 'is-family-id-marked': filter.familyId === pokemon.familyId }",
+      )
+        .poke__img(
+          :style="{ backgroundPosition: pokemon.spritePos }"
+        )
+        .poke__name {{ pokemon.name }}
+        .poke__maxcp {{ getMaxCpForTrainerLevel(pokemon, pmLv) }}
+      li.poke
+        .poke__img
+
+      each _ in Array(5)
+        li.poke
+
+blockquote.info
+  | Pokemons original data source: 
+  a(href="https://github.com/BrunnerLivio/pokemongo-json-pokedex/blob/master/output/pokemon.json") pokemongo-json-pokedex
