@@ -62,6 +62,10 @@ html(lang="en")
               td
                 input#iv-s(type="range", min="0", max="15", v-model.number="iv.stamina")
 
+            tr
+              td IV
+              td : {{ getIv }}%
+              td
 
           .ctrlSort
             button(

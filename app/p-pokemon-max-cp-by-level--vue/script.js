@@ -76,6 +76,9 @@ let vm = new Vue({
     pmWidthRatio () {
       return `${this.pmMaxLv * 100 / MAX_LV}%`;
     },
+    getIv () {
+      return ((this.iv.attack + this.iv.defense + this.iv.stamina) * 100 / 45).toFixed();
+    },
     pmMaxLv () {
       return Math.min(this.isPmWild ? WILD_PM_MAX_LV : MAX_LV, this.trainerLevel + 1.5);
     }
