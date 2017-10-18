@@ -79,7 +79,7 @@ h1.intro Pokémons' CP calculator
 
     ul.pokeList
       li.poke(v-for="pokemon in pokemons",
-        :title="`#${pokemon.id} ${pokemon.name}\ntyps: ${pokemon.types}\nHP: ${pokemon.hp}`",
+        :title="`#${pokemon.id} ${pokemon.name}\ntyps: ${pokemon.types}\nHP: ${pokemon.hp}\nA:${pokemon.stats.baseAttack}\nD:${pokemon.stats.baseDefense}\nS:${pokemon.stats.baseStamina}`",
         :data-type="pokemon.types",
         :data-id="pokemon.id",
         :data-family-id="pokemon.familyId",
