@@ -3,7 +3,8 @@
 // const BEST_PROPERTY = 15;
 const MAX_LV = 40;
 const WILD_PM_MAX_LV = 30;
-const VERSION = '2017-10-14';
+const VERSION = '2017-10-19';
+const ALL_TYPES = ['normal', 'fighting', 'flying', 'poison', 'ground', 'rock', 'bug', 'ghost', 'steel', 'fire', 'water', 'grass', 'electric', 'psychic', 'ice', 'dragon', 'dark', 'fairy'];
 
 let localVersion = localStorage.getItem(VERSION);
 let isOutdated = !localVersion;
@@ -40,20 +41,33 @@ let getMaxCpForTrainerLevel = (poke, pmLv) => {
   return Math.floor(total / 10);
 };
 
+let initData = {
+  lv: MAX_LV
+};
+
+if (window.location.search) {
+  try {
+    initData = JSON.parse(decodeURIComponent(window.location.search.slice(1)));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 let vm = new Vue({
   el: '#pokeMaxCP',
   data: {
-    trainerLevel: Math.min(MAX_LV, parseInt(window.location.search.match(/\d+/), 10) || MAX_LV),
-    pmLv: WILD_PM_MAX_LV,
-    isPmWild: true,
+    trainerLevel: initData.lv,
+    pmLv: initData.pmLv || WILD_PM_MAX_LV,
+    isPmWild: initData.isPmWild !== undefined ? initData.isPmWild : true,
     filter: {
-      type: null,
+      type: initData.filter || ALL_TYPES,
       familyId: 1
     },
     iv: {
       attack: 15,
       defense: 15,
-      stamina: 15
+      stamina: 15,
+      ...initData.iv
     },
     sort: {
       by: 'id',
@@ -62,6 +76,18 @@ let vm = new Vue({
     pokemons: []
   },
   watch: {
+    'iv': {
+      deep: true,
+      handler: function () {
+        this.updateURL();
+      }
+    },
+    'filter': {
+      deep: true,
+      handler: function () {
+        this.updateURL();
+      }
+    },
     trainerLevel () {
       this.reCalcPmLv();
     },
@@ -85,8 +111,19 @@ let vm = new Vue({
   },
   methods: {
     getMaxCpForTrainerLevel,
+    updateURL () {
+      let o = {
+        lv: this.trainerLevel,
+        pmLv: this.pmLv,
+        isPmWild: this.isPmWild,
+        iv: this.iv,
+        filter: this.filter.type
+      };
+      window.history.pushState(null, '', `?${encodeURIComponent(JSON.stringify(o))}`);
+    },
     reCalcPmLv () {
       this.pmLv = Math.min.call(null, this.isPmWild ? WILD_PM_MAX_LV : MAX_LV, this.pmLv, this.pmMaxLv);
+      this.updateURL();
     },
     getPmMaxLv () {
       this.pmMaxLv = Math.min(MAX_LV, this.trainerLevel + 1.5);
@@ -95,9 +132,11 @@ let vm = new Vue({
       this.filter.familyId = familyId;
     },
     selectAll (all) {
-      [].forEach.call(document.querySelectorAll('.ctrlFilter__checkbox'), (i) => {
-        i.checked = all;
-      });
+      if (all) {
+        this.filter.type = ALL_TYPES;
+      } else {
+        this.filter.type = [];
+      }
     },
     sortBy (by = 'id') {
       this.sort.dir *= (this.sort.by === by) ? -1 : 1;

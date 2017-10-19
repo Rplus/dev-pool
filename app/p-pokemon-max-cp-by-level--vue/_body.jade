@@ -6,10 +6,14 @@ h1.intro Pokémons' CP calculator
 .box
   .pokeMaxCP#pokeMaxCP
     each type in pokeTypes
-      input.ctrlFilter__checkbox.sr-only(type="checkbox", id=`ck-${type}`, class=`ck-${type}`, checked=(type !== 'none'))
+      input.ctrlFilter__checkbox.sr-only(
+        type="checkbox", id=`ck-${type}`, class=`ck-${type}`, v-model="filter.type", value=`${type}`)
 
     .pokeMaxCP__ctrl
       table
+        col(width="35%")
+        col(width="15%")
+        col
         tr
           th
             label(for="masterLv", :data-level="trainerLevel") Your Level:

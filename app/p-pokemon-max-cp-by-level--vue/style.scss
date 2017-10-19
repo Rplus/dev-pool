@@ -41,6 +41,10 @@ $sprite-grid: (25, 16);
     }
   }
 
+  label {
+    white-space: nowrap;
+  }
+
   td {
     width: auto;
     text-align: left;
@@ -169,6 +173,7 @@ $sprite-grid: (25, 16);
   padding: 0;
   // text-align: center;
   list-style-type: none;
+  justify-items: center;
 }
 
 %poke-avatar-clear {
@@ -184,7 +189,7 @@ $sprite-grid: (25, 16);
 .poke {
   position: relative;
   display: none;
-  max-width: 20vw;
+  width: 90%;
   margin: 1em;
   transition: opacity .3s;
   user-select: none;
