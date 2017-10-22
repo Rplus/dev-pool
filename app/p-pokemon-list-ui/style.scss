@@ -11,6 +11,13 @@ $sprite-row: ceil($specie-count / $sprite-col);
 // $sprite-url: 'sprite-50x50-15col.jpg';
 $sprite-url: 'https://images.weserv.nl/?url=i.imgur.com/qRxx65v.jpg&il'; // 50x50
 $sprite-url: 'https://images.weserv.nl/?url=i.imgur.com/UPaKdec.jpg&il'; // 80x80
+$sprite-col: 15;
+$sprite-row: ceil($specie-count / $sprite-col);
+
+$sprite-url: 'https://lh3.googleusercontent.com/aAXfL381irDIoHvnIfAxH5g-gM5kB9HvKjgb9irJElAnTXu5sG3WigmCQ6T-Rg_5uct2DKmft9Z7EI_hHMNlkHmUE3lPwyJJNVyBuUo9iwVjoWvTWssErjclWpQZgRXtVTuMTr6t6A=w1480-h947-no';
+$sprite-col: 25;
+$sprite-row: 16;
+$sprite-grid: (25, 16);
 
 @mixin fill($dir: 'full', $type: absolute) {
   position: $type;
@@ -118,10 +125,11 @@ $sprite-url: 'https://images.weserv.nl/?url=i.imgur.com/UPaKdec.jpg&il'; // 80x8
 
 .pm-avatar {
   z-index: -1;
-  width: 100% * $sprite-col / $sprite-row;
+  // width: 100% * $sprite-col / $sprite-row;
+  width: 100%;
   height: 100%;
   margin: 0 auto;
-  opacity: .5;
+  opacity: .3;
   background-image: url(#{$sprite-url});
   background-repeat: no-repeat;
   background-size: $sprite-col * 100% $sprite-row * 100%;

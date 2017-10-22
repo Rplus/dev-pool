@@ -7,7 +7,7 @@ const ONE_WEEK_IN_SECOND = (7 * 24 * 60 * 60 * 1000);
 
 const PM_LV_OVER = 1.5;
 const PM_MAX_LV = Math.min(40, TrainerLevel + PM_LV_OVER);
-const spriteCol = 15;
+const spriteCol = 25;
 let recentTime = ONE_WEEK_IN_SECOND * 1;
 
 // data from https://pokeiv.net/
@@ -157,13 +157,13 @@ let getIvRank = (pmIv) => {
 let handlePMdata = (pms) => {
   window.PMs = pms.map((pm) => {
     pm.id = `00${pm.pokemon_id}`.slice(-3);
-    // pm.avatar = `https://images.weserv.nl/?url=pokeiv.net/img/pokemons/${pm.id}.gif&il&w=100`;
-    pm.name = `${pm.name_en} / ${pm.name_zh_tw}`;
-    pm.time = timeFormater(pm.catch_date);
-    pm.lv = getLv(pm) || 1;
-    pm.hp = getPmHp(pm);
-    pm.ivRank = getIvRank(pm.iv);
-    pm.recent = (NOW - pm.catch_date) < recentTime;
+
+    if (pm.pokemon_id > 250) {
+      pm.stm = gen3GhostData[pm.pokemon_id].stats.baseStamina;
+      pm.atk = gen3GhostData[pm.pokemon_id].stats.baseAttack;
+      pm.def = gen3GhostData[pm.pokemon_id].stats.baseDefense;
+    }
+
     let bestPMproperty = {
       ...pm,
       iv_attack: 15,
@@ -171,10 +171,18 @@ let handlePMdata = (pms) => {
       iv_stamina: 15
     };
 
-    pm.cp_lv40 = pm.cp40;
+    // pm.avatar = `https://images.weserv.nl/?url=pokeiv.net/img/pokemons/${pm.id}.gif&il&w=100`;
+    pm.name = `${pm.name_en} / ${pm.name_zh_tw}`;
+    pm.time = timeFormater(pm.catch_date);
+    pm.lv = getLv(pm) || 1;
+    pm.hp = getPmHp(pm);
+    pm.ivRank = getIvRank(pm.iv);
+    pm.recent = (NOW - pm.catch_date) < recentTime;
+
+    pm.cp_lv40 = getCpWithLv(pm, 40);
     pm.cp_lvMax = getCpWithLv(pm, PM_MAX_LV);
     pm.perfectCP_lvMax = getCpWithLv(bestPMproperty, PM_MAX_LV);
-    pm.perfectCP_lv40 = pm.cp40_all15;
+    pm.perfectCP_lv40 = getCpWithLv(bestPMproperty, 40);
     pm.perfectCP_lv30 = getCpWithLv(bestPMproperty, 30);
     pm.perfectCP_lv20 = getCpWithLv(bestPMproperty, 20);
 
@@ -286,3 +294,112 @@ window.fetch(dataUrl)
   $app.loaded = true;
   $app.pmBySpecies = groupBySpecies();
 });
+
+let gen3GhostData = [
+  {
+    dex: 302,
+    id: 'SABLEYE',
+    name: 'Sableye',
+    family: {
+      id: 'FAMILY_SABLEYE',
+      name: 'Sableye'
+    },
+    stats: {
+      baseAttack: 141,
+      baseDefense: 141,
+      baseStamina: 100
+    },
+    types: [
+      {
+        name: 'Dark'
+      },
+      {
+        name: 'Ghost'
+      }
+    ],
+    maxCP: 1305
+  },
+  {
+    dex: 353,
+    id: 'SHUPPET',
+    name: 'Shuppet',
+    family: {
+      id: 'FAMILY_SHUPPET',
+      name: 'Shuppet'
+    },
+    stats: {
+      baseAttack: 138,
+      baseDefense: 66,
+      baseStamina: 88
+    },
+    types: [
+      {
+        name: 'Ghost'
+      }
+    ],
+    maxCP: 872
+  },
+  {
+    dex: 354,
+    id: 'BANETTE',
+    name: 'Banette',
+    family: {
+      id: 'FAMILY_BANETTE',
+      name: 'Banette'
+    },
+    stats: {
+      baseAttack: 218,
+      baseDefense: 127,
+      baseStamina: 128
+    },
+    types: [
+      {
+        name: 'Ghost'
+      }
+    ],
+    maxCP: 2073
+  },
+  {
+    dex: 355,
+    id: 'DUSKULL',
+    name: 'Duskull',
+    family: {
+      id: 'FAMILY_DUSKULL',
+      name: 'Duskull'
+    },
+    stats: {
+      baseAttack: 70,
+      baseDefense: 162,
+      baseStamina: 40
+    },
+    types: [
+      {
+        name: 'Ghost'
+      }
+    ],
+    maxCP: 523
+  },
+  {
+    dex: 356,
+    id: 'DUSCLOPS',
+    name: 'Dusclops',
+    family: {
+      id: 'FAMILY_DUSCLOPS',
+      name: 'Dusclops'
+    },
+    stats: {
+      baseAttack: 124,
+      baseDefense: 234,
+      baseStamina: 80
+    },
+    types: [
+      {
+        name: 'Ghost'
+      }
+    ],
+    maxCP: 1335
+  }
+].reduce((all, i) => {
+  all[`${i.dex}`] = i;
+  return all;
+}, {});
