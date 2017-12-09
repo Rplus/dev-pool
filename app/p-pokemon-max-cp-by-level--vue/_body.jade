@@ -72,14 +72,21 @@ h1.intro Pokémons' CP calculator
           :data-sort-dir="sort.dir === 1 ? '▲' : '▼'",
           @click="sortBy('maxcp')",
         ) CP
+
       .ctrlFilter--wrap
         .ctrlFilter__header
           button(@click="selectAll(false)") none
-          | filter by
+          | filter by types
           button(@click="selectAll(true)") all
         .ctrlFilter
           each type in pokeTypes
             label.ctrlFilter__label(for=`ck-${type}`)= type
+        .pokedexRange
+          h3.pokedexRange__header filter by pokedex
+          label(for="pokedexRange1", :style="`--value: ${range1}`")
+            input#pokedexRange1(type="range", min="1", :max="pokemons.length", v-model.number="range1")
+          label(for="pokedexRange2", :style="`--value: ${range2}`")
+            input#pokedexRange2(type="range", min="1", :max="pokemons.length", v-model.number="range2")
 
     ul.pokeList
       li.poke(v-for="pokemon in pokemons",
@@ -89,7 +96,7 @@ h1.intro Pokémons' CP calculator
         :data-family-id="pokemon.familyId",
         @mousedown="selectFamily(pokemon.familyId)",
         @touchstart="selectFamily(pokemon.familyId)",
-        :class="{ 'is-family-id-marked': filter.familyId === pokemon.familyId }",
+        :class="{ 'is-family-id-marked': filter.familyId === pokemon.familyId, 'is-hidden': pokemon.isHidden }",
       )
         .poke__img(
           :style="{ backgroundPosition: pokemon.spritePos }"

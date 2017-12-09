@@ -3,7 +3,7 @@
 // const BEST_PROPERTY = 15;
 const MAX_LV = 40;
 const WILD_PM_MAX_LV = 30;
-const VERSION = '2017-10-20';
+const VERSION = '2017-12-06';
 const ALL_TYPES = ['normal', 'fighting', 'flying', 'poison', 'ground', 'rock', 'bug', 'ghost', 'steel', 'fire', 'water', 'grass', 'electric', 'psychic', 'ice', 'dragon', 'dark', 'fairy'];
 
 let localVersion = localStorage.getItem(VERSION);
@@ -73,20 +73,16 @@ let vm = new Vue({
       by: 'id',
       dir: 1
     },
+    range1: initData.range1 || 1,
+    range2: initData.range2 || 1,
     pokemons: []
   },
   watch: {
-    'iv': {
-      deep: true,
-      handler: function () {
-        this.updateURL();
-      }
+    range1 () {
+      this.updateFilterOfPokedex();
     },
-    'filter': {
-      deep: true,
-      handler: function () {
-        this.updateURL();
-      }
+    range2 () {
+      this.updateFilterOfPokedex();
     },
     trainerLevel () {
       this.reCalcPmLv();
@@ -106,27 +102,40 @@ let vm = new Vue({
       return ((this.iv.attack + this.iv.defense + this.iv.stamina) * 100 / 45).toFixed();
     },
     pmMaxLv () {
-      return Math.min(this.isPmWild ? WILD_PM_MAX_LV : MAX_LV, this.trainerLevel + 1.5);
+      return Math.min(this.isPmWild ? WILD_PM_MAX_LV : MAX_LV, this.trainerLevel + 2);
     }
+  },
+  mounted () {
+    this.customStyleNode = document.createElement('style');
+    this.$el.querySelector('.pokedexRange').appendChild(this.customStyleNode);
+    this.updateFilterOfPokedex();
   },
   methods: {
     getMaxCpForTrainerLevel,
+    updateFilterOfPokedex () {
+      let [min, max] = [this.range1, this.range2].sort((a, b) => a - b);
+      this.pokemons.forEach((pm) => {
+        pm.isHidden = pm.dex < min || pm.dex > max;
+      });
+    },
     updateURL () {
       let o = {
         lv: this.trainerLevel,
         pmLv: this.pmLv,
         isPmWild: this.isPmWild,
         iv: this.iv,
+        range1: this.range1,
+        range2: this.range2,
         filter: this.filter.type
       };
       window.history.pushState(null, '', `?${encodeURIComponent(JSON.stringify(o))}`);
     },
     reCalcPmLv () {
       this.pmLv = Math.min.call(null, this.isPmWild ? WILD_PM_MAX_LV : MAX_LV, this.pmLv, this.pmMaxLv);
-      this.updateURL();
+      // this.updateURL();
     },
     getPmMaxLv () {
-      this.pmMaxLv = Math.min(MAX_LV, this.trainerLevel + 1.5);
+      this.pmMaxLv = Math.min(MAX_LV, this.trainerLevel + 2);
     },
     selectFamily (familyId) {
       this.filter.familyId = familyId;
@@ -147,6 +156,9 @@ let vm = new Vue({
         return (a[by] * dir) - (b[by] * dir);
       });
     }
+  },
+  updated () {
+    this.updateURL();
   }
 });
 
@@ -187,11 +199,17 @@ let handlePokeData = () => {
   let spliteWidth = parseFloat(splite.width);
   let spliteHeight = parseFloat(splite.height);
 
+  vm.range2 = initData.range2 || pokemons.length;
   vm.pokemons = pokemons.map((poke, idx) => {
     let dex = poke.dex;
     let index = dex - 1;
     let row = ~~(index / colCount);
     let col = index % colCount;
+
+    // hotfix
+    if (dex === 250) {
+      poke.stats.baseStamina = 212;
+    }
 
     poke.id = dex;
     poke.familyId = poke.family.id;
