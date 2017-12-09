@@ -1,6 +1,6 @@
-/* global Vue, FileReader */
+/* global Vue, FileReader, fetch */
 
-const TrainerLevel = 37;
+const TrainerLevel = 38;
 const NOW = new Date();
 const timezoneOffset = NOW.getTimezoneOffset() * 60 * 1000;
 const ONE_WEEK_IN_SECOND = (7 * 24 * 60 * 60 * 1000);
@@ -158,11 +158,13 @@ let handlePMdata = (pms) => {
   window.PMs = pms.map((pm) => {
     pm.id = `00${pm.pokemon_id}`.slice(-3);
 
-    if (pm.pokemon_id > 250) {
-      pm.stm = gen3GhostData[pm.pokemon_id].stats.baseStamina;
-      pm.atk = gen3GhostData[pm.pokemon_id].stats.baseAttack;
-      pm.def = gen3GhostData[pm.pokemon_id].stats.baseDefense;
-    }
+    let stats = window.pmBaseData[pm.pokemon_id - 1].stats;
+    pm = {
+      ...pm,
+      stm: stats.baseStamina,
+      atk: stats.baseAttack,
+      def: stats.baseDefense
+    };
 
     let bestPMproperty = {
       ...pm,
@@ -287,119 +289,19 @@ let initApp = () => {
 
 initApp();
 
-window.fetch(dataUrl)
-.then((d) => d.json())
+let pmBaseDataUrl = 'https://raw.githubusercontent.com/Rplus/pokemongo-json-pokedex/master/output/pokemon.json';
+
+Promise.all([
+  fetch(pmBaseDataUrl).then(r => r.json()),
+  fetch(dataUrl).then(r => r.json())
+])
+.then(datas => {
+  let [pmBaseData, pmsData] = datas;
+  window.pmBaseData = pmBaseData;
+  return pmsData;
+})
 .then(handlePMdata)
 .then((pms) => {
   $app.loaded = true;
   $app.pmBySpecies = groupBySpecies();
 });
-
-let gen3GhostData = [
-  {
-    dex: 302,
-    id: 'SABLEYE',
-    name: 'Sableye',
-    family: {
-      id: 'FAMILY_SABLEYE',
-      name: 'Sableye'
-    },
-    stats: {
-      baseAttack: 141,
-      baseDefense: 141,
-      baseStamina: 100
-    },
-    types: [
-      {
-        name: 'Dark'
-      },
-      {
-        name: 'Ghost'
-      }
-    ],
-    maxCP: 1305
-  },
-  {
-    dex: 353,
-    id: 'SHUPPET',
-    name: 'Shuppet',
-    family: {
-      id: 'FAMILY_SHUPPET',
-      name: 'Shuppet'
-    },
-    stats: {
-      baseAttack: 138,
-      baseDefense: 66,
-      baseStamina: 88
-    },
-    types: [
-      {
-        name: 'Ghost'
-      }
-    ],
-    maxCP: 872
-  },
-  {
-    dex: 354,
-    id: 'BANETTE',
-    name: 'Banette',
-    family: {
-      id: 'FAMILY_BANETTE',
-      name: 'Banette'
-    },
-    stats: {
-      baseAttack: 218,
-      baseDefense: 127,
-      baseStamina: 128
-    },
-    types: [
-      {
-        name: 'Ghost'
-      }
-    ],
-    maxCP: 2073
-  },
-  {
-    dex: 355,
-    id: 'DUSKULL',
-    name: 'Duskull',
-    family: {
-      id: 'FAMILY_DUSKULL',
-      name: 'Duskull'
-    },
-    stats: {
-      baseAttack: 70,
-      baseDefense: 162,
-      baseStamina: 40
-    },
-    types: [
-      {
-        name: 'Ghost'
-      }
-    ],
-    maxCP: 523
-  },
-  {
-    dex: 356,
-    id: 'DUSCLOPS',
-    name: 'Dusclops',
-    family: {
-      id: 'FAMILY_DUSCLOPS',
-      name: 'Dusclops'
-    },
-    stats: {
-      baseAttack: 124,
-      baseDefense: 234,
-      baseStamina: 80
-    },
-    types: [
-      {
-        name: 'Ghost'
-      }
-    ],
-    maxCP: 1335
-  }
-].reduce((all, i) => {
-  all[`${i.dex}`] = i;
-  return all;
-}, {});

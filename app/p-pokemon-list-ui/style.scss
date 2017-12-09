@@ -126,7 +126,7 @@ $sprite-grid: (25, 16);
 .pm-avatar {
   z-index: -1;
   // width: 100% * $sprite-col / $sprite-row;
-  width: 100%;
+  width: 100% * 10 / 12;
   height: 100%;
   margin: 0 auto;
   opacity: .3;
