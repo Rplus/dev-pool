@@ -206,11 +206,6 @@ let handlePokeData = () => {
     let row = ~~(index / colCount);
     let col = index % colCount;
 
-    // hotfix
-    if (dex === 250) {
-      poke.stats.baseStamina = 212;
-    }
-
     poke.id = dex;
     poke.familyId = poke.family.id;
     poke.maxcp = getMaxCpForTrainerLevel(poke, MAX_LV);
