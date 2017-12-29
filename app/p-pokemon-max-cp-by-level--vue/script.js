@@ -2,8 +2,8 @@
 
 // const BEST_PROPERTY = 15;
 const MAX_LV = 40;
-const WILD_PM_MAX_LV = 30;
-const VERSION = '2017-12-06';
+const WILD_PM_MAX_LV = 35;
+const VERSION = '2017-12-17';
 const ALL_TYPES = ['normal', 'fighting', 'flying', 'poison', 'ground', 'rock', 'bug', 'ghost', 'steel', 'fire', 'water', 'grass', 'electric', 'psychic', 'ice', 'dragon', 'dark', 'fairy'];
 
 let localVersion = localStorage.getItem(VERSION);
