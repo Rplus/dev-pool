@@ -58,6 +58,8 @@ $sprite-grid: (25, 16);
 
 .Specie {
   position: relative;
+  display: flex;
+  flex-direction: column;
   min-height: $card-h + $specie-gap;
   margin-bottom: $specie-gap * 2;
   padding-bottom: $specie-gap;
@@ -80,9 +82,11 @@ $sprite-grid: (25, 16);
     position: sticky;
     top: 0;
     display: block;
+    order: -100000000000000000;
+    margin-bottom: -$card-h;
 
     & + .PM {
-      margin-top: -$card-h;
+      // margin-top: -$card-h;
     }
   }
 
@@ -167,6 +171,14 @@ $sprite-grid: (25, 16);
   margin-bottom: $pm-gap;
   white-space: nowrap;
 
+  $sort-types: (hp catch_date iv lv cp);
+
+  @for $i from 1 through length($sort-types) {
+    [data-sortby="#{nth($sort-types, $i)}"] & {
+      order: calc(var(--sortDir) * var(--pm-#{nth($sort-types, $i)}));
+    }
+  }
+
   #iv-rank--SS:checked ~ .pm-board &:not([data-iv-rank="SS"]),
   #iv-rank--S:checked ~ .pm-board &:not([data-iv-rank="S"]),
   #iv-rank--A:checked ~ .pm-board &:not([data-iv-rank="A"]) {
@@ -215,7 +227,6 @@ $sprite-grid: (25, 16);
     content: '';
     position: absolute;
     top: -.25rem;
-    // bottom: -.25rem;
     left: 0;
     right: 0;
     height: .5rem;

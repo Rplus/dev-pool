@@ -246,22 +246,10 @@ let initApp = () => {
       }
     },
     watch: {
-      sortBy: function (newBy) {
-        this.pmBySpecies = groupBySpecies({
-          sortBy: this.sortBy,
-          sortDir: this.sortDir
-        });
-      },
       weeks: function (weeks) {
         recentTime = ONE_WEEK_IN_SECOND * weeks;
         this.relatedTime = getRelatedTime();
         handlePMdata(window.PMs);
-      },
-      sortDir: function (newDir) {
-        this.pmBySpecies = groupBySpecies({
-          sortBy: this.sortBy,
-          sortDir: newDir
-        });
       }
     },
     methods: {

@@ -35,7 +35,11 @@
 
   <div id="pm-board"
     :class="{ 'is-loaded': loaded, 'pm-board': true}"
-    :style="{'--trainer-lv': TrainerLevel }"
+    :data-sortby="sortBy"
+    :style="{
+      '--trainer-lv': TrainerLevel,
+      '--sortDir': sortDir,
+    }"
   >
     <div class="loader"></div>
     <dl class="Specie" v-for="specie in pmBySpecies">
@@ -59,6 +63,10 @@
         <dd class="PM" :class="{ 'is-recent': pm.recent }"
           :data-iv-rank="pm.ivRank"
           :style="{
+            '--pm-hp': pm.hp,
+            '--pm-catch_date': pm.catch_date,
+            '--pm-iv': pm.iv * 100,
+            '--pm-lv': pm.lv,
             '--max-cp': pm.perfectCP_lv40,
             '--pm-cp': pm.cp,
             '--pm-cp_lv40': pm.cp_lv40,
@@ -99,7 +107,7 @@
           CP
         </label>
         <label>
-          <input type="radio" value="cp40" v-model="sortBy">
+          <input type="radio" value="iv" v-model="sortBy">
           IV
         </label>
         <label>
