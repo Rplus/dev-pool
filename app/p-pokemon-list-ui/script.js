@@ -5,7 +5,7 @@ const NOW = new Date();
 const timezoneOffset = NOW.getTimezoneOffset() * 60 * 1000;
 const ONE_WEEK_IN_SECOND = (7 * 24 * 60 * 60 * 1000);
 
-const PM_LV_OVER = 1.5;
+const PM_LV_OVER = 2;
 const PM_MAX_LV = Math.min(40, TrainerLevel + PM_LV_OVER);
 const spriteCol = 25;
 let recentTime = ONE_WEEK_IN_SECOND * 1;

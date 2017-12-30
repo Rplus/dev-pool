@@ -297,7 +297,7 @@ $sprite-grid: (25, 16);
     }
 
     &[data-title^="max Lv"]::after {
-      content: '(' counter(trainer-lv) '+1.5) ' attr(data-title);
+      content: '(' counter(trainer-lv) '+2) ' attr(data-title);
     }
 
     &:hover {
