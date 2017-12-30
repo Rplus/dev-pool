@@ -250,6 +250,7 @@ let initApp = () => {
         recentTime = ONE_WEEK_IN_SECOND * weeks;
         this.relatedTime = getRelatedTime();
         handlePMdata(window.PMs);
+        this.pmBySpecies = groupBySpecies();
       }
     },
     methods: {

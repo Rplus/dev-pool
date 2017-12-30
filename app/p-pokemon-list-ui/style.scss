@@ -53,6 +53,7 @@ $sprite-grid: (25, 16);
   max-width: 100%;
   margin: 0 auto;
   padding-top: 2rem;
+  padding-bottom: 5rem;
   counter-reset: trainer-lv calc(var(--trainer-lv));
 }
 
@@ -397,6 +398,17 @@ input[type="number"] {
 
 h2.total {
   text-align: center;
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  opacity: .3;
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
 /* reset */
