@@ -1,0 +1,66 @@
+.ooo {
+  width: 70vmin;
+  min-width: 300px;
+  height: 70vmin;
+  min-height: 300px;
+  border-radius: 50%;
+  color: rgba(153, 153, 153, 0.5);
+  background: radial-gradient(closest-side, transparent 0, transparent 5.13032%, currentColor 0, currentColor 5.67752%, transparent 0, transparent 6.14656%, currentColor 0, currentColor 7.24097%, transparent 0, transparent 7.71%, currentColor 0, currentColor 8.80441%, transparent 0, transparent 9.03892%, currentColor 0, currentColor 9.58613%, transparent 0, transparent 9.82064%, currentColor 0, currentColor 10.36785%, transparent 0, transparent 10.48511%, currentColor 0, currentColor 10.75871%, transparent 0, transparent 10.87597%, currentColor 0, currentColor 11.14957%, transparent 0, transparent 11.2082%, currentColor 0, currentColor 11.345%, transparent 0, transparent 11.42876%, currentColor 0, currentColor 11.62419%, transparent 0, transparent 11.70794%, currentColor 0, currentColor 11.90337%, transparent 0, transparent 12.07088%, currentColor 0, currentColor 12.46174%, transparent 0, transparent 12.62926%, currentColor 0, currentColor 13.02012%, transparent 0, transparent 13.35514%, currentColor 0, currentColor 14.13686%, transparent 0, transparent 14.47188%, currentColor 0, currentColor 15.2536%, transparent 0, transparent 15.92365%, currentColor 0, currentColor 17.48709%, transparent 0, transparent 18.15714%, currentColor 0, currentColor 19.72058%, transparent 0, transparent 20.0556%, currentColor 0, currentColor 20.83733%, transparent 0, transparent 21.17235%, currentColor 0, currentColor 21.95407%, transparent 0, transparent 22.12158%, currentColor 0, currentColor 22.51244%, transparent 0, transparent 22.67995%, currentColor 0, currentColor 23.07081%, transparent 0, transparent 23.15457%, currentColor 0, currentColor 23.35%, transparent 0, transparent 23.46965%, currentColor 0, currentColor 23.74884%, transparent 0, transparent 23.86849%, currentColor 0, currentColor 24.14767%, transparent 0, transparent 24.38698%, currentColor 0, currentColor 24.94535%, transparent 0, transparent 25.18465%, currentColor 0, currentColor 25.74302%, transparent 0, transparent 26.22163%, currentColor 0, currentColor 27.33837%, transparent 0, transparent 27.81698%, currentColor 0, currentColor 28.93372%, transparent 0, transparent 29.89093%, currentColor 0, currentColor 32.12442%, transparent 0, transparent 33.08163%, currentColor 0, currentColor 35.31512%, transparent 0, transparent 35.79372%, currentColor 0, currentColor 36.91047%, transparent 0, transparent 37.38907%, currentColor 0, currentColor 38.50581%, transparent 0, transparent 38.74512%, currentColor 0, currentColor 39.30349%, transparent 0, transparent 39.54279%, currentColor 0, currentColor 40.10116%, transparent 0, transparent 40.22081%, currentColor 0, currentColor 40.5%, transparent 0, transparent 40.67093%, currentColor 0, currentColor 41.06977%, transparent 0, transparent 41.2407%, currentColor 0, currentColor 41.63953%, transparent 0, transparent 41.9814%, currentColor 0, currentColor 42.77907%, transparent 0, transparent 43.12093%, currentColor 0, currentColor 43.9186%, transparent 0, transparent 44.60233%, currentColor 0, currentColor 46.19767%, transparent 0, transparent 46.8814%, currentColor 0, currentColor 48.47674%, transparent 0, transparent 49.84419%, currentColor 0, currentColor 53.03488%, transparent 0, transparent 54.40233%, currentColor 0, currentColor 57.59302%, transparent 0, transparent 58.27674%, currentColor 0, currentColor 59.87209%, transparent 0, transparent 60.55581%, currentColor 0, currentColor 62.15116%, transparent 0, transparent 62.49302%, currentColor 0, currentColor 63.2907%, transparent 0, transparent 63.63256%, currentColor 0, currentColor 64.43023%, transparent 0, transparent 64.60116%, currentColor 0, currentColor 65%, transparent 0, transparent 65.24419%, currentColor 0, currentColor 65.81395%, transparent 0, transparent 66.05814%, currentColor 0, currentColor 66.62791%, transparent 0, transparent 67.11628%, currentColor 0, currentColor 68.25581%, transparent 0, transparent 68.74419%, currentColor 0, currentColor 69.88372%, transparent 0, transparent 70.86047%, currentColor 0, currentColor 73.13953%, transparent 0, transparent 74.11628%, currentColor 0, currentColor 76.39535%, transparent 0, transparent 78.34884%, currentColor 0, currentColor 82.90698%, transparent 0, transparent 84.86047%, currentColor 0, currentColor 89.4186%, transparent 0, transparent 90.39535%, currentColor 0, currentColor 92.67442%, transparent 0, transparent 93.65116%, currentColor 0, currentColor 95.93023%, transparent 0, transparent 96.4186%, currentColor 0, currentColor 97.55814%, transparent 0, transparent 98.04651%, currentColor 0, currentColor 99.18605%, transparent 0, transparent 99.43023%, currentColor 0, currentColor 100%), radial-gradient(closest-side, #fff 0, #fff 5.67752%, #000 0, #000 7.24097%, #fff 0, #fff 8.80441%, #000 0, #000 9.58613%, #fff 0, #fff 10.36785%, #000 0, #000 10.75871%, #fff 0, #fff 11.14957%, #000 0, #000 11.345%, #fff 0, #fff 11.62419%, #000 0, #000 11.90337%, #fff 0, #fff 12.46174%, #000 0, #000 13.02012%, #fff 0, #fff 14.13686%, #000 0, #000 15.2536%, #fff 0, #fff 17.48709%, #000 0, #000 19.72058%, #fff 0, #fff 20.83733%, #000 0, #000 21.95407%, #fff 0, #fff 22.51244%, #000 0, #000 23.07081%, #fff 0, #fff 23.35%, #000 0, #000 23.74884%, #fff 0, #fff 24.14767%, #000 0, #000 24.94535%, #fff 0, #fff 25.74302%, #000 0, #000 27.33837%, #fff 0, #fff 28.93372%, #000 0, #000 32.12442%, #fff 0, #fff 35.31512%, #000 0, #000 36.91047%, #fff 0, #fff 38.50581%, #000 0, #000 39.30349%, #fff 0, #fff 40.10116%, #000 0, #000 40.5%, #fff 0, #fff 41.06977%, #000 0, #000 41.63953%, #fff 0, #fff 42.77907%, #000 0, #000 43.9186%, #fff 0, #fff 46.19767%, #000 0, #000 48.47674%, #fff 0, #fff 53.03488%, #000 0, #000 57.59302%, #fff 0, #fff 59.87209%, #000 0, #000 62.15116%, #fff 0, #fff 63.2907%, #000 0, #000 64.43023%, #fff 0, #fff 65%, #000 0, #000 65.81395%, #fff 0, #fff 66.62791%, #000 0, #000 68.25581%, #fff 0, #fff 69.88372%, #000 0, #000 73.13953%, #fff 0, #fff 76.39535%, #000 0, #000 82.90698%, #fff 0, #fff 89.4186%, #000 0, #000 92.67442%, #fff 0, #fff 95.93023%, #000 0, #000 97.55814%, #fff 0, #fff 99.18605%, #000 0, #000 100%), repeating-conic-gradient(#fff 0 1.38889%, #000 0 2.77778%);
+  background-blend-mode: difference; }
+
+.box {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex: 1;
+  flex: 1;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-bottom: 3em; }
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  box-sizing: border-box; }
+
+html {
+  height: 100%; }
+
+body {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  line-height: 1.4;
+  background: #f1f1f1; }
+
+.intro {
+  width: 90%;
+  max-width: 50rem;
+  padding-top: .5em;
+  padding-bottom: 1rem;
+  margin: 0 auto 1em;
+  font-size: calc(1rem + 2vmin);
+  text-transform: capitalize;
+  text-align: center;
+  font-family: serif;
+  border-bottom: 1px dashed; }
+
+.info {
+  margin: auto 0 0;
+  padding: 2em 1em 1em;
+  font-size: .85em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .75; }
+  .info a {
+    color: inherit; }
+  .info .left {
+    padding-top: 1em; }

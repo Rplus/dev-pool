@@ -1,0 +1,120 @@
+// conic-gradient ref.: https://codepen.io/leaverou/pen/WvZmrM
+@function pow($number, $exponent) {
+  $value: 1;
+
+  @if $exponent > 0 {
+    @for $i from 1 through $exponent {
+      $value: $value * $number;
+    }
+  }
+
+  @return $value;
+}
+
+$n: 36; // Rays
+$r: .7; // Reduce ratio
+$gg: (1,2,2,4,4,8,8,4,4,2,2,1,1);
+$gg-sum: 0;
+
+@for $i from 1 to length($gg) + 1 {
+  $gg-sum: $gg-sum + nth($gg, $i);
+}
+
+$points: ();
+$stops: ();
+$sum: 100%;
+$color: white;
+$i: 0;
+
+@while ($sum > 5%) {
+  @if ($color == black) {
+    $color: #fff;
+  }
+  @else {
+    $color: #000;
+  }
+  $j: $i % 13;
+  $group: floor($i / 13);
+  $stripe-width: (nth($gg, $j + 1) / 43) * (35% * pow($r, $group));
+  // @debug "#{$i, $j, $group, $stripe-width}";
+
+  $points: join((transparent 0, transparent ($sum - $stripe-width * .7), currentColor 0, currentColor $sum), $points);
+  $stops: join(($color 0, $color $sum), $stops);
+  $sum: $sum - $stripe-width;
+  $i: $i + 1;
+}
+
+.ooo {
+  width: 70vmin;
+  min-width: 300px;
+  height: 70vmin;
+  min-height: 300px;
+  border-radius: 50%;
+  color: rgba(#999, .5);
+	background:
+		radial-gradient(closest-side, $points),
+		radial-gradient(closest-side, $stops),
+		repeating-conic-gradient(#fff 0 (100%/$n/2), #000 0 (100%/$n));
+	background-blend-mode: difference;
+}
+
+.box {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 3em;
+}
+
+/// reset
+*,
+*::before,
+*::after {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  line-height: 1.4;
+  background: #f1f1f1;
+}
+
+.intro {
+  width: 90%;
+  max-width: 50rem;
+  padding-top: .5em;
+  padding-bottom: 1rem;
+  margin: 0 auto 1em;
+  font-size: calc(1rem + 2vmin);
+  text-transform: capitalize;
+  text-align: center;
+  font-family: serif;
+  border-bottom: 1px dashed;
+}
+
+.info {
+  margin: auto 0 0;
+  padding: 2em 1em 1em;
+  font-size: .85em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .75;
+
+  a {
+    color: inherit;
+  }
+
+  .left {
+    padding-top: 1em;
+  }
+}
